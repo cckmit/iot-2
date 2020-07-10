@@ -11,27 +11,34 @@
     <Layer :index="2">
       <Headerbar></Headerbar>
 
-      
+      <Sidebox />
+
+      <DiskMenu />
     </Layer>
 
     <!-- 调试层 -->
-    <Layer :index="9">
-      <!-- <div style="color:#fff;">{{CurrentRegions}}</div> -->
+    <Layer :index="99">
+      <div class="debug" v-show="debug">
+        <pre>CurrentRegions:{{CurrentRegions}}</pre>
+      </div>
+      <el-button class="debug-btn" type="primary" size="mini" @click="debug=!debug">Debug</el-button>
     </Layer>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import { mapState } from "vuex";
 import Modal from "@/components/modal";
 Vue.use(Modal);
-import Layer from "@/components/Layer.vue";
-import Map from "@/components/Map";
-import Headerbar from "@/components/Headerbar.vue";
 import SvgIcon from "@/components/SvgIcon";
 Vue.use(SvgIcon);
 
-import { mapState } from "vuex";
+import Layer from "@/components/Layer.vue";
+import Map from "@/components/Map";
+import Headerbar from "@/components/Headerbar.vue";
+import Sidebox from "@/components/Sidebox.vue";
+import DiskMenu from "@/components/DiskMenu.vue";
 
 export default {
   name: "App",
@@ -40,7 +47,15 @@ export default {
     Layer,
     Modal,
     Map,
-    Headerbar
+    Headerbar,
+    Sidebox,
+    DiskMenu
+  },
+
+  data() {
+    return {
+      debug: true
+    };
   },
 
   computed: {

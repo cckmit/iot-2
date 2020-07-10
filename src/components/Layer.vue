@@ -1,6 +1,6 @@
 <template>
-  <div class="layer">
-      <slot />
+  <div class="layer" :class="'index-'+index">
+    <slot />
   </div>
 </template>
 

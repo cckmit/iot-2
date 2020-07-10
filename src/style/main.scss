@@ -68,8 +68,87 @@ $header-height: 5.3vh;
     }
 }
 
+//圆盘菜单
+.disk-menu {
+    //圆盘直径
+    $size: 4.7rem;
+    //可见区域宽度
+    $visibleWidth: 1.6rem;
+
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3vh;
+    left: -#{$size - $visibleWidth};
+    z-index: 2;
+    background-image: url(../assets/img/disk-menu.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 108%;
+
+    .disk-menu--item {
+        // height: 50%;
+        width: $visibleWidth;
+        position: absolute;
+        right: 0;
+        .disk-menu--item__icon {
+        }
+        .disk-menu--item__label {
+            span {
+            }
+            span:nth-child(1) {
+            }
+        }
+
+        &.item-1 {
+            top: 0;
+            bottom: 52%;
+            // background-color: rgba(yellowgreen, 0.2);
+            background-image: url(../assets/img/disk-item-1_on.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: left bottom;
+
+            .disk-menu--item__icon {
+            }
+
+            .disk-menu--item__label {
+            }
+        }
+        &.item-2 {
+            top: 52%;
+            bottom: 0;
+            // background-color: rgba(palevioletred, 0.2);
+            background-image: url(../assets/img/disk-item-2.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: left top;
+        }
+    }
+}
+
 //图层类
 .layer {
+    &.index-1 > * {
+        z-index: 1;
+    }
+
+    &.index-2 > * {
+        z-index: 2;
+    }
+
+    &.index-3 > * {
+        z-index: 3;
+    }
+
+    &.index-4 > * {
+        z-index: 4;
+    }
+
+    &.index-99 > * {
+        z-index: 99;
+    }
 }
 
 //地图
@@ -79,7 +158,6 @@ $header-height: 5.3vh;
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 1;
 
     .map-container {
         position: absolute;
@@ -103,7 +181,6 @@ $header-height: 5.3vh;
     left: 0;
     top: 0;
     right: 0;
-    z-index: 2;
     padding: 0 0.1rem 0 0.4rem;
     display: flex;
     justify-content: space-between;
@@ -206,4 +283,157 @@ $header-height: 5.3vh;
             }
         }
     }
+}
+
+//侧边信息栏
+.sidebox {
+    position: absolute;
+    left: -2rem;
+    top: 10vh;
+    width: 2rem;
+    height: 30vh;
+    background: red;
+    background: linear-gradient(to bottom, rgba(16, 30, 46, 1), rgba(16, 38, 71, 0.7));
+    border-radius: 0.08rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: left 0.3s ease;
+
+    &.visible {
+        left: 0;
+        box-shadow: 0 0 0.2rem 0.03rem rgb(21, 83, 112);
+        .sidebox-handler {
+            right: 0.06rem;
+            background: none !important;
+            i {
+                transform: none;
+            }
+        }
+    }
+
+    .sidebox-header {
+        height: 20%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            transform: skew(-50deg);
+            background: rgb(18, 75, 128);
+            bottom: 22%;
+        }
+        &:before {
+            width: 1rem;
+            height: 0.1rem;
+            left: 0.3rem;
+        }
+        &:after {
+            width: 0.1rem;
+            height: 0.08rem;
+            left: 1.35rem;
+        }
+
+        .sidebox-title {
+            font-family: "宋体";
+            font-weight: bold;
+            font-size: 0.16rem;
+            text-indent: -0.1rem;
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+    .sidebox-body {
+        height: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .sidebox-item {
+            display: flex;
+            align-items: center;
+
+            .sidebox-item--start {
+                padding-right: 0.15rem;
+                svg {
+                    font-size: 0.42rem;
+                }
+            }
+
+            .sidebox-item--end {
+                display: flex;
+                flex-direction: column;
+                // border-left: 0.01rem solid rgb(120, 158, 181);
+                padding-left: 0.15rem;
+                position: relative;
+                &:before {
+                    content: "";
+                    background: rgba(120, 158, 181, 0.7);
+                    height: 78%;
+                    width: 0.01rem;
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+                strong {
+                    color: #fff;
+                    font-size: 0.2rem;
+                    letter-spacing: 0.01rem;
+                }
+                span {
+                    font-size: 0.12rem;
+                }
+            }
+        }
+    }
+
+    .sidebox-handler {
+        position: absolute;
+        top: 50%;
+        right: -0.2rem;
+        width: 0.2rem;
+        padding: 0.1rem 0;
+        background: rgb(28, 54, 82);
+        border-top-right-radius: 0.04rem;
+        border-bottom-right-radius: 0.04rem;
+        text-align: center;
+        transform: translateY(-50%);
+        cursor: pointer;
+
+        &:hover {
+            background: rgb(26, 46, 68);
+        }
+
+        i {
+            font-size: 0.2rem;
+            display: inline-block;
+            transform: rotate(180deg);
+            // font-weight: bold;
+        }
+    }
+}
+
+//调试层
+.debug {
+    color: #fff;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+    background: rgb(58, 18, 104);
+    width: 4rem;
+    height: 5rem;
+    overflow: auto;
+}
+
+.debug-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
