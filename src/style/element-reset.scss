@@ -1,0 +1,27 @@
+.el-dialog {
+    background: rgba(16, 23, 33, 0.95);
+}
+
+.el-checkbox__inner {
+    background: transparent;
+    border-color: rgb(99, 99, 99);
+    border-width: 0.01rem;
+}
+
+.el-tree-node__expand-icon {
+    color: rgb(76, 164, 252);
+}
+
+.el-tree-node:focus > .el-tree-node__content {
+    background: rgba(39, 118, 167, 0.26);
+}
+
+.el-tree-node__content {
+    &:hover {
+        background: rgba(39, 118, 167, 0.26);
+    }
+}
+
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+    background: transparent;
+}

@@ -1,0 +1,209 @@
+@import "./reset.scss";
+@import "./element-reset.scss";
+
+$primary: rgb(166, 221, 255);
+$header-height: 5.3vh;
+
+* {
+    color: $primary;
+}
+
+//切换开关组件
+.radio-switch {
+    $height: 3vh;
+    display: inline-flex;
+    height: $header-height;
+    align-items: center;
+
+    .radio-switch--group {
+        height: $height;
+        line-height: $height;
+        border-radius: $height/2;
+        position: relative;
+        background: rgb(10, 17, 30);
+
+        .radio-switch--handle {
+            position: absolute;
+            width: 0.8rem;
+            height: $height;
+            content: "";
+            background: rgb(14, 42, 68);
+            left: 0;
+            top: 0;
+            border-radius: $height/2;
+            box-shadow: 0 0 6px 2px rgba(51, 156, 242, 0.5);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .radio-switch--item {
+            width: 0.8rem;
+            display: inline-block;
+            cursor: pointer;
+            color: rgb(72, 96, 102);
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+
+            &.active {
+                color: rgb(51, 156, 242);
+            }
+        }
+    }
+}
+
+//区域选择组件
+.region-select {
+    .region-select--reference {
+        color: rgb(76, 164, 252);
+        outline: none;
+        cursor: pointer;
+        i {
+            color: rgb(76, 164, 252);
+        }
+    }
+
+    @at-root.region-select--main {
+        color: $primary;
+        background: transparent;
+    }
+}
+
+//图层类
+.layer {
+}
+
+//地图
+.map {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+
+    .map-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .anchorBL {
+        display: none;
+    }
+}
+
+//头部
+.headerbar {
+    height: $header-height;
+    background: linear-gradient(to right, rgba(19, 26, 39, 0.7), rgba(15, 38, 73, 0.9), rgba(19, 26, 39, 0.7));
+    line-height: $header-height;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    padding: 0 0.1rem 0 0.4rem;
+    display: flex;
+    justify-content: space-between;
+
+    .logo {
+        line-height: $header-height;
+        flex: 1;
+        .logo-icon {
+            width: 2.4vh;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            svg {
+                vertical-align: middle;
+                z-index: 2;
+                position: relative;
+                // opacity: 0;
+            }
+            margin-right: 0.1rem;
+            &:before {
+                content: "";
+                display: block;
+                width: 0vh;
+                height: 0vh;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                // background: red;
+                border-radius: 50%;
+                box-shadow: 0 0 0.17rem 0.14rem rgba(14, 123, 182, 0.8);
+            }
+        }
+        .logo-text {
+            display: inline-block;
+            position: relative;
+
+            &:before {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 0vh;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                // background: red;
+                border-radius: 50%;
+                box-shadow: 0 0 0.17rem 0.14rem rgba(14, 123, 182, 0.15);
+            }
+
+            .logo-text--inner {
+                vertical-align: middle;
+                color: #fff;
+                font-size: 0.2rem;
+                font-family: "宋体";
+                z-index: 2;
+                letter-spacing: 0.03rem;
+                position: relative;
+            }
+        }
+    }
+
+    .switch {
+        flex: 1;
+        text-align: center;
+    }
+
+    .header-info {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        .header-info--item {
+            margin-right: 0.15rem;
+            .el-button--primary.is-plain.el-button--mini {
+                color: rgb(76, 164, 252);
+                background: transparent;
+                border-color: rgb(76, 164, 252);
+                border-radius: 0.06rem;
+                padding: 0.04rem;
+                border-width: 0.01rem;
+                span {
+                    color: rgb(76, 164, 252);
+                    font-size: 0.12rem;
+                }
+            }
+
+            svg {
+                font-size: 0.24rem;
+            }
+
+            &.location {
+                font-weight: bold;
+                font-size: 0.17rem;
+                svg {
+                    font-size: 0.16rem;
+                }
+            }
+        }
+    }
+}
