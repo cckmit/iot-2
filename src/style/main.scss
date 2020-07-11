@@ -253,12 +253,12 @@ $header-height: 5.3vh;
 
                 &:nth-child(2) {
                     left: 1.2rem;
-                    top: 0.5rem;
+                    top: 0.4rem;
                 }
 
                 &:nth-child(3) {
                     left: 1.6rem;
-                    top: 1.3rem;
+                    top: 1.2rem;
                 }
             }
         }
@@ -636,11 +636,10 @@ $header-height: 5.3vh;
 
 //底部面板
 .footer-box {
-    height: 2.14rem;
+    height: 2.3rem;
     bottom: 0;
-    left: 2rem;
+    left: 0.5rem;
     right: 0.2rem;
-    // background: pink;
     position: absolute;
 
     .footer-box--bg {
@@ -649,17 +648,100 @@ $header-height: 5.3vh;
         right: 0;
         top: 0;
         bottom: 0;
+        overflow: hidden;
+        z-index: 1;
         svg {
-            max-width: 100%;
-            max-height: 100%;
-            .cls-1 {
-                box-shadow: 0 0 0.12rem 0.05rem rgba(0, 144, 211, 0.55);
-            }
+            position: absolute;
+            top: -0.1rem;
+            left: -0.1rem;
+            right: -0.1rem;
         }
     }
 
     .footer-box--body {
         display: flex;
+        z-index: 2;
+        position: absolute;
+        top: 0.2rem;
+        bottom: 0;
+        left: 1.76rem;
+        right: 0.64rem;
+
+        & > .footer-item {
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+                &:after {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .footer-box--close {
+        position: absolute;
+        right: 0.34rem;
+        top: 0.3rem;
+        z-index: 3;
+        font-size: 0.2rem;
+        font-weight: bold;
+        opacity: 0.8;
+        transition: opacity 0.1s ease;
+        color: rgb(72, 190, 255);
+        cursor: pointer;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+//底部面板项目
+.footer-item {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0.4rem;
+
+    &:after {
+        content: "";
+        position: absolute;
+        width: 0.01rem;
+        height: 50%;
+        background: rgb(32, 105, 141);
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .footer-item--header {
+        height: 22%;
+        display: flex;
+        align-items: center;
+        .footer-item--title {
+            font-size: 0.16rem;
+            color: #fff;
+            font-weight: bold;
+            padding-left: 0.16rem;
+            position: relative;
+            transform: translateY(0.05rem);
+            &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 0.06rem;
+                height: 0.18rem;
+                transform: skew(-20deg) translate(0, 0.02rem);
+                background: rgb(26, 146, 255);
+            }
+        }
+    }
+    .footer-item--body {
+        flex: 1;
     }
 }
 

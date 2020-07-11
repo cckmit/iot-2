@@ -13,14 +13,36 @@
 
       <Sidebox />
 
+      <FooterBox>
+        <!-- 数据图表 -->
+        <template v-if="CurrentDiskMenu==='CHART'">
+          <!-- 单位 -->
+          <template v-if="CurrentDiskSubMenu==='CUSTOMER'">
+            <FooterItem title="单位运行情况">
+              <Customer_01></Customer_01>
+            </FooterItem>
+            <FooterItem title="本年度单位运行情况">
+              <Customer_02></Customer_02>
+            </FooterItem>
+          </template>
+
+          <!-- 行业 -->
+          <template v-if="CurrentDiskSubMenu==='INDUSTRY'">行业</template>
+
+          <!-- 设备 -->
+          <template v-if="CurrentDiskSubMenu==='EQUIPMENT'">设备</template>
+        </template>
+
+        <!-- 场所搜索 -->
+        <template v-if="CurrentDiskMenu==='PLACE_SEARCH'">场所搜索</template>
+      </FooterBox>
+
       <DiskMenu
         :value="CurrentDiskMenu"
         @change="$store.commit('set_CurrentDiskMenu',$event)"
         :sub="CurrentDiskSubMenu"
         @sub-change="$store.commit('set_CurrentDiskSubMenu',$event)"
       />
-
-      <FooterBox></FooterBox>
     </Layer>
 
     <!-- 调试层 -->
@@ -51,6 +73,9 @@ import Map from "@/components/Map";
 import Headerbar from "@/components/Headerbar.vue";
 import Sidebox from "@/components/Sidebox.vue";
 import DiskMenu from "@/components/DiskMenu.vue";
+
+//导入业务功能页面
+import "@/pages";
 
 export default {
   name: "App",
