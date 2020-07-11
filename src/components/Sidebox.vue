@@ -39,17 +39,17 @@ export default {
     return {
       items: [
         {
-          prop: "prop1",
+          prop: "businessCount",
           label: "接入单位数",
           icon: "louyu-circle"
         },
         {
-          prop: "prop2",
+          prop: "equipmentCount",
           label: "接入设备数",
           icon: "shebei-circle"
         },
         {
-          prop: "prop3",
+          prop: "placeCount",
           label: "场所总数",
           icon: "map-circle-2"
         }

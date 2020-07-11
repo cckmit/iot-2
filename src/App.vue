@@ -19,6 +19,8 @@
         :sub="CurrentDiskSubMenu"
         @sub-change="$store.commit('set_CurrentDiskSubMenu',$event)"
       />
+
+      <FooterBox></FooterBox>
     </Layer>
 
     <!-- 调试层 -->
@@ -41,6 +43,8 @@ import Modal from "@/components/modal";
 Vue.use(Modal);
 import SvgIcon from "@/components/SvgIcon";
 Vue.use(SvgIcon);
+import FooterBox from "@/components/FooterBox";
+Vue.use(FooterBox);
 
 import Layer from "@/components/Layer.vue";
 import Map from "@/components/Map";
@@ -71,7 +75,7 @@ export default {
       CurrentRegions: state => state.CurrentRegions,
       CurrentDiskMenu: state => state.CurrentDiskMenu,
       CurrentDiskSubMenu: state => state.CurrentDiskSubMenu,
-      HtmlFontSize: state => state.HtmlFontSize,
+      HtmlFontSize: state => state.HtmlFontSize
     })
   },
 
