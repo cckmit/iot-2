@@ -2,6 +2,34 @@
     background: rgba(16, 23, 33, 0.95);
 }
 
+.el-checkbox {
+    font-size: 0.14rem;
+
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+        height: 0.02rem;
+        top: 0.05rem;
+    }
+
+    .el-checkbox__inner {
+        border-width: 0.01rem;
+        border-radius: 0.02rem;
+        width: 0.14rem;
+        height: 0.14rem;
+
+        &:after {
+            border-width: 0.01rem;
+            height: 0.07rem;
+            left: 0.04rem;
+            top: 0.01rem;
+            width: 0.03rem;
+        }
+    }
+}
+
+.el-popover {
+    min-width: 1.5rem;
+}
+
 .el-checkbox__inner {
     background: transparent;
     border-color: rgb(99, 99, 99);
@@ -9,6 +37,8 @@
 }
 
 .el-tree-node__expand-icon {
+    font-size: 0.12rem;
+    padding: 0.06rem;
     color: rgb(76, 164, 252);
 }
 
@@ -17,9 +47,22 @@
 }
 
 .el-tree-node__content {
+    height: 0.26rem;
     &:hover {
         background: rgba(39, 118, 167, 0.26);
     }
+
+    & > .el-tree-node__expand-icon {
+        padding: 0.06rem;
+    }
+
+    & > label.el-checkbox {
+        margin-right: 0.08rem;
+    }
+}
+
+.el-tree-node__label {
+    font-size: 0.14rem;
 }
 
 .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {

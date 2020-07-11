@@ -13,13 +13,21 @@
 
       <Sidebox />
 
-      <DiskMenu />
+      <DiskMenu
+        :value="CurrentDiskMenu"
+        @change="$store.commit('set_CurrentDiskMenu',$event)"
+        :sub="CurrentDiskSubMenu"
+        @sub-change="$store.commit('set_CurrentDiskSubMenu',$event)"
+      />
     </Layer>
 
     <!-- 调试层 -->
     <Layer :index="99">
       <div class="debug" v-show="debug">
         <pre>CurrentRegions:{{CurrentRegions}}</pre>
+        <pre>CurrentDiskMenu:{{CurrentDiskMenu}}</pre>
+        <pre>CurrentDiskSubMenu:{{CurrentDiskSubMenu}}</pre>
+        <pre>HtmlFontSize:{{HtmlFontSize}}</pre>
       </div>
       <el-button class="debug-btn" type="primary" size="mini" @click="debug=!debug">Debug</el-button>
     </Layer>
@@ -60,7 +68,10 @@ export default {
 
   computed: {
     ...mapState({
-      CurrentRegions: state => state.CurrentRegions
+      CurrentRegions: state => state.CurrentRegions,
+      CurrentDiskMenu: state => state.CurrentDiskMenu,
+      CurrentDiskSubMenu: state => state.CurrentDiskSubMenu,
+      HtmlFontSize: state => state.HtmlFontSize,
     })
   },
 

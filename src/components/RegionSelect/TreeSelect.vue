@@ -2,7 +2,7 @@
   <div class="region-select">
     <el-popover
       placement="bottom-start"
-      popper-class="el-treeselect__popper"
+      popper-class="region__popper"
       v-model="showPop"
       :disabled="disabled"
       transition="el-zoom-in-top"
@@ -70,19 +70,19 @@
 
       <el-scrollbar
         :native="false"
-        wrap-style="overflow-x:hidden;max-height:300px;min-height:150px;"
+        wrap-style="overflow-x:hidden;max-height:3rem;min-height:1.5rem;"
       >
         <el-tree
           :data="treeDataSource"
           class="region-select--main el-treeselect--tree"
           show-checkbox
-          check-strictly
           :expand-on-click-node="false"
           :check-on-click-node="true"
           :default-expand-all="defaultExpandAll"
           :default-checked-keys="defaultCheckedKeys"
           :node-key="nodeKey"
           ref="tree"
+          :indent="indent"
           highlight-current
           @check="handleCheck"
           :props="props"
@@ -96,6 +96,7 @@
 import { getTreeByArr } from "./utils";
 import emitter from "element-ui/src/mixins/emitter";
 import axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   name: "TreeSelect",
@@ -179,6 +180,9 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      HtmlFontSize: state => state.HtmlFontSize
+    }),
     stringValue() {
       return this.valueType === "string";
     },
@@ -202,6 +206,14 @@ export default {
         return this.asyncData;
       } else {
         return this.data || [];
+      }
+    },
+
+    indent() {
+      if (this.HtmlFontSize) {
+        return Number(((this.HtmlFontSize / 100) * 16).toFixed(2));
+      } else {
+        return 48;
       }
     }
   },
@@ -308,10 +320,10 @@ export default {
 
     getAsyncData() {
       axios.get(this.url).then(res => {
-        const data = res.data.data;
+        const data = res.data;
+
         try {
           if (this.flatData) {
-
             this.asyncData = getTreeByArr(
               data.rows,
               this.rootId || null,
@@ -322,7 +334,7 @@ export default {
             // console.log(this.asyncData)
 
             this.flatDataSource = data.rows;
-            
+
             this.$emit("load-success", this.data);
           } else {
             this.asyncData = data.rows;

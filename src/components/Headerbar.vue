@@ -26,7 +26,7 @@
       <span class="header-info--item">
         <RegionSelect
           v-model="vCurrentRegions"
-          url="/api/region"
+          url="/api/govShow?optionType=location"
           nodeKey="Id"
           multiple
           :props="{ label:'Name',parent:'ParentId' }"
