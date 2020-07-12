@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-box">
+  <div class="footer-box" :class="{'visible':vVisible}">
     <div class="footer-box--close el-icon-close" @click="onCloseBtnClick"></div>
 
     <div class="footer-box--bg">
@@ -52,8 +52,28 @@
 export default {
   name: "FooterBox",
 
+  data() {
+    return {
+      vVisible: this.visible
+    };
+  },
+
+  props: {
+    visible: Boolean
+  },
+
+  watch: {
+    visible(val) {
+      this.vVisible = val;
+    },
+    vVisible(val) {
+      this.$emit("change", val);
+    }
+  },
+
   methods: {
     onCloseBtnClick() {
+      this.vVisible = false;
     }
   }
 };

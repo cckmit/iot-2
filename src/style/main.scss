@@ -636,11 +636,17 @@ $header-height: 5.3vh;
 
 //底部面板
 .footer-box {
-    height: 2.3rem;
-    bottom: 0;
+    $height:2.3rem;
+    height: $height;
+    bottom: -$height;
     left: 0.5rem;
     right: 0.2rem;
     position: absolute;
+    transition: bottom .2s ease;
+
+    &.visible{
+        bottom:0;
+    }
 
     .footer-box--bg {
         position: absolute;

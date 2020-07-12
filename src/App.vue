@@ -13,7 +13,7 @@
 
       <Sidebox />
 
-      <FooterBox>
+      <FooterBox :visible="FooterBoxVisible" @change="$store.commit('set_FooterBoxVisible',$event)">
         <!-- 数据图表 -->
         <template v-if="CurrentDiskMenu==='CHART'">
           <!-- 单位 -->
@@ -52,6 +52,7 @@
         <pre>CurrentDiskMenu:{{CurrentDiskMenu}}</pre>
         <pre>CurrentDiskSubMenu:{{CurrentDiskSubMenu}}</pre>
         <pre>HtmlFontSize:{{HtmlFontSize}}</pre>
+        <pre>FooterBoxVisible:{{FooterBoxVisible}}<el-button size="mini" @click="$store.commit('set_FooterBoxVisible',true)">setTrue</el-button></pre>
       </div>
       <el-button class="debug-btn" type="primary" size="mini" @click="debug=!debug">Debug</el-button>
     </Layer>
@@ -91,7 +92,7 @@ export default {
 
   data() {
     return {
-      debug: true
+      debug: false
     };
   },
 
@@ -100,7 +101,8 @@ export default {
       CurrentRegions: state => state.CurrentRegions,
       CurrentDiskMenu: state => state.CurrentDiskMenu,
       CurrentDiskSubMenu: state => state.CurrentDiskSubMenu,
-      HtmlFontSize: state => state.HtmlFontSize
+      HtmlFontSize: state => state.HtmlFontSize,
+      FooterBoxVisible: state => state.FooterBoxVisible
     })
   },
 

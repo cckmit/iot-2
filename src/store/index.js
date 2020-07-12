@@ -15,6 +15,9 @@ export default new Vuex.Store({
     //当前活跃的圆盘子菜单项(单位:CUSTOMER, 行业:INDUSTRY, 设备:EQUIPMENT)
     CurrentDiskSubMenu: '',
 
+    //底部面板是否可见
+    FooterBoxVisible: true,
+
     //html字体大小
     HtmlFontSize: 0
   },
@@ -34,6 +37,9 @@ export default new Vuex.Store({
     },
     set_HtmlFontSize(state, val) {
       state.HtmlFontSize = val;
+    },
+    set_FooterBoxVisible(state, val) {
+      state.FooterBoxVisible = val;
     }
   },
   actions: {
