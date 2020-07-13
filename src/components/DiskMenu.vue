@@ -11,16 +11,12 @@
       <div class="disk-menu--item__label">
         <span v-for="(t,t_index) in i.label" :key="t_index">{{t}}</span>
       </div>
-      <div
-        class="disk-menu--item__children"
-        v-if="i.children && i.children.length"
-        v-show="current===i.value"
-      >
+      <div class="disk-menu--item__children">
         <div
           class="disk-menu--subitem"
           v-for="j in i.children"
           :key="j.value"
-          @click="subCurrent=j.value"
+          @click="onSubClick(j,i)"
           :class="{active:subCurrent===j.value}"
         >
           <i class="corner corner-1"></i>
@@ -101,6 +97,16 @@ export default {
         }
       ]
     };
+  },
+
+  methods: {
+    onSubClick(item, parent) {
+      if (this.current !== parent.value) {
+        return;
+      }
+
+      this.subCurrent = item.value;
+    }
   }
 };
 </script>

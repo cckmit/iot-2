@@ -103,10 +103,6 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         cursor: pointer;
         transition: background 0.2s ease;
 
-        // &:hover {
-        //     opacity: 0.9;
-        // }
-
         .disk-menu--item__icon {
             opacity: 0.8;
             font-size: 0.22rem;
@@ -123,6 +119,9 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         }
 
         .disk-menu--item__children {
+            transition: all 0.2s ease;
+            opacity: 0;
+            z-index: -1;
             .disk-menu--subitem {
                 position: absolute;
                 width: 1.6rem;
@@ -135,6 +134,8 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                 padding-left: 0.1rem;
                 justify-content: center;
                 transition: all 0.2s ease;
+                top: 50%;
+                left: -1rem;
                 &.active {
                     border-color: rgb(42, 96, 127);
                     opacity: 1;
@@ -246,21 +247,6 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                         letter-spacing: 0.03rem;
                     }
                 }
-
-                &:nth-child(1) {
-                    left: 0.4rem;
-                    top: -0.3rem;
-                }
-
-                &:nth-child(2) {
-                    left: 1.2rem;
-                    top: 0.4rem;
-                }
-
-                &:nth-child(3) {
-                    left: 1.6rem;
-                    top: 1.2rem;
-                }
             }
         }
 
@@ -272,6 +258,26 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                 opacity: 1;
                 span {
                     color: #fff;
+                }
+            }
+
+            .disk-menu--item__children {
+                opacity: 1;
+                .disk-menu--subitem {
+                    &:nth-child(1) {
+                        left: 0.4rem;
+                        top: -0.3rem;
+                    }
+
+                    &:nth-child(2) {
+                        left: 1.2rem;
+                        top: 0.4rem;
+                    }
+
+                    &:nth-child(3) {
+                        left: 1.6rem;
+                        top: 1.2rem;
+                    }
                 }
             }
         }
@@ -409,7 +415,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                 margin-bottom: 0.1rem;
                 left: 0.1rem;
             }
-            
+
             &.modal--center {
                 left: 50%;
                 transform: translateX(-50%);
@@ -447,14 +453,14 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
             .el-dialog__body {
                 padding: 0.34rem 0.24rem 0.24rem 0.24rem;
-                transition: height ease .2s;
+                transition: height ease 0.2s;
                 height: calc(100vh - 7vh - 2.3rem);
             }
         }
     }
 
-    &.lg{
-        .el-dialog__wrapper .el-dialog .el-dialog__body{
+    &.lg {
+        .el-dialog__wrapper .el-dialog .el-dialog__body {
             height: calc(100vh - 7vh - 0.2rem);
         }
     }

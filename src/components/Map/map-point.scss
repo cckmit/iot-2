@@ -1,0 +1,125 @@
+$width: 0.2rem;
+$height: 0.5rem;
+
+$type2Width: 0.8rem;
+
+$colors: (
+    1: rgb(115, 255, 255),
+    2: rgb(255, 211, 102),
+    3: rgb(255, 108, 126),
+    4: rgb(116, 119, 255),
+);
+
+.map-point {
+    position: absolute;
+    cursor: pointer;
+    width: $width;
+    height: $height;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-0.44rem);
+
+    &.type2 {
+        width: $type2Width;
+        &:before {
+            width: $type2Width;
+        }
+
+        .map-point__icon {
+            display: none;
+        }
+
+        &:hover {
+            .map-point__text {
+                bottom: 0.3rem;
+                font-size: 0.18rem;
+            }
+        }
+    }
+
+    &:hover {
+        &:before {
+            opacity: 1;
+        }
+        .map-point__text {
+            font-size: 0.2rem;
+        }
+        .map-point__icon {
+            font-size: 0.26rem;
+        }
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: $width;
+        height: 500%;
+        border-bottom-width: 0.05rem;
+        border-bottom-style: solid;
+        opacity: 0.7;
+        transition: all 0.15s ease;
+    }
+
+    .map-point__text {
+        color: #fff;
+        font-size: 0.18rem;
+        text-align: center;
+        font-weight: bold;
+        position: absolute;
+        bottom: 0.3rem;
+        z-index: 2;
+        transition: all 0.15s ease;
+    }
+
+    .map-point__icon {
+        // margin-bottom: 0.06rem;
+        font-size: 0.18rem;
+        position: absolute;
+        bottom: 0.07rem;
+        transition: all 0.15s ease;
+        &:after {
+            content: "";
+            position: absolute;
+            left: 20%;
+            top: 15%;
+            display: block;
+            width: 60%;
+            height: 60%;
+            border-radius: 100% 100% 100% 0;
+            transform: rotate(-45deg);
+            z-index: -1;
+        }
+    }
+
+    @each $i, $value in $colors {
+        $value: map-get($colors, $i);
+
+        &.color#{$i} {
+            &:before {
+                border-bottom-color: $value;
+                background: linear-gradient(to top, rgba($value, 0.6), rgba($value, 0.1), rgba($value, 0));
+            }
+
+            .map-point__icon {
+                color: $value;
+                &:after {
+                    background: darken($value, 60%);
+                }
+            }
+        }
+
+        &:hover {
+            &.color#{$i} {
+                .map-point__icon {
+                    &:after {
+                        box-shadow: 0 0 0.06rem 0.07rem rgba($value, 0.9);
+                    }
+                }
+            }
+        }
+    }
+}
