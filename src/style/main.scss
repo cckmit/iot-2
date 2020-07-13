@@ -3,6 +3,7 @@
 
 $primary: rgb(166, 221, 255);
 $header-height: 5.3vh;
+$shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
 * {
     color: $primary;
@@ -70,7 +71,7 @@ $header-height: 5.3vh;
 
     @at-root .region__popper {
         border-radius: 0.12rem;
-        box-shadow: 0 0 0.06rem 0.03rem rgba(0, 144, 211, 0.4);
+        box-shadow: $shadow;
     }
 }
 
@@ -386,6 +387,79 @@ $header-height: 5.3vh;
     }
 }
 
+//弹窗
+.modals {
+    .el-dialog__wrapper {
+        overflow: visible;
+        bottom: unset;
+        .el-dialog {
+            border-radius: 0.08rem;
+            background: rgba(16, 23, 33, 0.9);
+            box-shadow: $shadow;
+            position: absolute;
+
+            &.modal--top-right {
+                position: absolute;
+                margin-bottom: 0.1rem;
+                right: 0.1rem;
+            }
+
+            &.modal--top-left {
+                position: absolute;
+                margin-bottom: 0.1rem;
+                left: 0.1rem;
+            }
+            
+            &.modal--center {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .el-dialog__header {
+                padding: 0;
+                .el-dialog__title {
+                    display: none;
+                }
+
+                .svg-title {
+                    width: 1.8rem;
+                    // height: 0.06rem;
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    transform: translate(-50%, -0.1rem);
+                }
+
+                .el-dialog__headerbtn {
+                    // background: red;
+                    width: 0.2rem;
+                    height: 0.2rem;
+                    right: 0.15rem;
+                    top: 0.1rem;
+                    font-size: 0.16rem;
+                    .el-icon {
+                        color: rgb(72, 190, 255);
+                        font-size: 0.16rem;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .el-dialog__body {
+                padding: 0.34rem 0.24rem 0.24rem 0.24rem;
+                transition: height ease .2s;
+                height: calc(100vh - 7vh - 2.3rem);
+            }
+        }
+    }
+
+    &.lg{
+        .el-dialog__wrapper .el-dialog .el-dialog__body{
+            height: calc(100vh - 7vh - 0.2rem);
+        }
+    }
+}
+
 //头部
 .headerbar {
     height: $header-height;
@@ -475,12 +549,14 @@ $header-height: 5.3vh;
                 color: rgb(76, 164, 252);
                 background: transparent;
                 border-color: rgb(76, 164, 252);
-                border-radius: 0.06rem;
+                border-radius: 0.04rem;
                 padding: 0.04rem;
                 border-width: 0.01rem;
+                font-size: 0.12rem;
                 span {
                     color: rgb(76, 164, 252);
                     font-size: 0.12rem;
+                    vertical-align: middle;
                 }
             }
 
@@ -516,8 +592,7 @@ $header-height: 5.3vh;
 
     &.visible {
         left: 0;
-        // box-shadow: 0 0 0.2rem 0.03rem rgb(21, 83, 112);
-        box-shadow: 0 0 0.12rem 0.05rem rgba(0, 144, 211, 0.55);
+        box-shadow: $shadow;
         .sidebox-handler {
             right: 0.06rem;
             background: none !important;
@@ -636,16 +711,16 @@ $header-height: 5.3vh;
 
 //底部面板
 .footer-box {
-    $height:2.3rem;
+    $height: 2.3rem;
     height: $height;
     bottom: -$height;
     left: 0.5rem;
-    right: 0.2rem;
+    right: 0.1rem;
     position: absolute;
-    transition: bottom .2s ease;
+    transition: bottom 0.2s ease;
 
-    &.visible{
-        bottom:0;
+    &.visible {
+        bottom: 0;
     }
 
     .footer-box--bg {
@@ -654,13 +729,12 @@ $header-height: 5.3vh;
         right: 0;
         top: 0;
         bottom: 0;
-        overflow: hidden;
         z-index: 1;
         svg {
             position: absolute;
             top: -0.1rem;
             left: -0.1rem;
-            right: -0.1rem;
+            right: -0.3rem;
         }
     }
 
@@ -672,25 +746,12 @@ $header-height: 5.3vh;
         bottom: 0;
         left: 1.76rem;
         right: 0.64rem;
-
-        & > .footer-item {
-            &:first-child {
-                padding-left: 0;
-            }
-
-            &:last-child {
-                padding-right: 0;
-                &:after {
-                    display: none;
-                }
-            }
-        }
     }
 
     .footer-box--close {
         position: absolute;
-        right: 0.34rem;
-        top: 0.3rem;
+        right: 0.15rem;
+        top: 0.33rem;
         z-index: 3;
         font-size: 0.2rem;
         font-weight: bold;
@@ -704,13 +765,51 @@ $header-height: 5.3vh;
     }
 }
 
-//底部面板项目
-.footer-item {
+//栏目组
+.column-group {
+    display: flex;
+
+    &.horizontal {
+        flex-direction: row;
+
+        & > .column-item {
+        }
+    }
+
+    &.vertical {
+        flex-direction: column;
+
+        & > .column-item {
+            padding: 0 0 0.1rem 0;
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+}
+
+//栏目块
+.column-item {
     position: relative;
     flex: 1;
     display: flex;
-    flex-direction: column;
     padding: 0 0.4rem;
+    flex-direction: column;
+
+    &.super-title {
+    }
+
+    &:first-child {
+        padding-left: 0;
+    }
+
+    &:last-child {
+        padding-right: 0;
+        &:after {
+            display: none;
+        }
+    }
 
     &:after {
         content: "";
@@ -723,14 +822,13 @@ $header-height: 5.3vh;
         transform: translateY(-50%);
     }
 
-    .footer-item--header {
+    .column-item--header {
         height: 22%;
         display: flex;
         align-items: center;
-        .footer-item--title {
+        .column-item--title {
             font-size: 0.16rem;
             color: #fff;
-            font-weight: bold;
             padding-left: 0.16rem;
             position: relative;
             transform: translateY(0.05rem);
@@ -745,8 +843,44 @@ $header-height: 5.3vh;
                 background: rgb(26, 146, 255);
             }
         }
+
+        .column-item--supertitle {
+            position: relative;
+
+            span {
+                font-size: 0.22rem;
+                color: #fff;
+                font-weight: bold;
+                position: relative;
+                z-index: 2;
+                letter-spacing: 0.02rem;
+                padding-left: 0.05rem;
+            }
+
+            &:before,
+            &:after {
+                content: "";
+                position: absolute;
+                transform: skew(-20deg);
+                background: rgba(26, 146, 255, 0.4);
+                z-index: 1;
+                border-bottom: 0.025rem solid rgb(26, 146, 255);
+                bottom: -0.04rem;
+            }
+
+            &:before {
+                left: 0;
+                width: 116%;
+                height: 0.14rem;
+            }
+            &:after {
+                left: 120%;
+                width: 0.07rem;
+                height: 0.1rem;
+            }
+        }
     }
-    .footer-item--body {
+    .column-item--body {
         flex: 1;
     }
 }

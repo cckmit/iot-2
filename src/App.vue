@@ -18,12 +18,12 @@
         <template v-if="CurrentDiskMenu==='CHART'">
           <!-- 单位 -->
           <template v-if="CurrentDiskSubMenu==='CUSTOMER'">
-            <FooterItem title="单位运行情况">
+            <ColumnItem title="单位运行情况" boldTitle>
               <Customer_01></Customer_01>
-            </FooterItem>
-            <FooterItem title="本年度单位运行情况">
+            </ColumnItem>
+            <ColumnItem title="本年度单位运行情况" boldTitle>
               <Customer_02></Customer_02>
-            </FooterItem>
+            </ColumnItem>
           </template>
 
           <!-- 行业 -->
@@ -52,7 +52,10 @@
         <pre>CurrentDiskMenu:{{CurrentDiskMenu}}</pre>
         <pre>CurrentDiskSubMenu:{{CurrentDiskSubMenu}}</pre>
         <pre>HtmlFontSize:{{HtmlFontSize}}</pre>
-        <pre>FooterBoxVisible:{{FooterBoxVisible}}<el-button size="mini" @click="$store.commit('set_FooterBoxVisible',true)">setTrue</el-button></pre>
+        <pre>FooterBoxVisible:{{FooterBoxVisible}}<el-button
+  size="mini"
+  @click="$store.commit('set_FooterBoxVisible',true)"
+>setTrue</el-button></pre>
       </div>
       <el-button class="debug-btn" type="primary" size="mini" @click="debug=!debug">Debug</el-button>
     </Layer>
@@ -66,14 +69,15 @@ import Modal from "@/components/modal";
 Vue.use(Modal);
 import SvgIcon from "@/components/SvgIcon";
 Vue.use(SvgIcon);
-import FooterBox from "@/components/FooterBox";
-Vue.use(FooterBox);
+import ColumnItem from "@/components/ColumnItem";
+Vue.component(ColumnItem.name, ColumnItem);
 
 import Layer from "@/components/Layer.vue";
 import Map from "@/components/Map";
 import Headerbar from "@/components/Headerbar.vue";
 import Sidebox from "@/components/Sidebox.vue";
 import DiskMenu from "@/components/DiskMenu.vue";
+import FooterBox from "@/components/FooterBox.vue";
 
 //导入业务功能页面
 import "@/pages";
@@ -87,7 +91,8 @@ export default {
     Map,
     Headerbar,
     Sidebox,
-    DiskMenu
+    DiskMenu,
+    FooterBox
   },
 
   data() {
@@ -109,7 +114,14 @@ export default {
   created() {
     // this.$modal({
     //   title: "测试",
-    //   component: () => import("@/components/Percentbar.vue")
+    //   placement: "top-right",
+    //   component: () => import("@/pages/ModalPage_01.vue")
+    // });
+
+    // this.$modal({
+    //   title: "测试",
+    //   placement: "center",
+    //   component: () => import("@/pages/ModalPage_01.vue")
     // });
   }
 };
