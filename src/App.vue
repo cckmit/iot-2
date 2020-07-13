@@ -71,6 +71,8 @@ import SvgIcon from "@/components/SvgIcon";
 Vue.use(SvgIcon);
 import ColumnItem from "@/components/ColumnItem";
 Vue.component(ColumnItem.name, ColumnItem);
+import VeCharts from "v-charts";
+Vue.use(VeCharts);
 
 import Layer from "@/components/Layer.vue";
 import Map from "@/components/Map";
@@ -117,7 +119,6 @@ export default {
     //   placement: "top-right",
     //   component: () => import("@/pages/ModalPage_01.vue")
     // });
-
     // this.$modal({
     //   title: "测试",
     //   placement: "center",
