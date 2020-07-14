@@ -124,7 +124,9 @@ export default {
     //   placement: "center",
     //   component: () => import("@/pages/ModalPage_01.vue")
     // });
-  }
+  },
+
+  
 };
 </script>
 

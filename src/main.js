@@ -11,7 +11,16 @@ import '@/mock';
 
 new Vue({
   store,
+
   render: h => h(App),
+
+  methods: {
+    getNumberByRem(remStr) {
+      if (remStr) {
+        return Number(((store.state.HtmlFontSize / 100) * parseFloat(remStr)).toFixed(2));
+      }
+    }
+  },
 
   created() {
     const app = this;
@@ -28,8 +37,6 @@ new Vue({
       win.addEventListener(resizeEvt, recalc, false);
       doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
-
-
   }
 }).$mount('#app');
 
