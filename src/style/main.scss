@@ -724,6 +724,8 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     right: 0.1rem;
     position: absolute;
     transition: bottom 0.2s ease;
+    // top: -.5rem;
+    // left: -3rem;
 
     &.visible {
         bottom: 0;
@@ -821,7 +823,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         content: "";
         position: absolute;
         width: 0.01rem;
-        height: 50%;
+        height: 45%;
         background: rgb(32, 105, 141);
         right: 0;
         top: 50%;
@@ -891,6 +893,35 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     }
 }
 
+//百分比条
+.percentbar {
+    display: inline-flex;
+    align-items: center;
+
+    &.horizontal {
+        height: 0.18rem;
+        width: 100%;
+        vertical-align: middle;
+
+        .percentbar__inner {
+            transition: all .2s ease;
+            height: 100%;
+            border-right: 0.04rem solid rgb(26, 146, 255);
+            background: linear-gradient(to right, rgba(rgb(26, 146, 255), 0), rgba(rgb(26, 146, 255), 0.3));
+            transform: skew(-30deg);
+            margin-right: 0.1rem;
+        }
+
+        .percentbar__text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.12rem;
+        }
+    }
+
+    &.vertical {
+    }
+}
+
 //调试层
 .debug {
     color: #fff;
@@ -908,4 +939,23 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     position: absolute;
     right: 10px;
     bottom: 10px;
+}
+
+//
+.color-1 {
+    * {
+        color: rgb(255, 209, 118);
+    }
+}
+
+.color-2 {
+    * {
+        color: rgb(255, 100, 122);
+    }
+}
+
+.color-3 {
+    * {
+        color: rgb(77, 124, 255);
+    }
 }

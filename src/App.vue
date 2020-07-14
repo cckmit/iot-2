@@ -71,6 +71,8 @@ import SvgIcon from "@/components/SvgIcon";
 Vue.use(SvgIcon);
 import ColumnItem from "@/components/ColumnItem";
 Vue.component(ColumnItem.name, ColumnItem);
+import Percentbar from "@/components/Percentbar";
+Vue.component(Percentbar.name, Percentbar);
 import VeCharts from "v-charts";
 Vue.use(VeCharts);
 

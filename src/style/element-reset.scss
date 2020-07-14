@@ -68,3 +68,62 @@
 .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
     background: transparent;
 }
+
+.el-table {
+    font-size: 0.14rem;
+    background: transparent;
+    border-bottom: none;
+    &:before {
+        display: none;
+    }
+}
+
+.el-table .cell {
+    line-height: 0.23rem;
+    padding-left: 0.1rem;
+}
+
+.el-table tr {
+    background: transparent;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+    background: transparent;
+}
+
+.el-table th {
+    * {
+        color: rgb(76, 164, 252);
+    }
+}
+
+.el-table td,
+.el-table th {
+    padding: 0.04rem 0.04rem;
+}
+
+.el-table .cell, .el-table th div{
+    padding-right: .1rem;
+}
+
+.el-table td {
+    border-bottom: 0.01rem dashed rgba(255, 255, 255, 0.2);
+}
+.el-table th.is-leaf {
+    border-bottom: none;
+}
+
+.el-radio-button__inner {
+    background: transparent;
+    color: rgb(91, 118, 127);
+    border: 0.01rem solid rgb(29, 79, 104);
+    padding: .04rem .08rem;
+    font-size: .12rem;
+}
+.el-radio-button:first-child .el-radio-button__inner{
+    border-left: 0.01rem solid rgb(29, 79, 104);
+    border-radius: 0.04rem 0 0 .04rem;
+}
+.el-radio-button__orig-radio:checked+.el-radio-button__inner{
+    box-shadow: -.01rem 0 0 0 #256FC0;
+}

@@ -110,13 +110,16 @@ const mockList = [
         data: {
         }
     },
-
-
     {
         //单位-单位运行情况(原report1)
         url: `${baseApi}?optionType=customerOperation`,
         method: 'get',
         data: {
+            rows: [
+                { status: "仅报警", count: 56, progress: 0.5, aaa: 12 },
+                { status: "仅故障", count: 26, progress: 0.7, aaa: 32 },
+                { status: "报警且故障", count: 16, progress: 0.3, aaa: 20 },
+            ]
         }
     },
     {

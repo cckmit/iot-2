@@ -8,3 +8,8 @@ const baseApi = '/api/govShow';
 export function getSummary() {
     return http.get(`${baseApi}?optionType=status`);
 }
+
+//单位-单位运行情况(原report1)
+export function getCustomerOperation() {
+    return http.get(`${baseApi}?optionType=customerOperation`);
+}
