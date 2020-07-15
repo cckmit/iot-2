@@ -12,3 +12,26 @@ export function daysToAgoTime(count) {
     let D2 = (time2.getDate() > 9 ? time2.getDate() : '0' + time2.getDate());
     return Y2 + '-' + M2 + '-' + D2;
 }
+
+/**
+ * 生成测试数据
+ * @param {*} param 
+ */
+export function getRandomData(param) {
+    const { min, max, length, fixed = 0 } = param;
+    let result = null;
+
+    if (typeof length !== 'number') {
+        result = (Math.random() * 10 * (max / 10) + min).toFixed(fixed);
+        result = Number(result);
+    }
+    else {
+        result = [];
+        let i = 0;
+        for (; i < length; i++) {
+            let n = (Math.random() * 10 * (max / 10) + min).toFixed(fixed);
+            result.push(Number(n));
+        }
+    }
+    return result;
+}

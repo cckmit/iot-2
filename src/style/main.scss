@@ -724,8 +724,8 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     right: 0.1rem;
     position: absolute;
     transition: bottom 0.2s ease;
-    // top: -.5rem;
-    // left: -3rem;
+    // top: 1rem;
+    // left: -23rem;
 
     &.visible {
         bottom: 0;
@@ -753,7 +753,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         top: 0.2rem;
         bottom: 0;
         left: 1.76rem;
-        right: 0.64rem;
+        right: 0.44rem;
     }
 
     .footer-box--close {

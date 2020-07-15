@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="chart" ref="pie" v-loading="loading"></div>
-    <div class="table">
+    <div class="table" v-loading="loading">
       <el-table :data="tableData" :cell-class-name="cellClassName">
         <el-table-column prop="status" min-width="20%" align="center" label="状态"></el-table-column>
         <el-table-column prop="count" min-width="15%" align="center" label="单位数"></el-table-column>
@@ -13,7 +13,8 @@
         <el-table-column prop="aaa" min-width="20%" align="right" label="已处理/总数">
           <template v-slot="{row}">
             <span>
-              <span style="color:rgb(26,255,172)">{{row.handled}}</span>/{{row.all}}
+              <span style="color:rgb(26,255,172)">{{row.handled}}</span>
+              /{{row.all}}
             </span>
           </template>
         </el-table-column>
@@ -203,8 +204,7 @@ export default {
         errorHandled,
         warning,
         warningAll,
-        warningHandled,
-        total
+        warningHandled
       } = this.vm;
 
       const rows = [

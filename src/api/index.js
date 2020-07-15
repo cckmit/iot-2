@@ -22,6 +22,20 @@ export function getSummary() {
  * @param {number} days 近?天 
  */
 export function getCustomerOperation(days) {
-    const now = new Date().Format('yyyy-mm-dd');
+    const now = new Date().format('yyyy-mm-dd');
     return http.get(`${baseApi}?optionType=customerOperation&StartTime=${daysToAgoTime(days)}&EndTime=${now}`);
+}
+
+/**
+ * 单位-单位年度运行情况(原report1)
+ */
+export function getCustomerOperationYear() {
+    return http.get(`${baseApi}?optionType=customerOperationYear`);
+}
+
+/**
+ * 登出
+ */
+export function logout() {
+    return http.delete(`/api/login`);
 }

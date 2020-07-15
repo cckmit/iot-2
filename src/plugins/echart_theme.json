@@ -1,10 +1,10 @@
 {
     "color": [
-        "rgb(87,199,255)",
-        "rgb(24,232,123)",
-        "rgb(109,106,239)",
-        "rgb(255,211,102)",
-        "rgb(49,108,140)"
+        "#57c7ff",
+        "#18e87b",
+        "#6d6aef",
+        "#ffd366",
+        "#316c8c"
     ],
     "backgroundColor": "rgba(0,0,0,0)",
     "textStyle": {},
@@ -13,7 +13,7 @@
             "color": "#333"
         },
         "subtextStyle": {
-            "color": "#aaa"
+            "color": "rgb(109,151,191)"
         }
     },
     "line": {
@@ -170,16 +170,16 @@
         "symbol": "emptyCircle",
         "smooth": true,
         "color": [
-            "rgb(87,199,255)",
-            "rgb(24,232,123)",
-            "rgb(109,106,239)",
-            "rgb(255,211,102)",
-            "rgb(49,108,140)"
+            "#57c7ff",
+            "#18e87b",
+            "#6d6aef",
+            "#ffd366",
+            "#316c8c"
         ],
         "label": {
             "normal": {
                 "textStyle": {
-                    "color": "rgb(166,221,255)"
+                    "color": "#a6ddff"
                 }
             }
         }
@@ -351,13 +351,13 @@
         "axisLine": {
             "show": true,
             "lineStyle": {
-                "color": "#333"
+                "color": "#333333"
             }
         },
         "axisTick": {
             "show": true,
             "lineStyle": {
-                "color": "#333"
+                "color": "#333333"
             }
         },
         "axisLabel": {
@@ -396,7 +396,7 @@
     },
     "legend": {
         "textStyle": {
-            "color": "rgb(166,221,255)"
+            "color": "#a6ddff"
         }
     },
     "tooltip": {
@@ -456,7 +456,7 @@
     },
     "visualMap": {
         "color": [
-            "rgb(11,23,40)"
+            "#0b1728"
         ]
     },
     "dataZoom": {
@@ -473,12 +473,12 @@
         "label": {
             "normal": {
                 "textStyle": {
-                    "color": "rgb(166,221,255)"
+                    "color": "#a6ddff"
                 }
             },
             "emphasis": {
                 "textStyle": {
-                    "color": "rgb(166,221,255)"
+                    "color": "#a6ddff"
                 }
             }
         }

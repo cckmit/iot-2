@@ -21,7 +21,8 @@
 
     <div class="header-info">
       <span class="header-info--item location">
-        <SvgIcon icon-class="map-place" />&nbsp;浙江省
+        <SvgIcon icon-class="map-place" />
+        &nbsp;{{TopName||'-'}}
       </span>
       <span class="header-info--item">
         <RegionSelect
@@ -33,16 +34,16 @@
           :props="{ label:'Name',parent:'ParentId' }"
         />
       </span>
-      <span class="header-info--item">2020-03-04</span>
-      <span class="header-info--item">20:30</span>
-      <span class="header-info--item">周三</span>
+      <span class="header-info--item">{{CurrentTime | time('yyyy-MM-dd')}}</span>
+      <span class="header-info--item">{{CurrentTime | time('hh:mm')}}</span>
+      <span class="header-info--item">{{CurrentTime | week}}</span>
       <span class="header-info--item">|</span>
       <span class="header-info--item">
         <SvgIcon icon-class="qing" />
       </span>
       <span class="header-info--item">20℃</span>
       <span class="header-info--item">
-        <el-button size="mini" plain type="primary">退出登录</el-button>
+        <el-button @click="logout" size="mini" plain type="primary">退出登录</el-button>
       </span>
     </div>
   </header>
@@ -51,7 +52,7 @@
 <script>
 import RadioSwitch from "@/components/RadioSwitch.vue";
 import RegionSelect from "./RegionSelect/index";
-import { getLocation } from "@/api";
+import { getLocation, logout } from "@/api";
 
 export default {
   components: {
@@ -86,7 +87,10 @@ export default {
       CurrentPlaceType: 1,
 
       //行政区划下拉列表树(可以是扁平化数据)
-      RegionList: []
+      RegionList: [],
+
+      //当前时间信息
+      CurrentTime: new Date()
     };
   },
 
@@ -96,6 +100,7 @@ export default {
         if (res.isSuccess && res.bl) {
           const {
             RegionList,
+            TopName
             // Name,
             // LocationName,
             // LocationCode,
@@ -104,13 +109,34 @@ export default {
           } = res.data.rows;
 
           this.RegionList = RegionList;
+          this.TopName = TopName;
         }
+      });
+    },
+
+    autoUpdateCurrentTime() {
+      setInterval(() => {
+        this.CurrentTime = new Date();
+      }, 5000);
+    },
+
+    logout() {
+      this.$confirm("是否确认登出？", { title: "提醒" }).then(() => {
+        logout().then(res => {
+          if (res.isSuccess && res.bl) {
+            setTimeout(() => {
+              location.replace("/Manage/Login");
+            }, 500);
+          }
+        });
       });
     }
   },
 
   created() {
     this.getLocationInfo();
+
+    this.autoUpdateCurrentTime();
   }
 };
 </script>
