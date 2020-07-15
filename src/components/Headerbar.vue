@@ -26,7 +26,8 @@
       <span class="header-info--item">
         <RegionSelect
           v-model="vCurrentRegions"
-          url="/api/govShow?optionType=location"
+          :data="RegionList"
+          flatData
           nodeKey="Id"
           multiple
           :props="{ label:'Name',parent:'ParentId' }"
@@ -50,6 +51,7 @@
 <script>
 import RadioSwitch from "@/components/RadioSwitch.vue";
 import RegionSelect from "./RegionSelect/index";
+import { getLocation } from "@/api";
 
 export default {
   components: {
@@ -81,8 +83,34 @@ export default {
         }
       ],
 
-      CurrentPlaceType: 1
+      CurrentPlaceType: 1,
+
+      //行政区划下拉列表树(可以是扁平化数据)
+      RegionList: []
     };
+  },
+
+  methods: {
+    getLocationInfo() {
+      getLocation().then(res => {
+        if (res.isSuccess && res.bl) {
+          const {
+            RegionList,
+            // Name,
+            // LocationName,
+            // LocationCode,
+            // LocationLevel,
+            // ZoomLevel
+          } = res.data.rows;
+
+          this.RegionList = RegionList;
+        }
+      });
+    }
+  },
+
+  created() {
+    this.getLocationInfo();
   }
 };
 </script>

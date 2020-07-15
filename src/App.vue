@@ -115,6 +115,10 @@ export default {
     })
   },
 
+  methods: {
+    
+  },
+
   created() {
     // this.$modal({
     //   title: "测试",
@@ -126,9 +130,7 @@ export default {
     //   placement: "center",
     //   component: () => import("@/pages/ModalPage_01.vue")
     // });
-  },
-
-  
+  }
 };
 </script>
 

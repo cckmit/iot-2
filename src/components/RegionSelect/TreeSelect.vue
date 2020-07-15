@@ -205,7 +205,17 @@ export default {
       if (this.url) {
         return this.asyncData;
       } else {
-        return this.data || [];
+        if (this.flatData) {
+          return getTreeByArr(
+            this.data,
+            this.rootId || null,
+            this.nodeKey,
+            this.props.parent,
+            "children"
+          );
+        } else {
+          return this.data || [];
+        }
       }
     },
 

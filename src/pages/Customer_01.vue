@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <div class="chart" ref="pie"></div>
+    <div class="chart" ref="pie" v-loading="loading"></div>
     <div class="table">
       <el-table :data="tableData" :cell-class-name="cellClassName">
         <el-table-column prop="status" min-width="20%" align="center" label="状态"></el-table-column>
@@ -12,22 +12,24 @@
         </el-table-column>
         <el-table-column prop="aaa" min-width="20%" align="right" label="已处理/总数">
           <template v-slot="{row}">
-            <span><span style="color:rgb(26,255,172)">{{row.aaa}}</span>/556</span>
+            <span>
+              <span style="color:rgb(26,255,172)">{{row.handled}}</span>/{{row.all}}
+            </span>
           </template>
         </el-table-column>
       </el-table>
     </div>
-    <el-radio-group class="radio-group" v-model="query.time" @change="refresh">
-      <el-radio-button label="30">近30天</el-radio-button>
-      <el-radio-button label="60">近60天</el-radio-button>
-      <el-radio-button label="90">近90天</el-radio-button>
-      <el-radio-button label="120">近120天</el-radio-button>
+    <el-radio-group class="radio-group" v-model="query.days" @change="refresh">
+      <el-radio-button :label="30">近30天</el-radio-button>
+      <el-radio-button :label="60">近60天</el-radio-button>
+      <el-radio-button :label="90">近90天</el-radio-button>
+      <el-radio-button :label="120">近120天</el-radio-button>
     </el-radio-group>
   </div>
 </template>
 
 <script>
-import echarts, { colors } from "@/plugins/echarts";
+import echarts, { colorMap } from "@/plugins/echarts";
 import { getCustomerOperation } from "@/api";
 
 //页面内容：单位运行情况
@@ -42,11 +44,18 @@ export default {
       tableData: [],
 
       query: {
-        time: "30"
+        days: 30
       },
 
+      loading: false,
+
       pieOption: {
-        color: colors,
+        color: [
+          colorMap.normal,
+          colorMap.warning,
+          colorMap.error,
+          colorMap.both
+        ],
         legend: {
           show: false
         },
@@ -63,7 +72,7 @@ export default {
             left: "center",
             top: "40%",
             style: {
-              text: `59`,
+              text: `0`,
               fontSize: this.$root.getNumberByRem("20rem"),
               fontWeight: "bold",
               textAlign: "center",
@@ -154,30 +163,75 @@ export default {
     },
 
     refresh() {
-      getCustomerOperation().then(data => {
-        this.vm = data.data;
+      this.loading = true;
+      getCustomerOperation(this.query.days)
+        .then(res => {
+          this.vm = res.data;
 
-        this.renderPie();
-        this.renderTable();
-      });
+          this.loading = false;
+
+          this.renderPie();
+          this.renderTable();
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
 
     renderPie() {
+      const { both, normal, error, warning, total } = this.vm;
+
       const data = [
-        { name: "项目申报", value: 3 },
-        { name: "项目初审", value: 3 },
-        { name: "项目上会", value: 3 },
-        { name: "协议签订", value: 3 },
-        { name: "项目代办", value: 3 },
-        { name: "项目服务", value: 3 }
+        { name: "正常", value: normal || 0 },
+        { name: "仅报警", value: warning || 0 },
+        { name: "仅故障", value: error || 0 },
+        { name: "报警且故障", value: both || 0 }
       ];
 
       this.pieOption.series[0].data = data;
       this.pieOption.series[1].data = data;
+      this.pieOption.graphic[0].style.text = total;
       this.pie.setOption(this.pieOption);
     },
     renderTable() {
-      this.tableData = this.vm.rows;
+      const {
+        both,
+        bothAll,
+        bothHandled,
+        error,
+        errorAll,
+        errorHandled,
+        warning,
+        warningAll,
+        warningHandled,
+        total
+      } = this.vm;
+
+      const rows = [
+        {
+          status: "仅报警",
+          count: warning,
+          progress: !warningAll ? 0 : warningHandled / warningAll,
+          all: warningAll,
+          handled: warningHandled
+        },
+        {
+          status: "仅故障",
+          count: error,
+          progress: !errorAll ? 0 : errorHandled / errorAll,
+          all: errorAll,
+          handled: errorHandled
+        },
+        {
+          status: "报警且故障",
+          count: both,
+          progress: !bothAll ? 0 : bothHandled / bothAll,
+          all: bothAll,
+          handled: bothHandled
+        }
+      ];
+
+      this.tableData = rows;
     }
   },
 
@@ -203,8 +257,8 @@ export default {
     width: 75%;
     padding-top: 0.1rem;
 
-    td *{
-      font-size: .12rem;
+    td * {
+      font-size: 0.12rem;
     }
   }
 

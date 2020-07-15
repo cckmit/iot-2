@@ -41,3 +41,11 @@ colors2.toAlpha = function (n) {
         return `${i.substring(0, i.length - 1)},${n})`
     })
 }
+
+//色板映射表
+export const colorMap = {
+    warning: 'rgb(255,211,102)',
+    both: 'rgb(109,106,239)',
+    error: 'rgb(255,108,126)',
+    normal: 'rgb(15,216,177)',
+}
