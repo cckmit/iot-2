@@ -9,7 +9,7 @@ import { colorMap } from "@/plugins/echarts";
 import ChartBar from "@/components/Chart/ChartBar.vue";
 import { getRandomData } from "@/util";
 
-//页面内容：本年度单位运行情况
+//页面内容：各行业单位运行趋势图
 export default {
   name: "Industry_02",
 

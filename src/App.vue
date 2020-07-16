@@ -41,7 +41,9 @@
             <ColumnItem width="25%" title="各设备数量" boldTitle>
               <Equipment_01 />
             </ColumnItem>
-            <ColumnItem width="20%" title="设备在线率" boldTitle></ColumnItem>
+            <ColumnItem width="20%" title="设备在线率" boldTitle>
+              <Equipment_02 />
+            </ColumnItem>
             <ColumnItem width="55%" title="各设备运行趋势图" boldTitle></ColumnItem>
           </template>
         </template>

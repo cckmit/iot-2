@@ -8,7 +8,7 @@
 import ChartPie from "@/components/Chart/ChartPie.vue";
 // import { getIndustryCustomerRate } from "@/api";
 
-//页面内容：各行业单位占比数
+//页面内容：各行业单位数占比
 export default {
   components: {
     ChartPie
@@ -32,7 +32,7 @@ export default {
         radius: ["53%", "70%"],
         center: ["10%", "50%"],
         legendShow: true,
-        titleShow: true,
+        titleShow: true
       }
     };
   },

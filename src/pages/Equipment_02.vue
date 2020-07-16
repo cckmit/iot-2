@@ -1,17 +1,15 @@
 <template>
   <div class="page">
-    <ChartPie :data="data" :loading="loading" :settings="settings" />
+    <ChartRadar :data="data" :loading="loading" :settings="settings" />
   </div>
 </template>
 
 <script>
-import ChartPie from "@/components/Chart/ChartPie.vue";
-// import { getIndustryCustomerRate } from "@/api";
+import ChartRadar from "@/components/Chart/ChartRadar.vue";
 
-//页面内容：各设备数量
 export default {
   components: {
-    ChartPie
+    ChartRadar
   },
 
   data() {
@@ -26,18 +24,7 @@ export default {
       return {
         metrics: "Count",
         dimension: "Name",
-        title: this.data.length,
-        unit: "类",
-        subtitle: "设备类型",
-        titlePosition: {
-          left: "18.6%",
-          top: "35%"
-        },
-        radius: ["50%", "65%"],
-        center: ["20%", "50%"],
-        legendShow: true,
-        titleShow: true,
-        legendPreset: 2
+        name: "设备在线率"
       };
     }
   },
@@ -46,17 +33,6 @@ export default {
     refresh() {
       this.loading = true;
 
-      // getIndustryCustomerRate()
-      //   .then(res => {
-      //     if (res.bl) {
-
-      //     }
-
-      //     this.loading = false;
-      //   })
-      //   .catch(() => {
-      //     this.loading = false;
-      //   });
       const data = [
         {
           Count: 10,
