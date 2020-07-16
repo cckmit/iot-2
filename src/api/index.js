@@ -34,6 +34,13 @@ export function getCustomerOperationYear() {
 }
 
 /**
+ * 行业- 各行业单位数占比(原report2)
+ */
+export function getIndustryCustomerRate() {
+    return http.get(`${baseApi}?optionType=industryCustomerRate`);
+}
+
+/**
  * 登出
  */
 export function logout() {

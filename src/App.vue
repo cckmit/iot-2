@@ -27,7 +27,13 @@
           </template>
 
           <!-- 行业 -->
-          <template v-if="CurrentDiskSubMenu==='INDUSTRY'">行业</template>
+          <template v-if="CurrentDiskSubMenu==='INDUSTRY'">
+            <ColumnItem title="各行业单位数占比" boldTitle>
+              <Industry_01></Industry_01>
+            </ColumnItem>
+            <ColumnItem title="各行业单位运行趋势图" boldTitle>
+            </ColumnItem>
+          </template>
 
           <!-- 设备 -->
           <template v-if="CurrentDiskSubMenu==='EQUIPMENT'">设备</template>
@@ -115,9 +121,7 @@ export default {
     })
   },
 
-  methods: {
-    
-  },
+  methods: {},
 
   created() {
     // this.$modal({

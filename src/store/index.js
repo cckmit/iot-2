@@ -10,7 +10,7 @@ export default new Vuex.Store({
     CurrentRegions: [],
 
     //当前活跃的圆盘菜单项(数据图表:CHART, 场所搜索:PLACE_SEARCH)
-    CurrentDiskMenu: '',
+    CurrentDiskMenu: 'CHART',
 
     //当前活跃的圆盘子菜单项(单位:CUSTOMER, 行业:INDUSTRY, 设备:EQUIPMENT)
     CurrentDiskSubMenu: '',
