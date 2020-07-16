@@ -193,7 +193,9 @@ export default {
       this.pieOption.series[1].data = data;
       this.pieOption.graphic[0].style.text = total;
       this.pie.setOption(this.pieOption);
+      this.pie.resize();
     },
+
     renderTable() {
       const {
         both,
@@ -237,7 +239,6 @@ export default {
 
   mounted() {
     this.pie = echarts.init(this.$refs.pie, "xiyu");
-    this.pie.setOption(this.pieOption);
 
     this.refresh();
   }
@@ -250,11 +251,13 @@ export default {
   height: 100%;
   .chart {
     height: 100%;
-    width: 25%;
+    // width: 25%;
+    flex: 25%;
   }
   .table {
     height: 100%;
-    width: 75%;
+    flex: 75%;
+    // width: 75%;
     padding-top: 0.1rem;
 
     td * {

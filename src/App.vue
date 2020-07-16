@@ -28,15 +28,22 @@
 
           <!-- 行业 -->
           <template v-if="CurrentDiskSubMenu==='INDUSTRY'">
-            <ColumnItem title="各行业单位数占比" boldTitle>
+            <ColumnItem width="40%" title="各行业单位数占比" boldTitle>
               <Industry_01></Industry_01>
             </ColumnItem>
-            <ColumnItem title="各行业单位运行趋势图" boldTitle>
+            <ColumnItem width="60%" title="各行业单位运行趋势图" boldTitle>
+              <Industry_02></Industry_02>
             </ColumnItem>
           </template>
 
           <!-- 设备 -->
-          <template v-if="CurrentDiskSubMenu==='EQUIPMENT'">设备</template>
+          <template v-if="CurrentDiskSubMenu==='EQUIPMENT'">
+            <ColumnItem width="25%" title="各设备数量" boldTitle>
+              <Equipment_01 />
+            </ColumnItem>
+            <ColumnItem width="20%" title="设备在线率" boldTitle></ColumnItem>
+            <ColumnItem width="55%" title="各设备运行趋势图" boldTitle></ColumnItem>
+          </template>
         </template>
 
         <!-- 场所搜索 -->

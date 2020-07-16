@@ -904,7 +904,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         vertical-align: middle;
 
         .percentbar__inner {
-            transition: all .2s ease;
+            transition: all 0.2s ease;
             height: 100%;
             border-right: 0.04rem solid rgb(26, 146, 255);
             background: linear-gradient(to right, rgba(rgb(26, 146, 255), 0), rgba(rgb(26, 146, 255), 0.3));

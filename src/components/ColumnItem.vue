@@ -34,12 +34,10 @@ export default {
   computed: {
     style() {
       return {
-        width: this.width
+        flex: this.width
+        // width: this.width
       };
     }
   }
 };
 </script>
-
-<style>
-</style>

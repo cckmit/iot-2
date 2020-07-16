@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <ChartBar :loading="loading" :rows="rows" :columns="columns" :dimension="dimension" />
+    <ChartBar :loading="loading" :rows="rows" :columns="columns" :settings="settings" />
   </div>
 </template>
 
@@ -33,7 +33,9 @@ export default {
       loading: false,
       rows: [],
       columns: [],
-      dimension: ["month"]
+      settings: {
+        dimension: ["month"]
+      }
     };
   },
 

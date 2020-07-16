@@ -40,40 +40,7 @@ export default {
             fontSize: this.$root.getNumberByRem("14rem")
           }
         },
-        legend: [
-          {
-            data: [],
-            top:'8%',
-            left: "30%",
-            width: "30%",
-            textStyle: {
-              rich: {
-                a: {
-                  color: "#fff"
-                }
-              }
-            },
-            itemWidth: this.$root.getNumberByRem("18rem"),
-            itemHeight: this.$root.getNumberByRem("10rem"),
-            itemGap: this.$root.getNumberByRem("16rem")
-          },
-          {
-            data: [],
-            top:'8%',
-            left: "60%",
-            width: "30%",
-            textStyle: {
-              rich: {
-                a: {
-                  color: "#fff"
-                }
-              }
-            },
-            itemWidth: this.$root.getNumberByRem("18rem"),
-            itemHeight: this.$root.getNumberByRem("10rem"),
-            itemGap: this.$root.getNumberByRem("16rem")
-          }
-        ],
+        legend: [],
         tooltip: {
           show: true,
           formatter: "{b}：{c} ({d}%)",
@@ -146,7 +113,7 @@ export default {
 
   methods: {
     refresh() {
-      const { dimension, metrics } = this.settings;
+      const { dimension, metrics, legendPreset } = this.settings;
 
       //处理数据格式
       const data = this.data.map((i, index) => {
@@ -163,10 +130,11 @@ export default {
 
       this.handleTitle();
 
-      this.handleLegend(data);
+      this.handleLegend(data, legendPreset);
 
       if (this.pie) {
         this.pie.setOption(this.pieOption);
+        this.pie.resize();
       }
     },
 
@@ -200,8 +168,52 @@ export default {
       this.pieOption.title.left = titlePosition.left;
     },
 
-    //自定义图列显示
-    handleLegend(data) {
+    //根据legendPreset处理不同图表需求
+    handleLegend(data, legendPreset = 1) {
+      if (legendPreset == 1) {
+        this.legendPreset1Handler_1(data);
+      } else if (legendPreset == 2) {
+        this.legendPreset1Handler_2(data);
+      }
+    },
+
+    //自定义图列显示-样式1
+    legendPreset1Handler_1(data) {
+      this.pieOption.legend = [
+        {
+          data: [],
+          top: "8%",
+          left: "30%",
+          width: "30%",
+          textStyle: {
+            rich: {
+              a: {
+                color: "#fff"
+              }
+            }
+          },
+          itemWidth: this.$root.getNumberByRem("18rem"),
+          itemHeight: this.$root.getNumberByRem("10rem"),
+          itemGap: this.$root.getNumberByRem("16rem")
+        },
+        {
+          data: [],
+          top: "8%",
+          left: "65%",
+          width: "30%",
+          textStyle: {
+            rich: {
+              a: {
+                color: "#fff"
+              }
+            }
+          },
+          itemWidth: this.$root.getNumberByRem("18rem"),
+          itemHeight: this.$root.getNumberByRem("10rem"),
+          itemGap: this.$root.getNumberByRem("16rem")
+        }
+      ];
+
       const { legendShow } = this.settings;
 
       this.pieOption.legend[0].show = legendShow;
@@ -237,16 +249,77 @@ export default {
       this.pieOption.legend[0].data = legendData0;
       this.pieOption.legend[1].formatter = legendFormatter;
       this.pieOption.legend[1].data = legendData1;
+    },
+
+    //自定义图列显示-样式2
+    legendPreset1Handler_2(data) {
+      this.pieOption.legend = [
+        {
+          type: "scroll",
+          orient: "vertical",
+          data: [],
+          top: "5%",
+          left: "52%",
+          height: "80%",
+          textStyle: {
+            rich: {
+              a: {
+                color: "#fff"
+              }
+            }
+          },
+          // backgroundColor: "pink",
+          itemWidth: this.$root.getNumberByRem("20rem"),
+          itemHeight: this.$root.getNumberByRem("10rem"),
+          itemGap: this.$root.getNumberByRem("12rem"),
+          pageIconColor: "rgba(255,255,255,.3)",
+          pageIconInactiveColor: "rgba(255,255,255,.1)",
+          pageTextStyle: {
+            color: "rgba(255,255,255,.3)"
+          },
+          pageIconSize: this.$root.getNumberByRem("10rem")
+        }
+      ];
+
+      const { legendShow } = this.settings;
+
+      this.pieOption.legend[0].show = legendShow;
+
+      if (legendShow != true) {
+        return;
+      }
+
+      const total = data.reduce((pre, cur) => {
+        return pre + cur.value;
+      }, 0);
+      const legendFormatter = function(name) {
+        let item = data.find(i => i.name === name);
+
+        let percentTxt = total
+          ? (item.value / total).toFixed(2) + "%"
+          : "0.00%";
+
+        return `${name}  {a|${item.value}}     ${percentTxt}`;
+      };
+
+      this.pieOption.legend[0].formatter = legendFormatter;
+      this.pieOption.legend[0].data = data.map(i => i.name);
+    },
+
+    onWindowResize() {
+      this.pie.resize();
     }
   },
 
   mounted() {
-    this.$nextTick(() => {
-      this.pie = echarts.init(this.$refs.pie, "xiyu");
-      this.pie.setOption(this.pieOption);
+    this.pie = echarts.init(this.$refs.pie, "xiyu");
+    window.addEventListener("resize", this.onWindowResize);
 
-      this.refresh();
-    });
+    this.refresh();
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onWindowResize);
   }
 };
 </script>

@@ -144,8 +144,6 @@ const mockList = [
         }
     },
 
-
-
     {
         //行业-各行业单位数占比(原report2)
         url: `${baseApi}?optionType=industryCustomerRate`,

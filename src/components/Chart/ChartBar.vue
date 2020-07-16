@@ -15,8 +15,8 @@ export default {
     rows: Array,
     //数据列
     columns: Array,
-    //维度
-    dimension: Array
+    //配置项
+    settings: {}
   },
 
   data() {
@@ -119,7 +119,7 @@ export default {
       },
       deep: true
     },
-    dimension: {
+    settings: {
       handler() {
         this.refresh();
       },
@@ -175,17 +175,29 @@ export default {
 
       this.barOption.series = series;
 
-      this.barOption.xAxis[0].data = this.rows.map(i => i[this.dimension[0]]);
+      this.barOption.xAxis[0].data = this.rows.map(
+        i => i[this.settings.dimension[0]]
+      );
 
-      this.bar.setOption(this.barOption);
+      if (this.bar) {
+        this.bar.setOption(this.barOption);
+        this.bar.resize();
+      }
+    },
+
+    onWindowResize() {
+      this.bar.resize();
     }
   },
 
   mounted() {
     this.bar = echarts.init(this.$refs.bar, "xiyu");
-    this.bar.setOption(this.barOption);
-
     this.refresh();
+    window.addEventListener("resize", this.onWindowResize);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onWindowResize);
   }
 };
 </script>
