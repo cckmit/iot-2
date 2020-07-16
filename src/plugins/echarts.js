@@ -14,9 +14,9 @@ export const colors = [
     'rgb(236,212,144)',
     'rgb(123,179,106)',
     'rgb(62,191,255)',
-    'rgb(62,191,255)',
     'rgb(14,118,204)',
     'rgb(135,201,188)',
+    'rgb(65,84,117)',
     'rgb(65,84,117)',
 ]
 colors.toAlpha = function (n) {

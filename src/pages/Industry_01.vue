@@ -1,13 +1,6 @@
 <template>
   <div class="page">
-    <ChartPie
-      :data="data"
-      metrics="Count"
-      dimension="Name"
-      :loading="loading"
-      :title="10"
-      subtitle="行业总数"
-    />
+    <ChartPie :data="data" :loading="loading" :settings="settings" />
   </div>
 </template>
 
@@ -24,7 +17,23 @@ export default {
   data() {
     return {
       data: [],
-      loading: false
+      loading: false,
+
+      settings: {
+        metrics: "Count",
+        dimension: "Name",
+        title: "10",
+        unit: "类",
+        subtitle: "行业总数",
+        titlePosition: {
+          left: "9.5%",
+          top: "35%"
+        },
+        radius: ["53%", "70%"],
+        center: ["10%", "50%"],
+        legendShow: true,
+        titleShow: true
+      }
     };
   },
 
