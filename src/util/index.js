@@ -35,3 +35,19 @@ export function getRandomData(param) {
     }
     return result;
 }
+
+/**
+ * 数组分组
+ * @param {array} data 源数组
+ * @param {number} num 分组之后每个数组的长度
+ */
+export function arrayGroup(data, num) {
+
+    var result = [];
+
+    for (var i = 0, len = data.length; i < len; i += num) {
+        result.push(data.slice(i, i + num));
+    }
+
+    return result;
+}

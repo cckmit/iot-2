@@ -44,12 +44,18 @@
             <ColumnItem width="20%" title="设备在线率" boldTitle>
               <Equipment_02 />
             </ColumnItem>
-            <ColumnItem width="55%" title="各设备运行趋势图" boldTitle></ColumnItem>
+            <ColumnItem width="55%" title="各设备运行趋势图" boldTitle>
+              <Equipment_03 />
+            </ColumnItem>
           </template>
         </template>
 
         <!-- 场所搜索 -->
-        <template v-if="CurrentDiskMenu==='PLACE_SEARCH'">场所搜索</template>
+        <template v-if="CurrentDiskMenu==='PLACE_SEARCH'">
+          <ColumnItem title="场所搜索" boldTitle>
+            <PlaceSearch />
+          </ColumnItem>
+        </template>
       </FooterBox>
 
       <DiskMenu

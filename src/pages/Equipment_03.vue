@@ -11,8 +11,6 @@ import { getRandomData } from "@/util";
 
 //页面内容：各行业单位运行趋势图
 export default {
-  name: "Industry_02",
-
   components: {
     ChartBar
   },
@@ -58,61 +56,43 @@ export default {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "饭店超市"
+          Name: "设备1"
         },
         {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "市场楼宇"
+          Name: "设备2"
         },
         {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "娱乐场所"
+          Name: "设备3"
         },
         {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "福利机构"
+          Name: "设备4"
         },
         {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "金融机构"
+          Name: "设备5"
         },
         {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "危化品场所"
+          Name: "设备6"
         },
         {
           warning: getRandomData({ min: 10, max: 500 }),
           error: getRandomData({ min: 10, max: 500 }),
           both: getRandomData({ min: 10, max: 500 }),
-          Name: "出租房"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "文教医院"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "生产制造业"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "其它"
+          Name: "设备7"
         }
       ];
 

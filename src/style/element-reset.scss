@@ -161,8 +161,8 @@
     .el-message-box__header {
         padding: 0.15rem 0.15rem 0.1rem;
     }
-    .el-message-box__title{
-        font-size: .18rem;
+    .el-message-box__title {
+        font-size: 0.18rem;
     }
 
     .el-message-box__content {
@@ -186,7 +186,7 @@
     border-width: 0.01rem;
     font-size: 0.12rem;
     border-radius: 0.03rem;
-    padding: 0.09rem 0.15rem;
+    padding: 0.06rem 0.15rem;
 }
 
 .el-button--default {
@@ -207,5 +207,51 @@
     &:active {
         background: #1d5794;
         border-color: #1d5794;
+    }
+}
+
+.el-input {
+    .el-input__inner {
+        background: rgb(14, 19, 25);
+        border-width: 0.015rem;
+        border-color: rgb(60, 69, 76);
+        border-radius: 0.06rem;
+        padding: 0 0.15rem;
+        height: 0.26rem;
+        line-height: 0.26rem;
+        color: rgba(166, 221, 255, 0.7);
+        min-width: 2rem;
+        font-size: .14rem;
+        font-weight: bold;
+
+        &::-webkit-input-placeholder {
+            color: rgb(60, 69, 76);
+        }
+
+        &:hover,
+        &:active {
+            border-color: rgb(60, 69, 76);
+        }
+    }
+}
+
+.el-select {
+    .el-input {
+        &.is-focus {
+            .el-input__inner {
+                border-color: rgb(60, 69, 76);
+            }
+        }
+
+        .el-select__caret {
+            font-size: .16rem;
+            width: .3rem;
+            opacity: .8;
+            line-height:.26rem;
+            color: rgb(76, 164, 252);
+            &:before {
+                content: "\e78f";
+            }
+        }
     }
 }
