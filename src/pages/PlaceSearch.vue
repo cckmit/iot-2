@@ -2,7 +2,9 @@
   <div class="building-search">
     <el-form class="building-search__searchbar" v-model="query" inline>
       <el-form-item prop="projectName">
-        <el-select v-model="query.projectName" placeholder="请选择项目名称" clearable></el-select>
+        <el-select v-model="query.projectName" placeholder="请选择项目名称" clearable>
+          <el-option v-for="i in projectSelection" v-bind="i" :key="i.value"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item prop="placeName">
         <el-input v-model="query.placeName" placeholder="请输入场所名称" clearable></el-input>
@@ -81,7 +83,15 @@ export default {
         { name: "沈河区第二中医院", img: "" }
       ],
 
-      query: {}
+      query: {},
+
+      projectSelection: [
+        { label: "是德国", value: "2435" },
+        { label: "的风格和你", value: "sfdbgf" },
+        { label: "须符合规范", value: "dfhfh" },
+        { label: "都符合人", value: "erherh" },
+        { label: "千万人欧阳", value: "sdvd" }
+      ]
     };
   },
 
