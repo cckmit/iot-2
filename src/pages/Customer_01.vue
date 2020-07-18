@@ -1,6 +1,8 @@
 <template>
   <div class="page">
-    <div class="chart" ref="pie" v-loading="loading"></div>
+    <div class="chart">
+      <ChartPie :data="chartData" :loading="loading" :settings="chartSettings" />
+    </div>
     <div class="table" v-loading="loading">
       <el-table
         :data="tableData"
@@ -35,17 +37,39 @@
 </template>
 
 <script>
-import echarts, { colorMap } from "@/plugins/echarts";
 import { getCustomerOperation } from "@/api";
+import ChartPie from "@/components/Chart/ChartPie.vue";
+import { colorMap } from "@/plugins/echarts";
 
 //页面内容：单位运行情况
 export default {
-  name: "Customer_01",
+  components: {
+    ChartPie
+  },
+
   data() {
     return {
       pie: null,
 
       vm: {},
+
+      chartData: [],
+
+      chartSettings: {
+        metrics: "value",
+        dimension: "name",
+        title: "0",
+        unit: "个",
+        subtitle: "接入总数",
+        titlePosition: {
+          left: "36%",
+          top: "35%"
+        },
+        radius: ["53%", "70%"],
+        center: ["38%", "50%"],
+        legendShow: false,
+        titleShow: true
+      },
 
       tableData: [],
 
@@ -53,105 +77,7 @@ export default {
         days: 30
       },
 
-      loading: false,
-
-      pieOption: {
-        color: [
-          colorMap.normal,
-          colorMap.warning,
-          colorMap.error,
-          colorMap.both
-        ],
-        legend: {
-          show: false
-        },
-        tooltip: {
-          show: true,
-          formatter: "{b}：{c} ({d}%)",
-          textStyle: {
-            fontSize: this.$root.getNumberByRem("14rem")
-          }
-        },
-        graphic: [
-          {
-            type: "text",
-            left: "center",
-            top: "40%",
-            style: {
-              text: `0`,
-              fontSize: this.$root.getNumberByRem("20rem"),
-              fontWeight: "bold",
-              textAlign: "center",
-              fill: "#fff"
-            }
-          },
-          {
-            type: "text",
-            left: "center",
-            top: "55%",
-            style: {
-              text: `接入总数`,
-              textAlign: "center",
-              fontSize: this.$root.getNumberByRem("12rem"),
-              fill: "rgba(255,255,255,0.8)"
-            }
-          }
-        ],
-        series: [
-          {
-            type: "pie",
-            selectedMode: false,
-            // selectedOffset: this.$root.getNumberByRem("10rem"),
-            radius: ["50%", "75%"],
-            label: {
-              normal: {
-                show: false,
-                position: "inside",
-                textStyle: {
-                  color: "#fff",
-                  fontSize: this.$root.getNumberByRem("16rem")
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            itemStyle: {
-              normal: {
-                opacity: 0.4
-              },
-              emphasis: {
-                opacity: 1
-              }
-            },
-            data: []
-          },
-          {
-            type: "pie",
-            selectedMode: false,
-            // selectedMode: "single",
-            // selectedOffset: 0,
-            hoverAnimation: false,
-            radius: ["75%", "80%"],
-            label: {
-              normal: {
-                show: false,
-                textStyle: {
-                  color: "rgb(0,0,0,0)"
-                }
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: []
-          }
-        ]
-      }
+      loading: false
     };
   },
 
@@ -189,18 +115,34 @@ export default {
       const { both, normal, error, warning, total } = this.vm;
 
       const data = [
-        { name: "正常", category: 4, value: normal || 0 },
-        { name: "仅报警", category: 1, value: warning || 0 },
-        { name: "仅故障", category: 2, value: error || 0 },
-        { name: "报警且故障", category: 3, value: both || 0 }
+        {
+          name: "正常",
+          category: 4,
+          value: normal || 0,
+          color: colorMap.normal
+        },
+        {
+          name: "仅报警",
+          category: 1,
+          value: warning || 0,
+          color: colorMap.warning
+        },
+        {
+          name: "仅故障",
+          category: 2,
+          value: error || 0,
+          color: colorMap.error
+        },
+        {
+          name: "报警且故障",
+          category: 3,
+          value: both || 0,
+          color: colorMap.both
+        }
       ];
 
-      this.pieOption.series[0].data = data;
-      this.pieOption.series[1].data = data;
-      this.pieOption.graphic[0].style.text = total;
-      this.pie.setOption(this.pieOption);
-      this.pie.on("click", this.onPieClick);
-      this.pie.resize();
+      this.chartSettings.title = total;
+      this.chartData = data;
     },
 
     renderTable() {
@@ -269,8 +211,6 @@ export default {
   },
 
   mounted() {
-    this.pie = echarts.init(this.$refs.pie, "xiyu");
-
     this.refresh();
   }
 };
@@ -284,6 +224,7 @@ export default {
     height: 100%;
     // width: 25%;
     flex: 25%;
+    position: relative;
   }
   .table {
     height: 100%;

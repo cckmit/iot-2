@@ -12,7 +12,8 @@ export default {
     loading: Boolean,
     data: Array,
     settings: {},
-    onClick: Function
+    onClick: Function,
+    color: {}
   },
 
   data() {
@@ -122,10 +123,12 @@ export default {
           name: i[dimension],
           value: i[metrics],
           itemStyle: {
-            color: colors[index]
+            color: i.color || colors[index]
           }
         };
       });
+
+      console.log(data);
 
       this.handleSeries(data);
 

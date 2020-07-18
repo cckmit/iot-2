@@ -30,10 +30,10 @@ export default {
         unit: "类",
         subtitle: "设备类型",
         titlePosition: {
-          left: "18.6%",
+          left: "17.6%",
           top: "35%"
         },
-        radius: ["50%", "65%"],
+        radius: ["53%", "70%"],
         center: ["20%", "50%"],
         legendShow: true,
         titleShow: true,

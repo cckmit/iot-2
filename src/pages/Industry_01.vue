@@ -26,11 +26,11 @@ export default {
         unit: "类",
         subtitle: "行业总数",
         titlePosition: {
-          left: "9.5%",
+          left: "11.3%",
           top: "35%"
         },
         radius: ["53%", "70%"],
-        center: ["10%", "50%"],
+        center: ["12.2%", "50%"],
         legendShow: true,
         titleShow: true
       }
