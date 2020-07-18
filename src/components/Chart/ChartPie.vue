@@ -11,7 +11,8 @@ export default {
   props: {
     loading: Boolean,
     data: Array,
-    settings: {}
+    settings: {},
+    onClick: Function
   },
 
   data() {
@@ -132,9 +133,19 @@ export default {
 
       this.handleLegend(data, legendPreset);
 
+      this.handleEvents();
+
       if (this.pie) {
         this.pie.setOption(this.pieOption);
         this.pie.resize();
+      }
+    },
+
+    handleEvents() {
+      if (this.onClick && typeof this.onClick === "function") {
+        this.pie.on("click", this.onClick);
+      } else {
+        this.pie.off("click");
       }
     },
 

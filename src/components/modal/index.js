@@ -49,6 +49,7 @@ Modal.install = (Vue, opt = {}) => {
             width,
             placement,
             visible: false,
+            openImmediately: open,
             actions,
             btns,
             beforeClose,

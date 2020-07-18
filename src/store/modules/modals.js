@@ -19,6 +19,15 @@ const mutations = {
         state.modal_list.push(modal);
     },
 
+    UPDATE_MODAL(state, { modal, index }) {
+
+        const oldModal = state.modal_list[index];
+
+        for (const key in oldModal) {
+            oldModal[key] = modal[key];
+        }
+    },
+
     DELETE_MODAL(state, index) {
         state.modal_list.splice(index, 1);
     },
@@ -70,9 +79,47 @@ const mutations = {
 
 const actions = {
     add({
-        commit
+        commit,
+        state
     }, modal) {
-        commit('ADD_MODAL', modal);
+        //id相同的modal的索引
+        const sameIndex = state.modal_list.findIndex(i => i.id === modal.id);
+
+        //如果存在相同，则更新
+        if (sameIndex < 0) {
+            commit('ADD_MODAL', modal);
+        }
+        //否则，添加modal
+        else {
+            if (modal.openImmediately === true) {
+                modal.visible = true;
+            }
+
+            commit('UPDATE_MODAL', { modal, index: sameIndex });
+        }
+    },
+
+    refresh({ commit }, modal) {
+        const index = getIndexByModal(modal);
+
+        if (index == -1) return;
+
+        const { component, title, data } = modal;
+
+        commit('SET_TITLE', {
+            index,
+            title
+        })
+
+        commit('SET_DATA', {
+            index,
+            data
+        })
+
+        commit('SET_COMPONENT', {
+            index,
+            component
+        })
     },
 
     open({

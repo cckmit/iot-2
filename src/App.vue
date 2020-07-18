@@ -69,6 +69,7 @@
     <!-- 调试层 -->
     <Layer :index="99">
       <div class="debug" v-show="debug">
+        <pre>modal_list:{{modal_list}}</pre>
         <pre>CurrentRegions:{{CurrentRegions}}</pre>
         <pre>CurrentDiskMenu:{{CurrentDiskMenu}}</pre>
         <pre>CurrentDiskSubMenu:{{CurrentDiskSubMenu}}</pre>
@@ -94,8 +95,6 @@ import ColumnItem from "@/components/ColumnItem";
 Vue.component(ColumnItem.name, ColumnItem);
 import Percentbar from "@/components/Percentbar";
 Vue.component(Percentbar.name, Percentbar);
-import VeCharts from "v-charts";
-Vue.use(VeCharts);
 
 import Layer from "@/components/Layer.vue";
 import Map from "@/components/Map";
@@ -128,6 +127,7 @@ export default {
 
   computed: {
     ...mapState({
+      modal_list: state => state.modal.modal_list,
       CurrentRegions: state => state.CurrentRegions,
       CurrentDiskMenu: state => state.CurrentDiskMenu,
       CurrentDiskSubMenu: state => state.CurrentDiskSubMenu,

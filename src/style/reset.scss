@@ -15,17 +15,17 @@ li {
 }
 
 ::-webkit-scrollbar {
-    width: 0.06rem;
-    height: 0.06rem;
+    width: 0.1rem;
+    height: 0.1rem;
 }
 ::-webkit-scrollbar-track {
-    background-color: rgb(12, 26, 36);
+    background-color: rgb(20,37,53);
 }
 ::-webkit-scrollbar-corner {
-    background-color: rgb(12, 26, 36);
+    background-color: rgb(20,37,53);
 }
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(46, 85, 107);
+    background-color: rgb(24,78,122); 
 }
 
 .iconfont {

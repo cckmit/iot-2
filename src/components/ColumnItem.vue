@@ -1,6 +1,6 @@
 <template>
-  <div class="column-item" :class="'column-item--'+direction" :style="style">
-    <div class="column-item--header">
+  <div class="column-item" :class="['column-item--'+direction,smallTitle?'column-item--sm-title':'']" :style="style">
+    <div class="column-item--header" :style="headerStyle">
       <span
         class="column-item--title"
         :style="boldTitle?'font-weight:bold':''"
@@ -10,7 +10,7 @@
         <span>{{title}}</span>
       </span>
     </div>
-    <div class="column-item--body">
+    <div class="column-item--body" :style="bodyStyle">
       <slot />
     </div>
   </div>
@@ -28,7 +28,10 @@ export default {
       default: "vertical"
     },
     superTitle: Boolean,
-    boldTitle: Boolean
+    boldTitle: Boolean,
+    smallTitle: Boolean,
+    headerStyle: {},
+    bodyStyle: {}
   },
 
   computed: {

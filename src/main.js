@@ -21,11 +21,15 @@ String.prototype.toAlpha = function (n) {
 import Vue from 'vue';
 import App from './App.vue';
 import store from './store';
+
 import ElementUI from 'element-ui';
 import '@/style/element-theme/theme/index.css';
-import '@/style/main.scss';
 Vue.use(ElementUI);
+
+import '@/plugins/fx-table';
+
 import '@/filters';
+import '@/style/main.scss';
 
 Vue.config.productionTip = false
 // import '@/mock';

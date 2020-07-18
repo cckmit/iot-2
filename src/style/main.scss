@@ -452,9 +452,10 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
             }
 
             .el-dialog__body {
-                padding: 0.34rem 0.24rem 0.24rem 0.24rem;
+                padding: 0.1rem 0.24rem 0.24rem 0.24rem;
                 transition: height ease 0.2s;
                 height: calc(100vh - 7vh - 2.3rem);
+                overflow-y: auto;
             }
         }
     }
@@ -805,7 +806,19 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     padding: 0 0.4rem;
     flex-direction: column;
 
-    &.super-title {
+    &.column-item--sm-title {
+        .column-item--header {
+            .column-item--supertitle {
+                span {
+                    font-size: 0.16rem;
+                }
+
+                &:before,
+                &:after {
+                    border-bottom: none;
+                }
+            }
+        }
     }
 
     &:first-child {
@@ -831,7 +844,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     }
 
     .column-item--header {
-        height: 22%;
+        height: 0.5rem;
         display: flex;
         align-items: center;
         .column-item--title {
@@ -890,6 +903,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     }
     .column-item--body {
         flex: 1;
+        height: calc(100% - 0.5rem);
     }
 }
 
@@ -943,19 +957,51 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
 //
 .color-1 {
+    color: rgb(255, 209, 118);
     * {
         color: rgb(255, 209, 118);
     }
 }
 
 .color-2 {
+    color: rgb(255, 100, 122);
     * {
         color: rgb(255, 100, 122);
     }
 }
 
 .color-3 {
+    color: rgb(77, 124, 255);
     * {
         color: rgb(77, 124, 255);
+    }
+}
+
+.color-4 {
+    color: rgb(29, 255, 217);
+    * {
+        color: rgb(29, 255, 217);
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.row-hover--bg {
+    cursor: pointer;
+    transition: background 0.2s ease;
+    &:hover {
+        background: rgba(#0d2d51, 0.3);
+    }
+}
+
+.link {
+    color: rgba(49, 148, 255, 0.8);
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+        color: rgba(49, 148, 255, 1);
     }
 }

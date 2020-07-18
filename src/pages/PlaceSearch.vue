@@ -10,7 +10,7 @@
         <el-input v-model="query.placeName" placeholder="请输入场所名称" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">搜索</el-button>
+        <el-button type="primary" @click="search">搜索</el-button>
       </el-form-item>
     </el-form>
 
@@ -53,35 +53,37 @@ import defaultImgPath from "@/assets/img/default_building.jpg";
 import img1 from "@/assets/demo/building_1.jpg";
 import img2 from "@/assets/demo/building_2.jpg";
 
+const testData = [
+  { name: "职业技术学院综合楼", img: "" },
+  { name: "沈河区第二中医院", img: img2 },
+  { name: "金山区张堰镇敬老院", img: img1 },
+  { name: "庵东镇镇政府", img: img2 },
+  { name: "沈河区第二中医院", img: img1 },
+  { name: "金山区张堰镇敬老院", img: img2 },
+  { name: "庵东镇镇政府", img: img1 },
+  { name: "沈河区第二中医院", img: "" },
+  { name: "沈河区第二中医院", img: img2 },
+  { name: "金山区张堰镇敬老院", img: img1 },
+  { name: "庵东镇镇政府", img: img1 },
+  { name: "沈河区第二中医院", img: img2 },
+  { name: "金山区张堰镇敬老院", img: img1 },
+  { name: "庵东镇镇政府", img: img2 },
+  { name: "沈河区第二中医院", img: "" },
+  { name: "沈河区第二中医院", img: img1 },
+  { name: "金山区张堰镇敬老院", img: img2 },
+  { name: "庵东镇镇政府", img: img2 },
+  { name: "沈河区第二中医院", img: img1 },
+  { name: "金山区张堰镇敬老院", img: img2 },
+  { name: "庵东镇镇政府", img: img1 },
+  { name: "沈河区第二中医院", img: "" }
+];
+
 export default {
   data() {
     return {
       defaultImgPath,
 
-      PlaceList: [
-        { name: "职业技术学院综合楼", img: "" },
-        { name: "沈河区第二中医院", img: img2 },
-        { name: "金山区张堰镇敬老院", img: img1 },
-        { name: "庵东镇镇政府", img: img2 },
-        { name: "沈河区第二中医院", img: img1 },
-        { name: "金山区张堰镇敬老院", img: img2 },
-        { name: "庵东镇镇政府", img: img1 },
-        { name: "沈河区第二中医院", img: "" },
-        { name: "沈河区第二中医院", img: img2 },
-        { name: "金山区张堰镇敬老院", img: img1 },
-        { name: "庵东镇镇政府", img: img1 },
-        { name: "沈河区第二中医院", img: img2 },
-        { name: "金山区张堰镇敬老院", img: img1 },
-        { name: "庵东镇镇政府", img: img2 },
-        { name: "沈河区第二中医院", img: "" },
-        { name: "沈河区第二中医院", img: img1 },
-        { name: "金山区张堰镇敬老院", img: img2 },
-        { name: "庵东镇镇政府", img: img2 },
-        { name: "沈河区第二中医院", img: img1 },
-        { name: "金山区张堰镇敬老院", img: img2 },
-        { name: "庵东镇镇政府", img: img1 },
-        { name: "沈河区第二中医院", img: "" }
-      ],
+      PlaceList: [],
 
       query: {},
 
@@ -117,7 +119,22 @@ export default {
 
     onBuildingClick(item) {
       alert(item.name);
+    },
+
+    refresh() {
+      if (this.PlaceList.length > 0 && this.PlaceList.length <= 100) {
+        this.PlaceList = this.PlaceList.concat(this.PlaceList);
+      } else {
+        this.PlaceList = testData;
+      }
+    },
+
+    search() {
+      this.refresh();
     }
+  },
+  created() {
+    this.refresh();
   }
 };
 </script>
@@ -146,7 +163,7 @@ export default {
     left: -0.2rem;
 
     &:hover {
-      transform: translate(0.05rem, -50%);
+      transform: translate(-0.05rem, -50%);
     }
   }
   .carousel-next {
@@ -156,7 +173,7 @@ export default {
     }
 
     &:hover {
-      transform: translate(-0.05rem, -50%);
+      transform: translate(0.05rem, -50%);
     }
   }
 }
@@ -170,6 +187,7 @@ export default {
 
     &.el-carousel__indicators--outside {
       position: absolute;
+      transform: translateX(-50%);
     }
     .el-carousel__button {
       background-color: rgba(113, 178, 255, 0.8);

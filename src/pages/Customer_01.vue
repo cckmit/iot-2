@@ -2,7 +2,12 @@
   <div class="page">
     <div class="chart" ref="pie" v-loading="loading"></div>
     <div class="table" v-loading="loading">
-      <el-table :data="tableData" :cell-class-name="cellClassName">
+      <el-table
+        :data="tableData"
+        row-class-name="row-hover--bg"
+        :cell-class-name="cellClassName"
+        @row-click="onRowClick"
+      >
         <el-table-column prop="status" min-width="20%" align="center" label="状态"></el-table-column>
         <el-table-column prop="count" min-width="15%" align="center" label="单位数"></el-table-column>
         <el-table-column prop="progress" min-width="50%" align="center" label="处理进度">
@@ -95,8 +100,8 @@ export default {
         series: [
           {
             type: "pie",
-            selectedMode: "single",
-            selectedOffset: this.$root.getNumberByRem("10rem"),
+            selectedMode: false,
+            // selectedOffset: this.$root.getNumberByRem("10rem"),
             radius: ["50%", "75%"],
             label: {
               normal: {
@@ -125,8 +130,9 @@ export default {
           },
           {
             type: "pie",
-            selectedMode: "single",
-            selectedOffset: 0,
+            selectedMode: false,
+            // selectedMode: "single",
+            // selectedOffset: 0,
             hoverAnimation: false,
             radius: ["75%", "80%"],
             label: {
@@ -183,16 +189,17 @@ export default {
       const { both, normal, error, warning, total } = this.vm;
 
       const data = [
-        { name: "正常", value: normal || 0 },
-        { name: "仅报警", value: warning || 0 },
-        { name: "仅故障", value: error || 0 },
-        { name: "报警且故障", value: both || 0 }
+        { name: "正常", category: 4, value: normal || 0 },
+        { name: "仅报警", category: 1, value: warning || 0 },
+        { name: "仅故障", category: 2, value: error || 0 },
+        { name: "报警且故障", category: 3, value: both || 0 }
       ];
 
       this.pieOption.series[0].data = data;
       this.pieOption.series[1].data = data;
       this.pieOption.graphic[0].style.text = total;
       this.pie.setOption(this.pieOption);
+      this.pie.on("click", this.onPieClick);
       this.pie.resize();
     },
 
@@ -212,6 +219,7 @@ export default {
       const rows = [
         {
           status: "仅报警",
+          category: 1,
           count: warning,
           progress: !warningAll ? 0 : warningHandled / warningAll,
           all: warningAll,
@@ -219,6 +227,7 @@ export default {
         },
         {
           status: "仅故障",
+          category: 2,
           count: error,
           progress: !errorAll ? 0 : errorHandled / errorAll,
           all: errorAll,
@@ -226,6 +235,7 @@ export default {
         },
         {
           status: "报警且故障",
+          category: 3,
           count: both,
           progress: !bothAll ? 0 : bothHandled / bothAll,
           all: bothAll,
@@ -234,6 +244,27 @@ export default {
       ];
 
       this.tableData = rows;
+    },
+
+    onRowClick(row) {
+      this.$modal({
+        placement: "center",
+        data: { days: this.query.days, category: row.category },
+        id: "CenterModal",
+        width: "10rem",
+        component: "Customer_01_1"
+      });
+    },
+
+    onPieClick(e) {
+      const { category } = e.data;
+      this.$modal({
+        placement: "center",
+        data: { days: this.query.days, category },
+        id: "CenterModal",
+        width: "10rem",
+        component: "Customer_01_2"
+      });
     }
   },
 

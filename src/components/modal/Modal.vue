@@ -85,7 +85,7 @@ export default {
         if (placement === "top-right") {
           return "25vw";
         } else if (placement === "center") {
-          return "40vw";
+          return "45vw";
         }
       }
     },

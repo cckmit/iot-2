@@ -70,7 +70,7 @@
 }
 
 .el-table {
-    font-size: 0.14rem;
+    font-size: 0.13rem;
     background: transparent;
     border-bottom: none;
     &:before {
@@ -118,7 +118,7 @@
     background: transparent;
     color: rgb(91, 118, 127);
     border: 0.01rem solid rgb(29, 79, 104);
-    padding: 0.04rem 0.08rem;
+    padding: 0.07rem 0.08rem;
     font-size: 0.12rem;
 }
 .el-radio-button:first-child .el-radio-button__inner {
@@ -211,19 +211,23 @@
 }
 
 .el-input {
-    .el-input__suffix {
+    .el-input__suffix i {
+        font-size: 0.14rem;
+        line-height: 0.28rem;
+        margin-right: 0.05rem;
+        width: 0.14rem;
+        text-align: center;
     }
 
     .el-input__inner {
         background: rgb(14, 19, 25);
-        border-width: 0.015rem;
+        border-width: 0.01rem;
         border-color: rgb(60, 69, 76);
         border-radius: 0.06rem;
         padding: 0 0.15rem;
         height: 0.28rem;
         line-height: 0.28rem;
         color: rgba(166, 221, 255, 0.7);
-        min-width: 2rem;
         font-size: 0.14rem;
         // font-weight: bold;
 
@@ -238,7 +242,7 @@
     }
 }
 
-.el-select {
+.el-form .el-select {
     .el-input {
         &.is-focus {
             .el-input__inner {
@@ -246,13 +250,13 @@
             }
         }
 
-        .el-select__caret{
+        .el-select__caret {
             font-size: 0.16rem;
             width: 0.24rem;
             opacity: 0.8;
             line-height: 0.28rem;
             vertical-align: middle;
-            color: rgba(76, 164, 252,.7);
+            color: rgba(76, 164, 252, 0.7);
         }
 
         .el-icon-arrow-up {
@@ -281,7 +285,7 @@
     background: rgb(13, 23, 36);
     border-radius: 0.08rem;
 
-    .el-select-dropdown__wrap{
+    .el-select-dropdown__wrap {
         max-height: 2rem;
     }
 
@@ -298,6 +302,52 @@
 
         &.hover {
             background-color: rgb(20, 48, 70);
+        }
+    }
+}
+
+.fx-table {
+    .fx-table--body {
+        .fx-table--main {
+            background: transparent;
+            .fx-table--toolbar {
+                background: transparent;
+            }
+        }
+    }
+
+    .fx-pager {
+        .el-pagination {
+            text-align: right;
+
+            button {
+                font-size: 0.13rem;
+                height: 0.28rem;
+                line-height: 0.28rem;
+            }
+
+            .el-pager li {
+                font-size: 0.13rem;
+                padding: 0 0.04rem;
+                height: 0.28rem;
+                line-height: 0.28rem;
+                min-width: 0.3rem;
+            }
+
+            .btn-prev,
+            .btn-next,
+            .number,
+            .more {
+                background: rgba(61, 135, 201, 0.2);
+                color: rgba(255, 255, 255, 0.5);
+                min-width: 0.3rem;
+                border-radius: 0.02rem;
+                margin: 0.05rem;
+
+                .el-icon {
+                    font-size: 0.12rem;
+                }
+            }
         }
     }
 }
