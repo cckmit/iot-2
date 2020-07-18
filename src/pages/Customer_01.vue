@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="chart">
-      <ChartPie :data="chartData" :loading="loading" :settings="chartSettings" />
+      <ChartPie :data="chartData" :loading="loading" :settings="chartSettings" :on-click="onPieClick" />
     </div>
     <div class="table" v-loading="loading">
       <el-table

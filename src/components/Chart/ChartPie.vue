@@ -13,7 +13,10 @@ export default {
     data: Array,
     settings: {},
     onClick: Function,
-    color: {}
+    color: {},
+    selectedMode: {
+      default: false
+    }
   },
 
   data() {
@@ -53,7 +56,7 @@ export default {
         series: [
           {
             type: "pie",
-            selectedMode: "single",
+            selectedMode: this.selectedMode,
             selectedOffset: this.$root.getNumberByRem("10rem"),
             labelLine: {
               normal: {
@@ -75,7 +78,7 @@ export default {
           },
           {
             type: "pie",
-            selectedMode: "single",
+            selectedMode: this.selectedMode,
             selectedOffset: 0,
             hoverAnimation: false,
             label: {
