@@ -438,11 +438,18 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
                 .el-dialog__headerbtn {
                     // background: red;
-                    width: 0.2rem;
-                    height: 0.2rem;
-                    right: 0.15rem;
-                    top: 0.1rem;
+                    width: 0.4rem;
+                    height: 0.4rem;
+                    right: 0;
+                    top: 0;
                     font-size: 0.16rem;
+                    z-index: 2;
+                    border-top-right-radius: 0.08rem;
+                    border-bottom-left-radius: 0.08rem;
+                    transition: all 0.2s ease;
+                    &:hover {
+                        background: rgba(37, 111, 192, 0.2);
+                    }
                     .el-icon {
                         color: rgb(72, 190, 255);
                         font-size: 0.16rem;
@@ -981,6 +988,13 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     color: rgb(29, 255, 217);
     * {
         color: rgb(29, 255, 217);
+    }
+}
+
+.color-5 {
+    color: #757575;
+    * {
+        color: #757575;
     }
 }
 

@@ -125,13 +125,12 @@ export default {
         return {
           name: i[dimension],
           value: i[metrics],
+          meta: i.meta,
           itemStyle: {
             color: i.color || colors[index]
           }
         };
       });
-
-      console.log(data);
 
       this.handleSeries(data);
 

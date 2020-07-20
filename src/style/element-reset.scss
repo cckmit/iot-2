@@ -271,6 +271,14 @@
     }
 }
 
+.el-form--inline > .el-form-item {
+    margin-right: 0.1rem;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
 .el-popper[x-placement^="bottom"] {
     margin-top: 0.12em;
 }

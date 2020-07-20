@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <ChartPie :data="data" :loading="loading" :settings="settings" />
+    <ChartPie :data="data" :onClick="onPieClick" :loading="loading" :settings="settings" />
   </div>
 </template>
 
@@ -55,7 +55,9 @@ export default {
       const data = [
         {
           Count: 10,
-          SId: 1,
+          meta: {
+            SId: 1
+          },
           Name: "饭店超市"
         },
         {
@@ -108,6 +110,20 @@ export default {
       this.data = data;
 
       this.loading = false;
+    },
+
+    onPieClick(e) {
+      const meta = e.data.meta;
+
+      if (meta) {
+        this.$modal({
+          component: "Industry_01_1",
+          placement: "center",
+          width: "10rem",
+          data: meta,
+          id: "CenterModal"
+        });
+      }
     }
   },
 
