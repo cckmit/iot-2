@@ -16,7 +16,8 @@ export default {
     color: {},
     selectedMode: {
       default: false
-    }
+    },
+    smallTitle: Boolean
   },
 
   data() {
@@ -31,7 +32,9 @@ export default {
             rich: {
               a: {
                 fontWeight: "bold",
-                fontSize: this.$root.getNumberByRem("26rem")
+                fontSize: this.$root.getNumberByRem(
+                  this.smallTitle ? "20rem" : "24rem"
+                )
               },
               b: {
                 textIndent: -10,
@@ -42,7 +45,9 @@ export default {
           subtextStyle: {
             color: "#fff",
             lineHeight: this.$root.getNumberByRem("0rem"),
-            fontSize: this.$root.getNumberByRem("14rem")
+            fontSize: this.$root.getNumberByRem(
+              this.smallTitle ? "12rem" : "14rem"
+            )
           }
         },
         legend: [],
@@ -51,7 +56,8 @@ export default {
           formatter: "{b}：{c} ({d}%)",
           textStyle: {
             fontSize: this.$root.getNumberByRem("14rem")
-          }
+          },
+          appendToBody: true
         },
         series: [
           {
@@ -101,7 +107,21 @@ export default {
     };
   },
 
+  computed: {
+    FooterBoxVisible() {
+      return this.$store.state.FooterBoxVisible;
+    }
+  },
+
   watch: {
+    FooterBoxVisible: {
+      handler() {
+        if (this.pie) {
+          this.pie.resize();
+        }
+      },
+      immediate: true
+    },
     data: {
       handler() {
         this.refresh();

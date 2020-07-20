@@ -68,7 +68,7 @@
 
     <!-- 调试层 -->
     <Layer :index="99">
-      <div class="debug" v-show="debug">
+      <div class="debug" v-show="debug" style="z-index:9999">
         <pre>当前地图覆盖物显示模式:{{CurrentOverlayType}}</pre>
         <pre>modal_list:{{modal_list}}</pre>
         <pre>CurrentRegions:{{CurrentRegions}}</pre>
@@ -76,11 +76,17 @@
         <pre>CurrentDiskSubMenu:{{CurrentDiskSubMenu}}</pre>
         <pre>HtmlFontSize:{{HtmlFontSize}}</pre>
         <pre>FooterBoxVisible:{{FooterBoxVisible}}<el-button
-  size="mini"
-  @click="$store.commit('set_FooterBoxVisible',true)"
->setTrue</el-button></pre>
+          size="mini"
+          @click="$store.commit('set_FooterBoxVisible',true)"
+        >setTrue</el-button></pre>
       </div>
-      <el-button class="debug-btn" type="primary" size="mini" @click="debug=!debug">Debug</el-button>
+      <el-button
+        class="debug-btn"
+        style="z-index:9999"
+        type="primary"
+        size="mini"
+        @click="debug=!debug"
+      >Debug</el-button>
     </Layer>
   </div>
 </template>

@@ -22,7 +22,7 @@ export default new Vuex.Store({
     HtmlFontSize: 0,
 
     //当前地图覆盖物显示类型(街道/镇:STREET, 场所:PLACE)
-    CurrentOverlayType: 'STREET'
+    CurrentOverlayType: 'PLACE'
   },
   mutations: {
     set_CurrentRegions(state, val) {

@@ -19,7 +19,9 @@ export default {
       radar: null,
 
       radarOption: {
-        tooltip: {},
+        tooltip: {
+          appendToBody: true
+        },
         radar: {
           name: {
             textStyle: {

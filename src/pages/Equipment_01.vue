@@ -30,7 +30,7 @@ export default {
         unit: "类",
         subtitle: "设备类型",
         titlePosition: {
-          left: "17.6%",
+          left: "18.6%",
           top: "35%"
         },
         radius: ["53%", "70%"],

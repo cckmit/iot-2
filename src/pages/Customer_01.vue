@@ -241,7 +241,7 @@ export default {
 
 .radio-group {
   position: absolute;
-  top: 0.2rem;
-  right: 0.4rem;
+  top: -0.3rem;
+  right: 0;
 }
 </style>

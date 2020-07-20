@@ -29,7 +29,8 @@ export default {
           padding: this.$root.getNumberByRem("5rem"),
           textStyle: {
             fontSize: this.$root.getNumberByRem("14rem")
-          }
+          },
+          appendToBody: true
         },
         grid: {
           top: "25%",
@@ -106,7 +107,21 @@ export default {
     };
   },
 
+  computed: {
+    FooterBoxVisible() {
+      return this.$store.state.FooterBoxVisible;
+    }
+  },
+
   watch: {
+    FooterBoxVisible: {
+      handler() {
+        if (this.bar) {
+          this.bar.resize();
+        }
+      },
+      immediate: true
+    },
     rows: {
       handler() {
         this.refresh();

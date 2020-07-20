@@ -1,5 +1,9 @@
 <template>
-  <div class="column-item" :class="['column-item--'+direction,smallTitle?'column-item--sm-title':'']" :style="style">
+  <div
+    class="column-item"
+    :class="[splitOnBody?'column-item--split-on-body':'',vertical?'column-item--vertical':'',smallTitle?'column-item--sm-title':'',splitLine?'':'no-splitline']"
+    :style="style"
+  >
     <div class="column-item--header" :style="headerStyle">
       <span
         class="column-item--title"
@@ -23,15 +27,17 @@ export default {
   props: {
     title: String,
     width: {},
-    direction: {
-      type: String,
-      default: "vertical"
-    },
+    vertical: Boolean,
     superTitle: Boolean,
     boldTitle: Boolean,
     smallTitle: Boolean,
     headerStyle: {},
-    bodyStyle: {}
+    bodyStyle: {},
+    splitOnBody: Boolean,
+    splitLine: {
+      type: Boolean,
+      default: true
+    }
   },
 
   computed: {

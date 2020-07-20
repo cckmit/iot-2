@@ -466,7 +466,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
             .el-dialog__body {
                 padding: 0.1rem 0.24rem 0.24rem 0.24rem;
-                transition: height ease 0.2s;
+                // transition: height ease 0.2s;
                 height: calc(100vh - 7vh - 2.3rem);
                 overflow-y: auto;
             }
@@ -819,6 +819,21 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     padding: 0 0.4rem;
     flex-direction: column;
 
+    &.column-item--split-on-body {
+        &:after {
+            top: calc(50% + 0.5rem);
+            transform: translateY(calc(-50% - 0.25rem));
+        }
+    }
+
+    &.column-item--vertical {
+        padding: 0;
+    }
+
+    &.no-splitline:after {
+        display: none;
+    }
+
     &.column-item--sm-title {
         .column-item--header {
             .column-item--supertitle {
@@ -882,7 +897,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
             position: relative;
 
             span {
-                font-size: 0.22rem;
+                font-size: 0.2rem;
                 color: #fff;
                 font-weight: bold;
                 position: relative;
@@ -898,17 +913,17 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                 transform: skew(-20deg);
                 background: rgba(26, 146, 255, 0.4);
                 z-index: 1;
-                border-bottom: 0.025rem solid rgb(26, 146, 255);
+                border-bottom: 0.02rem solid rgb(26, 146, 255);
                 bottom: -0.04rem;
             }
 
             &:before {
                 left: 0;
-                width: 116%;
+                width: 114%;
                 height: 0.14rem;
             }
             &:after {
-                left: 120%;
+                left: 118%;
                 width: 0.07rem;
                 height: 0.1rem;
             }
@@ -917,6 +932,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     .column-item--body {
         flex: 1;
         height: calc(100% - 0.5rem);
+        position: relative;
     }
 }
 
@@ -1023,5 +1039,22 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
     &:hover {
         color: rgba(49, 148, 255, 1);
+    }
+}
+
+.flex-container {
+    display: flex;
+}
+
+.table-sm {
+    .el-table td,
+    .el-table th {
+        padding: 0.01rem 0.02rem;
+    }
+}
+
+.radio-group-sm {
+    .el-radio-button__inner {
+        padding: 0.04rem 0.08rem;
     }
 }

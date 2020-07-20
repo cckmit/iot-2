@@ -342,6 +342,6 @@ export default {
 .fixed-selector {
   position: absolute;
   right: 0.1rem;
-  top: 0.2rem;
+  top: -0.3rem;
 }
 </style>

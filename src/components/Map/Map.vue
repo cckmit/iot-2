@@ -132,7 +132,16 @@ export default {
 
     //地图中街道点击
     onStreetPointClick(meta) {
-      console.log("onStreetPointClick", meta);
+      const { text } = meta;
+      this.$modal({
+        placement: "top-right",
+        data: {
+          title: text
+        },
+        id: "RightModal",
+        width: "4.4rem",
+        component: "StreetDetail"
+      });
     },
 
     //地图中场所点击(即项目点击)
