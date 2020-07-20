@@ -1,7 +1,12 @@
 <template>
   <div class="page">
     <div class="chart">
-      <ChartPie :data="chartData" :loading="loading" :settings="chartSettings" :on-click="onPieClick" />
+      <ChartPie
+        :data="chartData"
+        :loading="loading"
+        :settings="chartSettings"
+        :on-click="onPieClick"
+      />
     </div>
     <div class="table" v-loading="loading">
       <el-table
@@ -217,30 +222,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.page {
-  display: flex;
+.chart {
   height: 100%;
-  .chart {
-    height: 100%;
-    // width: 25%;
-    flex: 25%;
-    position: relative;
-  }
-  .table {
-    height: 100%;
-    flex: 75%;
-    // width: 75%;
-    padding-top: 0.1rem;
+  // width: 25%;
+  flex: 25%;
+  position: relative;
+}
+.table {
+  height: 100%;
+  flex: 75%;
+  // width: 75%;
+  padding-top: 0.1rem;
 
-    td * {
-      font-size: 0.12rem;
-    }
+  td * {
+    font-size: 0.12rem;
   }
+}
 
-  .radio-group {
-    position: absolute;
-    top: 0.2rem;
-    right: 0.4rem;
-  }
+.radio-group {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.4rem;
 }
 </style>

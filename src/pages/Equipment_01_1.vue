@@ -339,12 +339,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.page {
-  display: flex;
-  height: 100%;
-  position: relative;
-}
-
 .fixed-selector {
   position: absolute;
   right: 0.1rem;

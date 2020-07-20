@@ -8,6 +8,7 @@
 import { MP } from "./map";
 import custom_map_config from "./custom_map_config.json";
 import varMapPoint from "./MapPoint";
+import { mapState } from "vuex";
 
 export default {
   name: "Map",
@@ -27,6 +28,20 @@ export default {
     return {
       mapInstance: null
     };
+  },
+
+  computed: {
+    ...mapState({
+      CurrentOverlayType: state => state.CurrentOverlayType
+    })
+  },
+
+  watch: {
+    CurrentOverlayType: {
+      handler() {
+        this.initOverlays();
+      }
+    }
   },
 
   methods: {
@@ -51,13 +66,18 @@ export default {
       varMapPoint.call(this, this.BMap);
     },
 
-    initData() {
+    //初始化覆盖物
+    initOverlays() {
+      if (!this.mapInstance) return;
+
+      this.mapInstance.clearOverlays();
+
       const point1 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.436138, 29.294912),
-        onClick: function() {
-          alert(1);
+        onClick: meta => {
+          this.onStreetPointClick(meta);
         },
-        dataObj: {
+        meta: {
           type: 2,
           color: 1,
           text: "松北街道",
@@ -68,7 +88,7 @@ export default {
       const point2 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.434, 29.295912),
         onClick: function() {},
-        dataObj: {
+        meta: {
           type: 1,
           color: 2,
           text: 55,
@@ -79,7 +99,7 @@ export default {
       const point3 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.435, 29.295912),
         onClick: function() {},
-        dataObj: {
+        meta: {
           type: 1,
           color: 3,
           text: 85,
@@ -90,18 +110,33 @@ export default {
       const point4 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.433, 29.297912),
         onClick: function() {},
-        dataObj: {
+        meta: {
           type: 1,
           color: 4,
           text: 54,
           icon: "iconfont icon-map-place-icon"
         }
       });
-      this.mapInstance.addOverlay(point1);
-      this.mapInstance.addOverlay(point2);
-      this.mapInstance.addOverlay(point3);
-      this.mapInstance.addOverlay(point4);
-    }
+
+      const list = [];
+      if (this.CurrentOverlayType === "STREET") {
+        list.push(point2, point3, point4);
+      } else {
+        list.push(point1);
+      }
+
+      list.forEach(i => {
+        this.mapInstance.addOverlay(i);
+      });
+    },
+
+    //地图中街道点击
+    onStreetPointClick(meta) {
+      console.log("onStreetPointClick", meta);
+    },
+
+    //地图中场所点击(即项目点击)
+    onPlacePointClick() {}
   },
 
   mounted() {
@@ -110,7 +145,7 @@ export default {
         this.BMap = BMap;
         this.initMap();
         this.initClasses();
-        this.initData();
+        this.initOverlays();
       });
     });
   }

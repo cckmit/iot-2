@@ -19,12 +19,16 @@ export default new Vuex.Store({
     FooterBoxVisible: true,
 
     //html字体大小
-    HtmlFontSize: 0
+    HtmlFontSize: 0,
+
+    //当前地图覆盖物显示类型(街道/镇:STREET, 场所:PLACE)
+    CurrentOverlayType: 'STREET'
   },
   mutations: {
     set_CurrentRegions(state, val) {
       state.CurrentRegions = val;
     },
+    
     set_CurrentDiskMenu(state, val) {
       state.CurrentDiskMenu = val;
       //如果没有记忆中的子菜单，则默认选中一项(因为父菜单没有对应的单独展示的内容)
@@ -32,14 +36,21 @@ export default new Vuex.Store({
         state.CurrentDiskSubMenu = "CUSTOMER";
       }
     },
+    
     set_CurrentDiskSubMenu(state, val) {
       state.CurrentDiskSubMenu = val;
     },
+
     set_HtmlFontSize(state, val) {
       state.HtmlFontSize = val;
     },
+
     set_FooterBoxVisible(state, val) {
       state.FooterBoxVisible = val;
+    },
+
+    set_CurrentOverlayType(state, val) {
+      state.CurrentOverlayType = val;
     }
   },
   actions: {

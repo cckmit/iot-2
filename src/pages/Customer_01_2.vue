@@ -263,11 +263,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-.page {
-  display: flex;
-  height: 100%;
-  position: relative;
-}
-</style>

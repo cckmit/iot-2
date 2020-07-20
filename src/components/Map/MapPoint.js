@@ -7,7 +7,7 @@ export default function varMapPoint(BMap) {
         this.$div = null;
         this._onClick = option.onClick;
         this._point = option.point;
-        this._dataObj = option.dataObj;
+        this._meta = option.meta;
     };
 
     MapPoint.prototype = new BMap.Overlay();
@@ -15,7 +15,7 @@ export default function varMapPoint(BMap) {
     MapPoint.prototype.initialize = function () {
         var _this = this;
 
-        const { color, type, icon, text } = this._dataObj;
+        const { color, type, icon, text } = this._meta;
 
         this.$div = $(
             `<div class="map-point type${type} color${color}">
@@ -25,7 +25,7 @@ export default function varMapPoint(BMap) {
         );
         if (this._onClick && typeof this._onClick === "function") {
             this.$div.bind("click", function () {
-                _this._onClick(_this._dataObj);
+                _this._onClick(_this._meta);
             });
         }
         var _div = this.$div.get(0);

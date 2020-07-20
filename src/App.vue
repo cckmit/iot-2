@@ -69,6 +69,7 @@
     <!-- 调试层 -->
     <Layer :index="99">
       <div class="debug" v-show="debug">
+        <pre>当前地图覆盖物显示模式:{{CurrentOverlayType}}</pre>
         <pre>modal_list:{{modal_list}}</pre>
         <pre>CurrentRegions:{{CurrentRegions}}</pre>
         <pre>CurrentDiskMenu:{{CurrentDiskMenu}}</pre>
@@ -132,7 +133,8 @@ export default {
       CurrentDiskMenu: state => state.CurrentDiskMenu,
       CurrentDiskSubMenu: state => state.CurrentDiskSubMenu,
       HtmlFontSize: state => state.HtmlFontSize,
-      FooterBoxVisible: state => state.FooterBoxVisible
+      FooterBoxVisible: state => state.FooterBoxVisible,
+      CurrentOverlayType: state => state.CurrentOverlayType
     })
   },
 

@@ -36,6 +36,7 @@ export default {
       return this.options.length;
     },
     handlerStyle() {
+      if (this.currentIndex < 0) return { display: "none" };
       return {
         left: (this.currentIndex / this.optionsCount) * 100 + "%"
       };
@@ -46,7 +47,7 @@ export default {
       this.vValue = val;
     },
     vValue(val) {
-      this.$emit("input", val);
+      this.$emit("change", val);
     }
   }
 };

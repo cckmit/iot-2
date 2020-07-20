@@ -16,7 +16,11 @@
     </div>
 
     <div class="switch">
-      <RadioSwitch :options="PlaceTypeList" v-model="CurrentPlaceType" />
+      <RadioSwitch
+        :options="PlaceTypeList"
+        :value="CurrentOverlayType"
+        @change="$store.commit('set_CurrentOverlayType',$event)"
+      />
     </div>
 
     <div class="header-info">
@@ -53,6 +57,7 @@
 import RadioSwitch from "@/components/RadioSwitch.vue";
 import RegionSelect from "./RegionSelect/index";
 import { getLocation, logout } from "@/api";
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -61,6 +66,9 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      CurrentOverlayType: state => state.CurrentOverlayType
+    }),
     vCurrentRegions: {
       get() {
         return this.$store.state.CurrentRegions;
@@ -76,11 +84,11 @@ export default {
       PlaceTypeList: [
         {
           label: "街道/镇",
-          value: 1
+          value: "STREET"
         },
         {
           label: "场所",
-          value: 2
+          value: "PLACE"
         }
       ],
 
