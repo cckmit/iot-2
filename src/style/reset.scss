@@ -19,15 +19,20 @@ li {
     height: 0.1rem;
 }
 ::-webkit-scrollbar-track {
-    background-color: rgb(20,37,53);
+    background-color: rgb(20, 37, 53);
 }
 ::-webkit-scrollbar-corner {
-    background-color: rgb(20,37,53);
+    background-color: rgb(20, 37, 53);
 }
 ::-webkit-scrollbar-thumb {
-    background-color: rgb(24,78,122); 
+    background-color: rgb(24, 78, 122);
 }
 
 .iconfont {
     font-size: 0.16rem;
+}
+
+.el-scrollbar__wrap {
+    margin-bottom: -0.1rem !important;
+    margin-right: -0.1rem !important;
 }

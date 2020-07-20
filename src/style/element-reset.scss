@@ -242,7 +242,7 @@
     }
 }
 
-.el-form .el-select {
+.el-select {
     .el-input {
         &.is-focus {
             .el-input__inner {
@@ -318,6 +318,7 @@
     .fx-table--body {
         .fx-table--main {
             background: transparent;
+            padding: 0 0.1rem;
             .fx-table--toolbar {
                 background: transparent;
             }
@@ -358,4 +359,8 @@
             }
         }
     }
+}
+
+.el-scrollbar__wrap{
+    // overflow: hidden;
 }

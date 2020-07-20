@@ -1,10 +1,25 @@
 <template>
   <div class="page">
     <ColumnItem title="设备列表" superTitle smallTitle>
-      <FxTable ref="table" :columns="columns" :query.sync="query" :options="options">
+      <el-select
+        class="fixed-selector"
+        v-model="query.Peidianxiang"
+        clearable
+        placeholder="请选择配电箱类型"
+      >
+        <el-option v-for="i in PeidianxiangSelections" v-bind="i" :key="i.value"></el-option>
+      </el-select>
+
+      <FxTable
+        ref="table"
+        :columns="columns"
+        :query.sync="query"
+        :options="options"
+        style="margin-top:.1rem"
+      >
         <template #toolbar>
           <el-row style="width:100%;" align="middle">
-            <el-col :span="16">
+            <el-col :span="8">
               <el-form inline @submit.native.prevent>
                 <el-form-item>
                   <el-radio-group v-model="query.days" @change="refresh">
@@ -16,8 +31,14 @@
                 </el-form-item>
               </el-form>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="16">
               <el-form inline style="text-align:right;" @submit.native.prevent>
+                <el-form-item>
+                  <el-select v-model="query.Category" clearable>
+                    <el-option v-for="i in CategorySelections" v-bind="i" :key="i.value"></el-option>
+                  </el-select>
+                </el-form-item>
+
                 <el-form-item>
                   <el-input
                     v-model="query.key"
@@ -44,11 +65,11 @@
  */
 export default {
   props: {
-    category: {}
+    Category: {}
   },
 
   watch: {
-    category(val) {
+    Category(val) {
       this.query.Category = val;
       this.refresh();
     }
@@ -59,7 +80,8 @@ export default {
       query: {
         days: 30,
         key: "",
-        Category: this.category
+        Category: this.Category,
+        Peidianxiang: ""
       },
 
       options: {
@@ -123,11 +145,14 @@ export default {
           ];
 
           return {
-            rows,
+            rows: [...rows, ...rows, ...rows, ...rows, ...rows],
             total: rows.length
           };
         }
-      }
+      },
+
+      CategorySelections: [],
+      PeidianxiangSelections: []
     };
   },
 
@@ -141,15 +166,16 @@ export default {
           minWidth: 80,
           prop: "IsOnline",
           render: (h, context) => {
-            return (
-              context.value?<span class="color-4">在线</span>
-              :<span class="color-5">离线</span>
+            return context.value ? (
+              <span class="color-4">在线</span>
+            ) : (
+              <span class="color-5">离线</span>
             );
           }
         },
         {
           label: "设备ID",
-          prop: "ID",
+          prop: "Code",
           minWidth: 80,
           align: "center",
           showOverflowTooltip: false
@@ -157,18 +183,30 @@ export default {
 
         {
           label: "所属单位",
-          prop: "company",
+          prop: "BusinessName",
           minWidth: 130,
           align: "center",
           resizable: true,
           showOverflowTooltip: false
         },
         {
+          label: "联系人",
+          align: "center",
+          minWidth: 80,
+          prop: "Contact"
+        },
+        {
+          label: "联系电话",
+          align: "center",
+          minWidth: 130,
+          prop: "Tel"
+        },
+        {
           label: "所属场所",
           align: "center",
           minWidth: 130,
           showOverflowTooltip: false,
-          prop: "place",
+          prop: "PlaceName",
           render(h, context) {
             const { value, row } = context;
             return (
@@ -184,64 +222,33 @@ export default {
           }
         },
         {
-          label: "联系人",
+          label: "报警数",
           align: "center",
           minWidth: 80,
-          prop: "contact"
-        },
-        {
-          label: "联系电话",
-          align: "center",
-          minWidth: 130,
-          prop: "tel"
-        },
-        {
-          label: "发生时间",
-          align: "center",
-          minWidth: 120,
-          prop: "time"
-        },
-        {
-          label: "状态",
-          align: "center",
-          minWidth: 70,
-          showOverflowTooltip: false,
-          prop: "status",
+          prop: "WarningCount",
           render: (h, context) => {
-            const obj = {
-              1: {
-                txt: "报警",
-                class: "color-1"
-              },
-              2: {
-                txt: "故障",
-                class: "color-2"
-              },
-              3: {
-                txt: "报警且故障",
-                class: "color-3"
-              }
-            }[context.value];
-            return <span class={obj.class}>{obj.txt}</span>;
+            const { row, value } = context;
+            return (
+              <span>
+                <span class="color-1">{row.WarningOKCount}</span>/
+                <span>{value}</span>
+              </span>
+            );
           }
         },
         {
-          label: "处理状态",
+          label: "故障数",
           align: "center",
           minWidth: 100,
-          prop: "handleStatus",
+          prop: "ErrorCount",
           render: (h, context) => {
-            const obj = {
-              1: {
-                txt: "未处理",
-                class: "color-2"
-              },
-              2: {
-                txt: "已处理",
-                class: "color-4"
-              }
-            }[context.value];
-            return <span class={obj.class}>{obj.txt}</span>;
+            const { row, value } = context;
+            return (
+              <span>
+                <span class="color-2">{row.ErrorOKCount}</span>/
+                <span>{value}</span>
+              </span>
+            );
           }
         }
       ];
@@ -256,8 +263,77 @@ export default {
     },
 
     viewPlaceDetail(row) {
-      alert(row.place);
+      alert(row.PlaceName + ":" + row.PlaceId);
     }
+  },
+
+  created() {
+    this.CategorySelections = [
+      {
+        Id: "bed445b5-158d-4d8c-ad19-2617b136ee26",
+        Name: "故障电弧探测器 ",
+        Value: "1",
+        SortCode: 1
+      },
+      {
+        Id: "d047dd07-b7de-4bf7-9a19-455de4ed25cc",
+        Name: "电流探测器 ",
+        Value: "2",
+        SortCode: 2
+      },
+      {
+        Id: "ba13d1e2-9a77-40b7-a80b-0c7d4336aef3",
+        Name: "剩余电流探测器 ",
+        Value: "3",
+        SortCode: 3
+      },
+      {
+        Id: "05aed15d-3967-49ec-bea4-1f0c806092e4",
+        Name: "温度探测器 ",
+        Value: "4",
+        SortCode: 4
+      },
+      {
+        Id: "9dc544d2-aac5-4b9e-bf77-fe429321f6ff",
+        Name: "烟雾探测器",
+        Value: "5",
+        SortCode: 5
+      },
+      {
+        Id: "1335953d-a2bf-4b95-82cb-7571c821cb19",
+        Name: "烟感探测器",
+        Value: "6",
+        SortCode: 5
+      },
+      {
+        Id: "a94134ba-f36f-4109-b17d-96126ebf12cb",
+        Name: "其他 ",
+        Value: "99",
+        SortCode: 99
+      }
+    ].map(i => ({
+      label: i.Name,
+      value: i.Id
+    }));
+
+    this.PeidianxiangSelections = [
+      {
+        label: "1号配电箱",
+        value: 1
+      },
+      {
+        label: "2号配电箱",
+        value: 2
+      },
+      {
+        label: "3号配电箱",
+        value: 3
+      },
+      {
+        label: "4号配电箱",
+        value: 4
+      }
+    ];
   }
 };
 </script>
@@ -267,5 +343,11 @@ export default {
   display: flex;
   height: 100%;
   position: relative;
+}
+
+.fixed-selector {
+  position: absolute;
+  right: 0.1rem;
+  top: 0.2rem;
 }
 </style>

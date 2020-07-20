@@ -99,29 +99,6 @@ const actions = {
         }
     },
 
-    refresh({ commit }, modal) {
-        const index = getIndexByModal(modal);
-
-        if (index == -1) return;
-
-        const { component, title, data } = modal;
-
-        commit('SET_TITLE', {
-            index,
-            title
-        })
-
-        commit('SET_DATA', {
-            index,
-            data
-        })
-
-        commit('SET_COMPONENT', {
-            index,
-            component
-        })
-    },
-
     open({
         commit
     }, modal) {
