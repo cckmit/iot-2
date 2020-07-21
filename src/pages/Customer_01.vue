@@ -42,11 +42,13 @@
 </template>
 
 <script>
+/**
+ * 页面内容：单位运行情况
+ */
 import { getCustomerOperation } from "@/api";
 import ChartPie from "@/components/Chart/ChartPie.vue";
 import { colorMap } from "@/plugins/echarts";
 
-//页面内容：单位运行情况
 export default {
   components: {
     ChartPie

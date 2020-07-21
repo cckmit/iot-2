@@ -5,11 +5,13 @@
 </template>
 
 <script>
+/**
+ * 页面内容：各设备运行趋势图
+ */
 import { colorMap } from "@/plugins/echarts";
 import ChartBar from "@/components/Chart/ChartBar.vue";
 import { getRandomData } from "@/util";
 
-//页面内容：各行业单位运行趋势图
 export default {
   components: {
     ChartBar

@@ -163,6 +163,9 @@
 </template>
 
 <script>
+/**
+ * 场所详情
+ */
 import testImgSrc from "@/assets/demo/building_2.jpg";
 import ChartPie from "@/components/Chart/ChartPie.vue";
 import Percentbar from "@/components/Percentbar.vue";

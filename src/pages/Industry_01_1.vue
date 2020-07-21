@@ -41,6 +41,9 @@
 </template>
 
 <script>
+/**
+ * 页面内容：行业详情
+ */
 export default {
   props: {
     SId: {}

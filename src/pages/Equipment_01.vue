@@ -5,10 +5,12 @@
 </template>
 
 <script>
+/**
+ * 页面内容：各设备数量
+ */
 import ChartPie from "@/components/Chart/ChartPie.vue";
 // import { getIndustryCustomerRate } from "@/api";
 
-//页面内容：各设备数量
 export default {
   components: {
     ChartPie

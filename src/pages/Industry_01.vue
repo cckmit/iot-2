@@ -5,10 +5,12 @@
 </template>
 
 <script>
+/**
+ * 页面内容：各行业单位数占比
+ */
 import ChartPie from "@/components/Chart/ChartPie.vue";
 // import { getIndustryCustomerRate } from "@/api";
 
-//页面内容：各行业单位数占比
 export default {
   components: {
     ChartPie

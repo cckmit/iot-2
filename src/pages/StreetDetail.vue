@@ -100,6 +100,9 @@
 </template>
 
 <script>
+/**
+ * 页面内容：街道详情
+ */
 import ChartPie from "@/components/Chart/ChartPie.vue";
 import ChartBar from "@/components/Chart/ChartBar.vue";
 import { colorMap } from "@/plugins/echarts";

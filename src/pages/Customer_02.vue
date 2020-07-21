@@ -5,6 +5,9 @@
 </template>
 
 <script>
+/**
+ * 页面内容：本年度单位运行情况
+ */
 import { colorMap } from "@/plugins/echarts";
 import ChartBar from "@/components/Chart/ChartBar.vue";
 import { getRandomData } from "@/util";
@@ -20,7 +23,6 @@ function testGetRow(i) {
   };
 }
 
-//页面内容：本年度单位运行情况
 export default {
   name: "Customer_02",
 

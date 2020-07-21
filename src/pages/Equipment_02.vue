@@ -5,6 +5,9 @@
 </template>
 
 <script>
+/**
+ * 页面内容：设备在线率
+ */
 import ChartRadar from "@/components/Chart/ChartRadar.vue";
 
 export default {

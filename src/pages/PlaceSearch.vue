@@ -47,9 +47,11 @@
 </template>
 
 <script>
+/**
+ * 页面内容：场所搜索
+ */
 import { arrayGroup } from "@/util";
 import defaultImgPath from "@/assets/img/default_building.jpg";
-
 import img1 from "@/assets/demo/building_1.jpg";
 import img2 from "@/assets/demo/building_2.jpg";
 
