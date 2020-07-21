@@ -1,5 +1,5 @@
 <template>
-  <div class="page" style="height:100%">
+  <div class="page">
     <ColumnItem :title="title" superTitle style="height:2rem;" :splitLine="false" vertical>
       <div class="summary-info">
         <div class="summary-item">

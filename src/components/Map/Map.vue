@@ -87,39 +87,48 @@ export default {
 
       const point2 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.434, 29.295912),
-        onClick: function() {},
+        onClick: meta => {
+          this.onPlacePointClick(meta);
+        },
         meta: {
           type: 1,
           color: 2,
           text: 55,
+          name: "大南社区卫生服务中心",
           icon: "iconfont icon-map-place-icon"
         }
       });
 
       const point3 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.435, 29.295912),
-        onClick: function() {},
+        onClick: meta => {
+          this.onPlacePointClick(meta);
+        },
         meta: {
           type: 1,
           color: 3,
           text: 85,
+          name: "金山区第二敬老院",
           icon: "iconfont icon-map-place-icon"
         }
       });
 
       const point4 = new this.MapPoint(this.mapInstance, {
         point: new this.BMap.Point(121.433, 29.297912),
-        onClick: function() {},
+        onClick: meta => {
+          this.onPlacePointClick(meta);
+        },
         meta: {
           type: 1,
           color: 4,
           text: 54,
+          name: "江北科创中心",
           icon: "iconfont icon-map-place-icon"
         }
       });
 
       const list = [];
-      if (this.CurrentOverlayType === "STREET") {
+      if (this.CurrentOverlayType === "PLACE") {
         list.push(point2, point3, point4);
       } else {
         list.push(point1);
@@ -145,7 +154,18 @@ export default {
     },
 
     //地图中场所点击(即项目点击)
-    onPlacePointClick() {}
+    onPlacePointClick(meta) {
+      const { name } = meta;
+      this.$modal({
+        placement: "top-right",
+        data: {
+          title: name
+        },
+        id: "RightModal",
+        width: "5rem",
+        component: "PlaceDetail"
+      });
+    }
   },
 
   mounted() {

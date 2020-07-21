@@ -787,30 +787,6 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     }
 }
 
-//栏目组
-.column-group {
-    display: flex;
-
-    &.horizontal {
-        flex-direction: row;
-
-        & > .column-item {
-        }
-    }
-
-    &.vertical {
-        flex-direction: column;
-
-        & > .column-item {
-            padding: 0 0 0.1rem 0;
-
-            &:after {
-                display: none;
-            }
-        }
-    }
-}
-
 //栏目块
 .column-item {
     position: relative;
@@ -843,7 +819,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
                 &:before,
                 &:after {
-                    border-bottom: none;
+                    // border-bottom: none;
                 }
             }
         }
@@ -940,6 +916,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 .percentbar {
     display: inline-flex;
     align-items: center;
+    position: relative;
 
     &.horizontal {
         height: 0.18rem;
@@ -950,7 +927,6 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
             transition: all 0.2s ease;
             height: 100%;
             border-right: 0.04rem solid rgb(26, 146, 255);
-            background: linear-gradient(to right, rgba(rgb(26, 146, 255), 0), rgba(rgb(26, 146, 255), 0.3));
             transform: skew(-30deg);
             margin-right: 0.1rem;
         }
@@ -958,10 +934,34 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         .percentbar__text {
             color: rgba(255, 255, 255, 0.9);
             font-size: 0.12rem;
+            position: absolute;
+            width: 0.4rem;
         }
     }
 
     &.vertical {
+        width: 0.18rem;
+        height: 100%;
+        align-items: flex-end;
+        justify-content: center;
+
+        .percentbar__inner {
+            transition: all 0.2s ease;
+            width: 100%;
+            border-top: 0.04rem solid rgb(26, 146, 255);
+        }
+
+        .percentbar__text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.12rem;
+            position: absolute;
+            height: 0.14rem;
+            width: 0.5rem;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     }
 }
 
