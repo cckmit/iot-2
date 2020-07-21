@@ -40,7 +40,12 @@
     <div class="flex-container" style="height:calc(100% - 1.75rem);flex-direction:column;">
       <ColumnItem title="设备/回路" splitOnBody vertical style="flex:0.48;" :splitLine="false">
         <div style="height:.28rem;">
-          <el-tabs type="border-card" class="only-tablabel" v-model="activePDX">
+          <el-tabs
+            type="border-card"
+            class="only-tablabel"
+            v-model="activePDX"
+            @tab-click="onPowerBoxLoopClick"
+          >
             <el-tab-pane v-for="i in PDXList" :label="i.label" :name="i.name" :key="i.label"></el-tab-pane>
           </el-tabs>
         </div>
@@ -207,8 +212,8 @@ export default {
             left: "36%",
             top: "35%"
           },
-          radius: ["43%", "60%"],
-          center: ["50%", "50%"],
+          radius: ["43%", "63%"],
+          center: ["40%", "50%"],
           legendShow: false,
           titleShow: true,
           legendPreset: 2
@@ -494,6 +499,20 @@ export default {
     //刷新案件列表
     refreshTable() {
       this.$refs.table.refreshTable();
+    },
+
+    //配电箱点击
+    onPowerBoxLoopClick(comp) {
+      if (comp && comp.name) {
+        this.$modal({
+          placement: "center",
+          component: "PowerBoxLoop",
+          id: "CenterModal",
+          data: {
+            id: comp.name
+          }
+        });
+      }
     }
   },
 

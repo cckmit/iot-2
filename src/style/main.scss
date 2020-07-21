@@ -816,7 +816,8 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                 max-width: 80%;
                 span {
                     font-size: 0.16rem;
-                    height: 0.2rem;
+                    height: 0.16rem;
+                    line-height: 0.16rem;
                     max-width: 100%;
                     text-overflow: ellipsis;
                     white-space: nowrap;
@@ -903,11 +904,11 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
 
             &:before {
                 left: 0;
-                width: calc(100% + .08rem);
+                width: calc(100% + 0.08rem);
                 height: 0.14rem;
             }
             &:after {
-                left: calc(100% + .13rem);
+                left: calc(100% + 0.13rem);
                 width: 0.07rem;
                 height: 0.1rem;
             }

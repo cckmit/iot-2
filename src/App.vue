@@ -76,9 +76,9 @@
         <pre>CurrentDiskSubMenu:{{CurrentDiskSubMenu}}</pre>
         <pre>HtmlFontSize:{{HtmlFontSize}}</pre>
         <pre>FooterBoxVisible:{{FooterBoxVisible}}<el-button
-          size="mini"
-          @click="$store.commit('set_FooterBoxVisible',true)"
-        >setTrue</el-button></pre>
+  size="mini"
+  @click="$store.commit('set_FooterBoxVisible',true)"
+>setTrue</el-button></pre>
       </div>
       <el-button
         class="debug-btn"
@@ -156,6 +156,14 @@ export default {
     //   title: "测试",
     //   placement: "center",
     //   component: () => import("@/pages/ModalPage_01.vue")
+    // });
+
+    // this.$modal({
+    //   placement: "center",
+    //   component: "PowerBoxLoop",
+    //   data: {
+    //     id: "1号配电箱"
+    //   }
     // });
   }
 };

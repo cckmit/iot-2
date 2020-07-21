@@ -51,3 +51,11 @@ export function arrayGroup(data, num) {
 
     return result;
 }
+
+/**
+ * 从数组中随机取值
+ * @param {Array} arr 
+ */
+export function getRandomValueFromArray(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
