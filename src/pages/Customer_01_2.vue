@@ -139,7 +139,7 @@ export default {
         {
           label: "状态",
           align: "center",
-          minWidth: 100,
+          minWidth: 70,
           showOverflowTooltip: false,
           prop: "Category",
           render: (h, context) => {
@@ -163,7 +163,7 @@ export default {
         {
           label: "单位名称",
           prop: "Name",
-          minWidth: 130,
+          minWidth: 110,
           align: "center",
           resizable: true,
           showOverflowTooltip: false
@@ -178,13 +178,13 @@ export default {
         {
           label: "联系电话",
           align: "center",
-          minWidth: 130,
+          minWidth: 120,
           prop: "Tel"
         },
         {
           label: "接入时间",
           align: "center",
-          minWidth: 100,
+          minWidth: 90,
           prop: "AccessTime",
           render: (h, context) => (
             <span>{new Date(context.value).format("yyyy-MM-dd")}</span>
@@ -193,7 +193,7 @@ export default {
         {
           label: "场所数",
           align: "center",
-          minWidth: 80,
+          minWidth: 70,
           showOverflowTooltip: false,
           prop: "PlaceCount",
           render(h, context) {
@@ -213,7 +213,7 @@ export default {
         {
           label: "设备数",
           align: "center",
-          minWidth: 80,
+          minWidth: 70,
           prop: "EquipmentCount"
         },
         {

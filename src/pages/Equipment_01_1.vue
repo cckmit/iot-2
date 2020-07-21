@@ -176,7 +176,7 @@ export default {
         {
           label: "设备ID",
           prop: "Code",
-          minWidth: 80,
+          minWidth: 70,
           align: "center",
           showOverflowTooltip: false
         },
@@ -184,7 +184,7 @@ export default {
         {
           label: "所属单位",
           prop: "BusinessName",
-          minWidth: 130,
+          minWidth: 120,
           align: "center",
           resizable: true,
           showOverflowTooltip: false

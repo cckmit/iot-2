@@ -130,8 +130,8 @@ export default {
               EquipmentCount: 200,
               WarningCount: 1,
               WarningOKCount: 1,
-              ErrorCount: 10,
-              ErrorOKCount: 9,
+              ErrorCount: 9999,
+              ErrorOKCount: 9999,
               Category: 2
             }
           ];
@@ -163,7 +163,7 @@ export default {
         {
           label: "状态",
           align: "center",
-          minWidth: 100,
+          minWidth: 70,
           showOverflowTooltip: false,
           prop: "Category",
           render: (h, context) => {
@@ -187,7 +187,7 @@ export default {
         {
           label: "单位名称",
           prop: "Name",
-          minWidth: 130,
+          minWidth: 120,
           align: "center",
           resizable: true,
           showOverflowTooltip: false
@@ -196,19 +196,19 @@ export default {
         {
           label: "联系人",
           align: "center",
-          minWidth: 80,
+          minWidth: 70,
           prop: "Contact"
         },
         {
           label: "联系电话",
           align: "center",
-          minWidth: 130,
+          minWidth: 120,
           prop: "Tel"
         },
         {
           label: "接入时间",
           align: "center",
-          minWidth: 100,
+          minWidth: 95,
           prop: "AccessTime",
           render: (h, context) => (
             <span>{new Date(context.value).format("yyyy-MM-dd")}</span>
@@ -217,7 +217,7 @@ export default {
         {
           label: "场所数",
           align: "center",
-          minWidth: 80,
+          minWidth: 70,
           showOverflowTooltip: false,
           prop: "PlaceCount",
           render(h, context) {
@@ -237,13 +237,13 @@ export default {
         {
           label: "设备数",
           align: "center",
-          minWidth: 80,
+          minWidth: 70,
           prop: "EquipmentCount"
         },
         {
           label: "报警数",
           align: "center",
-          minWidth: 80,
+          minWidth: 90,
           prop: "WarningCount",
           render: (h, context) => {
             const { row, value } = context;
@@ -258,7 +258,7 @@ export default {
         {
           label: "故障数",
           align: "center",
-          minWidth: 100,
+          minWidth: 90,
           prop: "ErrorCount",
           render: (h, context) => {
             const { row, value } = context;

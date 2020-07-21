@@ -209,7 +209,7 @@ export default {
         {
           label: "设备ID",
           prop: "ID",
-          minWidth: 80,
+          minWidth: 70,
           align: "center",
           showOverflowTooltip: false
         },
@@ -224,7 +224,7 @@ export default {
         {
           label: "所属企业",
           prop: "company",
-          minWidth: 130,
+          minWidth: 105,
           align: "center",
           resizable: true,
           showOverflowTooltip: false
@@ -232,7 +232,7 @@ export default {
         {
           label: "所属场所",
           align: "center",
-          minWidth: 130,
+          minWidth: 105,
           showOverflowTooltip: false,
           prop: "place",
           render(h, context) {
@@ -252,19 +252,19 @@ export default {
         {
           label: "联系人",
           align: "center",
-          minWidth: 80,
+          minWidth: 70,
           prop: "contact"
         },
         {
           label: "联系电话",
           align: "center",
-          minWidth: 130,
+          minWidth: 110,
           prop: "tel"
         },
         {
           label: "发生时间",
           align: "center",
-          minWidth: 120,
+          minWidth: 95,
           prop: "time"
         },
         {
@@ -294,7 +294,7 @@ export default {
         {
           label: "处理状态",
           align: "center",
-          minWidth: 100,
+          minWidth: 90,
           prop: "handleStatus",
           render: (h, context) => {
             const obj = {

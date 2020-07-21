@@ -614,6 +614,7 @@ export default {
         width: 25%;
         vertical-align: middle;
         text-align: center;
+        font-size: .12rem;
       }
       .bar-item__value {
         width: 70%;
@@ -644,6 +645,7 @@ export default {
       align-items: center;
       .bar-item__label {
         height: 10%;
+        font-size: .12rem;
       }
       .bar-item__value {
         height: 90%;

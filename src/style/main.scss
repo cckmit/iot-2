@@ -451,7 +451,7 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
                     font-size: 0.16rem;
                     z-index: 2;
                     border-top-right-radius: 0.08rem;
-                    border-bottom-left-radius: 0.08rem;
+                    border-bottom-left-radius: 50%;
                     transition: all 0.2s ease;
                     &:hover {
                         background: rgba(37, 111, 192, 0.2);
