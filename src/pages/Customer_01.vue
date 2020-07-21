@@ -198,7 +198,6 @@ export default {
         placement: "center",
         data: { days: this.query.days, category: row.category },
         id: "CenterModal",
-        width: "10rem",
         component: "Customer_01_1"
       });
     },
@@ -209,7 +208,6 @@ export default {
         placement: "center",
         data: { days: this.query.days, category },
         id: "CenterModal",
-        width: "10rem",
         component: "Customer_01_2"
       });
     }

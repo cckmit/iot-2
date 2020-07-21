@@ -113,7 +113,6 @@ export default {
             Category: "d047dd07-b7de-4bf7-9a19-455de4ed25cc" || meta.SId
           },
           id: "CenterModal",
-          width: "10rem",
           component: "Equipment_01_1"
         });
       }

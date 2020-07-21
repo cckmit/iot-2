@@ -119,7 +119,6 @@ export default {
         this.$modal({
           component: "Industry_01_1",
           placement: "center",
-          width: "10rem",
           data: meta,
           id: "CenterModal"
         });

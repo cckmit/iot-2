@@ -513,7 +513,6 @@ export default {
   .summary-info__start {
     height: 100%;
     flex: 0.31;
-    background: pink;
     border-radius: 0.06rem;
     overflow: hidden;
     .el-image {
