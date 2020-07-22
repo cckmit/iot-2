@@ -1,8 +1,8 @@
 import Mock from 'mockjs';
-
 const baseApi = '/api/govShow';
 
 const mockList = [
+    //#region 通用接口
     {
         //获取登录用户信息和行政区划选项,刷新时间
         url: `${baseApi}?optionType=location`,
@@ -55,12 +55,25 @@ const mockList = [
         //获取整体状体
         url: `${baseApi}?optionType=status`,
         method: 'get',
+        data:
+            Mock.mock({
+                'businessCount|1-200': 1,
+                'equipmentCount|1-9999': 1,
+                'placeCount|1-999': 1,
+            })
+    },
+    {
+        //获取天气
+        url: `${baseApi}?optionType=weather`,
+        method: 'get',
         data: {
-            businessCount: 54,
-            equipmentCount: 5442,
-            placeCount: 59
         }
     },
+    //#endregion
+
+
+    //#region 地图
+
     {
         //获取街道/镇列表
         url: `${baseApi}?optionType=town`,
@@ -103,13 +116,10 @@ const mockList = [
         data: {
         }
     },
-    {
-        //获取天气
-        url: `${baseApi}?optionType=weather`,
-        method: 'get',
-        data: {
-        }
-    },
+    //#endregion
+
+
+    //#region 单位
     {
         //单位-单位运行情况(原report1)
         url: `${baseApi}?optionType=customerOperation`,
@@ -143,7 +153,10 @@ const mockList = [
         data: {
         }
     },
+    //#endregion
 
+
+    //#region 行业
     {
         //行业-各行业单位数占比(原report2)
         url: `${baseApi}?optionType=industryCustomerRate`,
@@ -172,8 +185,10 @@ const mockList = [
         data: {
         }
     },
+    //#endregion
 
 
+    //#region 设备
     {
         //设备-各类设备数量占比(原report3)
         url: `${baseApi}?optionType=equipmentCategoryRate`,
@@ -202,8 +217,10 @@ const mockList = [
         data: {
         }
     },
+    //#endregion
 
 
+    //#region 场所搜索
     {
         //场所搜索
         url: `${baseApi}?optionType=placelist`,
@@ -211,7 +228,7 @@ const mockList = [
         data: {
         }
     }
-
+    //#endregion
 ]
 
 mockList.forEach(i => {

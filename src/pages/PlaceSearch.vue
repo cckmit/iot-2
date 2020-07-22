@@ -105,13 +105,14 @@ export default {
     },
 
     carouselHeight() {
-      return this.$root.getNumberByRem("160rem") + "px";
+      return this.$root.getPxNumberByRem("1.6rem") + "px";
     },
 
     carousel() {
       return this.$refs.carousel;
     }
   },
+
   methods: {
     carouselControl(cmd) {
       if (this.carousel) {

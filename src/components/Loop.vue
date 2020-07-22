@@ -48,7 +48,15 @@ export default {
   flex-direction: column;
   align-items: center;
   position: relative;
-//   margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
+  padding: 0.1rem 0;
+  cursor: pointer;
+  border-radius: .04rem;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(26, 146, 255, 0.1);
+  }
 
   &:before,
   &:after {
@@ -71,14 +79,14 @@ export default {
   .loop-code {
     width: 0.18rem;
     height: 0.2rem;
-    color: rgba(#fff,.8);
+    color: rgba(#fff, 0.8);
     border: 0.01rem solid rgb(78, 131, 150);
     border-radius: 0.06rem;
     background: rgb(7, 21, 38);
     line-height: 0.2rem;
     text-align: center;
     font-size: 0.12rem;
-    letter-spacing: -.01rem;
+    letter-spacing: -0.01rem;
   }
   .loop-bar-top,
   .loop-bar-bottom {
@@ -101,7 +109,7 @@ export default {
     border-radius: 50%;
     background: rgb(123, 195, 255);
     position: absolute;
-    top: 0.75rem;
+    top: 0.78rem;
 
     &:before {
       content: "";
@@ -157,6 +165,8 @@ export default {
     }
   }
   .loop-icons {
+    height: 1rem;
+    overflow: hidden;
     margin-top: 0.1rem;
     display: flex;
     flex-direction: column;

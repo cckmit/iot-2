@@ -26,9 +26,9 @@ export default {
       barOption: {
         tooltip: {
           trigger: "axis",
-          padding: this.$root.getNumberByRem("5rem"),
+          padding: this.$root.getPxNumberByRem("0.05rem"),
           textStyle: {
-            fontSize: this.$root.getNumberByRem("14rem")
+            fontSize: this.$root.getPxNumberByRem("0.14rem")
           },
           appendToBody: true
         },
@@ -46,11 +46,11 @@ export default {
           //     top: 0,
           //     width: "40%",
           //     height: "15%",
-          //     itemWidth: this.$root.getNumberByRem("16rem"),
-          //     itemHeight: this.$root.getNumberByRem("8rem"),
-          //     itemGap: this.$root.getNumberByRem("20rem"),
+          //     itemWidth: this.$root.getPxNumberByRem("0.16rem"),
+          //     itemHeight: this.$root.getPxNumberByRem("0.08rem"),
+          //     itemGap: this.$root.getPxNumberByRem("0.2rem"),
           //     textStyle: {
-          //       fontSize: this.$root.getNumberByRem("12rem")
+          //       fontSize: this.$root.getPxNumberByRem("0.12rem")
           //     },
           //     orient: "vertical"
           //   },
@@ -60,11 +60,11 @@ export default {
           //     top: "12%",
           //     width: "40%",
           //     height: "15%",
-          //     itemWidth: this.$root.getNumberByRem("16rem"),
-          //     itemHeight: this.$root.getNumberByRem("8rem"),
-          //     itemGap: this.$root.getNumberByRem("20rem"),
+          //     itemWidth: this.$root.getPxNumberByRem("0.16rem"),
+          //     itemHeight: this.$root.getPxNumberByRem("0.08rem"),
+          //     itemGap: this.$root.getPxNumberByRem("0.2rem"),
           //     textStyle: {
-          //       fontSize: this.$root.getNumberByRem("12rem")
+          //       fontSize: this.$root.getPxNumberByRem("0.12rem")
           //     },
           //     orient: "vertical"
           //   }
@@ -77,7 +77,7 @@ export default {
               type: "shadow"
             },
             axisLabel: {
-              fontSize: this.$root.getNumberByRem("12rem")
+              fontSize: this.$root.getPxNumberByRem("0.12rem")
             }
           }
         ],
@@ -94,11 +94,11 @@ export default {
             },
             axisLabel: {
               formatter: "{value}",
-              fontSize: this.$root.getNumberByRem("12rem")
+              fontSize: this.$root.getPxNumberByRem("0.12rem")
             },
             nameTextStyle: {
               color: "rgb(109,151,191)",
-              fontSize: this.$root.getNumberByRem("12rem")
+              fontSize: this.$root.getPxNumberByRem("0.12rem")
             }
           }
         ],
@@ -181,7 +181,7 @@ export default {
               : color,
           data,
           lineStyle: {
-            width: this.$root.getNumberByRem("1rem")
+            width: this.$root.getPxNumberByRem("0.01rem")
           }
         };
 

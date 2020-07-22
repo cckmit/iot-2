@@ -32,21 +32,21 @@ export default {
             rich: {
               a: {
                 fontWeight: "bold",
-                fontSize: this.$root.getNumberByRem(
-                  this.smallTitle ? "20rem" : "24rem"
+                fontSize: this.$root.getPxNumberByRem(
+                  this.smallTitle ? "0.2rem" : "0.24rem"
                 )
               },
               b: {
                 textIndent: -10,
-                fontSize: this.$root.getNumberByRem("12rem")
+                fontSize: this.$root.getPxNumberByRem("0.12rem")
               }
             }
           },
           subtextStyle: {
             color: "#fff",
-            lineHeight: this.$root.getNumberByRem("0rem"),
-            fontSize: this.$root.getNumberByRem(
-              this.smallTitle ? "12rem" : "14rem"
+            lineHeight: this.$root.getPxNumberByRem("0rem"),
+            fontSize: this.$root.getPxNumberByRem(
+              this.smallTitle ? "0.12rem" : "0.14rem"
             )
           }
         },
@@ -55,7 +55,7 @@ export default {
           show: true,
           formatter: "{b}：{c} ({d}%)",
           textStyle: {
-            fontSize: this.$root.getNumberByRem("14rem")
+            fontSize: this.$root.getPxNumberByRem("0.14rem")
           },
           appendToBody: true
         },
@@ -63,7 +63,7 @@ export default {
           {
             type: "pie",
             selectedMode: this.selectedMode,
-            selectedOffset: this.$root.getNumberByRem("10rem"),
+            selectedOffset: this.$root.getPxNumberByRem("0.1rem"),
             labelLine: {
               normal: {
                 show: false
@@ -228,9 +228,9 @@ export default {
               }
             }
           },
-          itemWidth: this.$root.getNumberByRem("18rem"),
-          itemHeight: this.$root.getNumberByRem("10rem"),
-          itemGap: this.$root.getNumberByRem("16rem")
+          itemWidth: this.$root.getPxNumberByRem("0.18rem"),
+          itemHeight: this.$root.getPxNumberByRem("0.1rem"),
+          itemGap: this.$root.getPxNumberByRem("0.16rem")
         },
         {
           data: [],
@@ -244,9 +244,9 @@ export default {
               }
             }
           },
-          itemWidth: this.$root.getNumberByRem("18rem"),
-          itemHeight: this.$root.getNumberByRem("10rem"),
-          itemGap: this.$root.getNumberByRem("16rem")
+          itemWidth: this.$root.getPxNumberByRem("0.18rem"),
+          itemHeight: this.$root.getPxNumberByRem("0.10rem"),
+          itemGap: this.$root.getPxNumberByRem("0.16rem")
         }
       ];
 
@@ -305,15 +305,15 @@ export default {
             }
           },
           // backgroundColor: "pink",
-          itemWidth: this.$root.getNumberByRem("20rem"),
-          itemHeight: this.$root.getNumberByRem("10rem"),
-          itemGap: this.$root.getNumberByRem("12rem"),
+          itemWidth: this.$root.getPxNumberByRem("0.2rem"),
+          itemHeight: this.$root.getPxNumberByRem("0.1rem"),
+          itemGap: this.$root.getPxNumberByRem("0.12rem"),
           pageIconColor: "rgba(255,255,255,.3)",
           pageIconInactiveColor: "rgba(255,255,255,.1)",
           pageTextStyle: {
             color: "rgba(255,255,255,.3)"
           },
-          pageIconSize: this.$root.getNumberByRem("10rem")
+          pageIconSize: this.$root.getPxNumberByRem("0.1rem")
         }
       ];
 

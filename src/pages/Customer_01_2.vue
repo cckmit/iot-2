@@ -7,7 +7,7 @@
             <el-col :span="16">
               <el-form inline @submit.native.prevent>
                 <el-form-item>
-                  <el-radio-group v-model="vDays" @change="refresh">
+                  <el-radio-group v-model="query.days" @change="refresh">
                     <el-radio-button :label="30">近30天</el-radio-button>
                     <el-radio-button :label="60">近60天</el-radio-button>
                     <el-radio-button :label="90">近90天</el-radio-button>
@@ -60,7 +60,7 @@ export default {
 
   watch: {
     days(val) {
-      this.vDays = val;
+      this.query.days = val;
       this.refresh();
     },
     category(val) {
@@ -71,10 +71,9 @@ export default {
 
   data() {
     return {
-      vDays: this.days,
-
       query: {
-        Category: this.category
+        Category: this.category,
+        days: this.days
       },
 
       options: {

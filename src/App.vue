@@ -110,9 +110,6 @@ import Sidebox from "@/components/Sidebox.vue";
 import DiskMenu from "@/components/DiskMenu.vue";
 import FooterBox from "@/components/FooterBox.vue";
 
-//导入业务功能页面
-import "@/pages";
-
 export default {
   name: "App",
 

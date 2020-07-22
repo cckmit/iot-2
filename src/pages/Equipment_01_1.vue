@@ -34,7 +34,7 @@
             <el-col :span="16">
               <el-form inline style="text-align:right;" @submit.native.prevent>
                 <el-form-item>
-                  <el-select v-model="query.Category" clearable>
+                  <el-select v-model="query.Category" clearable placeholder="请选择设备类型">
                     <el-option v-for="i in CategorySelections" v-bind="i" :key="i.value"></el-option>
                   </el-select>
                 </el-form-item>

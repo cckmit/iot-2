@@ -124,25 +124,33 @@ export default {
       const data = [
         {
           name: "正常",
-          category: 4,
+          meta: {
+            Category: 4
+          },
           value: normal || 0,
           color: colorMap.normal
         },
         {
           name: "仅报警",
-          category: 1,
+          meta: {
+            Category: 1
+          },
           value: warning || 0,
           color: colorMap.warning
         },
         {
           name: "仅故障",
-          category: 2,
+          meta: {
+            Category: 2
+          },
           value: error || 0,
           color: colorMap.error
         },
         {
           name: "报警且故障",
-          category: 3,
+          meta: {
+            Category: 3
+          },
           value: both || 0,
           color: colorMap.both
         }
@@ -205,13 +213,15 @@ export default {
     },
 
     onPieClick(e) {
-      const { category } = e.data;
-      this.$modal({
-        placement: "center",
-        data: { days: this.query.days, category },
-        id: "CenterModal",
-        component: "Customer_01_2"
-      });
+      if (e.data.meta) {
+        const { Category } = e.data.meta;
+        this.$modal({
+          placement: "center",
+          data: { days: this.query.days, category: Category },
+          id: "CenterModal",
+          component: "Customer_01_2"
+        });
+      }
     }
   },
 
