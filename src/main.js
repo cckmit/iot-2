@@ -17,7 +17,7 @@ import '@/filters';
 import App from './App.vue';
 
 //Mock
-// import '@/mock';
+import '@/mock';
 
 //移除Vue提示
 Vue.config.productionTip = false

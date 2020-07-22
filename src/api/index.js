@@ -11,6 +11,13 @@ export function getLocation() {
 }
 
 /**
+ * 获取天气信息
+ */
+export function getWeather() {
+    return http.get(`${baseApi}?optionType=weather`);
+}
+
+/**
  * 获取侧边栏汇总信息
  */
 export function getSummary() {

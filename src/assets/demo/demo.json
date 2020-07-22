@@ -1,49 +1,72 @@
 {
-    "bl": true,
+    "isSuccess": true,
+    "msg": "操作成功",
     "data": {
-        "rows": [
-            {
-                "Id": "bed445b5-158d-4d8c-ad19-2617b136ee26",
-                "Name": "故障电弧探测器 ",
-                "Value": "1",
-                "SortCode": 1
-            },
-            {
-                "Id": "d047dd07-b7de-4bf7-9a19-455de4ed25cc",
-                "Name": "电流探测器 ",
-                "Value": "2",
-                "SortCode": 2
-            },
-            {
-                "Id": "ba13d1e2-9a77-40b7-a80b-0c7d4336aef3",
-                "Name": "剩余电流探测器 ",
-                "Value": "3",
-                "SortCode": 3
-            },
-            {
-                "Id": "05aed15d-3967-49ec-bea4-1f0c806092e4",
-                "Name": "温度探测器 ",
-                "Value": "4",
-                "SortCode": 4
-            },
-            {
-                "Id": "9dc544d2-aac5-4b9e-bf77-fe429321f6ff",
-                "Name": "烟雾探测器",
-                "Value": "5",
-                "SortCode": 5
-            },
-            {
-                "Id": "1335953d-a2bf-4b95-82cb-7571c821cb19",
-                "Name": "烟感探测器",
-                "Value": "6",
-                "SortCode": 5
-            },
-            {
-                "Id": "a94134ba-f36f-4109-b17d-96126ebf12cb",
-                "Name": "其他 ",
-                "Value": "99",
-                "SortCode": 99
-            }
-        ]
-    }
+        "rows": {
+            "ProjectList": null,
+            "RegionList": [
+                {
+                    "Id": "6d4a2a9e-210c-4e51-b1bb-701882dba8f1",
+                    "LocationCode": "220000,220100,220172,220172002",
+                    "LocationName": "吉林省,长春市,长春净月高新技术产业开发区,净月街道",
+                    "EnabledMark": null,
+                    "DeleteMark": null,
+                    "CreateTime": null,
+                    "CreateUserId": null,
+                    "CreaterUserName": null,
+                    "ModifyTime": null,
+                    "ModifyUserId": null,
+                    "ModifyUserName": null,
+                    "Remark": null,
+                    "X": "43.793912",
+                    "Y": "125.385508",
+                    "IsSelect": false
+                },
+                {
+                    "Id": "0d48398f-357c-46a5-b75e-876d71be3aa5",
+                    "LocationCode": "230000,230100,230109,230109005",
+                    "LocationName": "黑龙江省,哈尔滨市,松北区,松北街道",
+                    "EnabledMark": null,
+                    "DeleteMark": null,
+                    "CreateTime": null,
+                    "CreateUserId": null,
+                    "CreaterUserName": null,
+                    "ModifyTime": null,
+                    "ModifyUserId": null,
+                    "ModifyUserName": null,
+                    "Remark": null,
+                    "X": "45.803732",
+                    "Y": "126.514765",
+                    "IsSelect": false
+                }
+            ],
+            "CodeList": null,
+            "StartTime": null,
+            "EndTime": null,
+            "Id": "00000000-0000-0000-0000-000000000000",
+            "Name": "管理员",
+            "Account": null,
+            "HeadIcon": null,
+            "ContactTel": null,
+            "LocationCode": null,
+            "LocationName": null,
+            "X": null,
+            "Y": null,
+            "Description": null,
+            "EnabledMark": null,
+            "DeleteMark": null,
+            "SortCode": null,
+            "CreateTime": null,
+            "CreateUserId": null,
+            "CreaterUserName": null,
+            "ModifyTime": null,
+            "ModifyUserId": null,
+            "ModifyUserName": null,
+            "LocationLevel": 0,
+            "ZoomLevel": 0,
+            "IsSelect": false
+        }
+    },
+    "status": 200,
+    "bl": true
 }

@@ -50,7 +50,6 @@ export default {
   position: relative;
   margin-bottom: 0.1rem;
   padding: 0.1rem 0;
-  cursor: pointer;
   border-radius: .04rem;
   transition: background 0.15s ease;
 

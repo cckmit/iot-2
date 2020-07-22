@@ -70,7 +70,7 @@
 
       <el-scrollbar
         :native="false"
-        wrap-style="overflow-x:hidden;max-height:3rem;min-height:1.5rem;"
+        wrap-style="max-height:3rem;min-height:1.5rem;"
       >
         <el-tree
           :data="treeDataSource"

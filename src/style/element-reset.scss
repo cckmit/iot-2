@@ -361,6 +361,26 @@
     }
 }
 
-.el-scrollbar__wrap{
+.el-scrollbar__wrap {
     // overflow: hidden;
+}
+
+.el-tooltip__popper.is-dark {
+    $color:rgb(37,111,192);
+    font-size: 0.12rem;
+    border-radius: 0.04rem;
+    padding: 0.1rem;
+    background: $color !important;
+    .popper__arrow {
+        border-bottom-color: $color !important;
+        top: -0.06rem;
+        border-width: .06rem;
+    }
+    .popper__arrow::after {
+        border-bottom-color: $color !important;
+    }
+
+    &[x-placement^="bottom"] {
+        margin-top: 0.12rem;
+    }
 }

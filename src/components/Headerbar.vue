@@ -43,9 +43,11 @@
       <span class="header-info--item">{{CurrentTime | week}}</span>
       <span class="header-info--item">|</span>
       <span class="header-info--item">
-        <SvgIcon icon-class="qing" />
+        <el-tooltip :content="weather.type">
+          <SvgIcon :icon-class="weather.type | weatherIcon" />
+        </el-tooltip>
       </span>
-      <span class="header-info--item">20℃</span>
+      <span class="header-info--item">{{weather.temperature}}℃</span>
       <span class="header-info--item">
         <el-button @click="logout" size="mini" plain type="primary">退出登录</el-button>
       </span>
@@ -56,13 +58,36 @@
 <script>
 import RadioSwitch from "@/components/RadioSwitch.vue";
 import RegionSelect from "./RegionSelect/index";
-import { getLocation, logout } from "@/api";
+import { getLocation, logout, getWeather } from "@/api";
 import { mapState } from "vuex";
 
 export default {
   components: {
     RadioSwitch,
     RegionSelect
+  },
+
+  filters: {
+    weatherIcon(val) {
+      return (
+        {
+          阴: "yin",
+          小雪: "xiaoxue",
+          多云转晴: "duoyunzhuanqing",
+          雾天: "wutian",
+          多云: "duoyun",
+          大雨: "dayu",
+          小雨: "xiaoyu",
+          中雪: "zhongxue",
+          雷阵雨: "leizhenyu",
+          晴: "qing",
+          雨夹雪: "yujiaxue",
+          冰雹: "bingbao",
+          大雪: "daxue",
+          中雨: "zhongyu"
+        }[val] || ""
+      );
+    }
   },
 
   computed: {
@@ -94,15 +119,25 @@ export default {
 
       CurrentPlaceType: 1,
 
+      //所属区域顶级名称
+      TopName: "",
+
       //行政区划下拉列表树(可以是扁平化数据)
       RegionList: [],
 
       //当前时间信息
-      CurrentTime: new Date()
+      CurrentTime: new Date(),
+
+      //天气信息对象
+      weather: {
+        type: "",
+        temperature: ""
+      }
     };
   },
 
   methods: {
+    //获取位置信息
     getLocationInfo() {
       getLocation().then(res => {
         if (res.isSuccess && res.bl) {
@@ -122,12 +157,26 @@ export default {
       });
     },
 
+    //获取天气信息
+    getWeather() {
+      getWeather().then(res => {
+        if (res.bl) {
+          const { info, temperature } = res.data.result.data.realtime.weather;
+
+          this.weather.type = info;
+          this.weather.temperature = temperature;
+        }
+      });
+    },
+
+    //自动刷新时间
     autoUpdateCurrentTime() {
       setInterval(() => {
         this.CurrentTime = new Date();
       }, 5000);
     },
 
+    //登出
     logout() {
       this.$confirm("是否确认登出？", { title: "提醒" }).then(() => {
         logout().then(res => {
@@ -143,6 +192,8 @@ export default {
 
   created() {
     this.getLocationInfo();
+
+    this.getWeather();
 
     this.autoUpdateCurrentTime();
   }
