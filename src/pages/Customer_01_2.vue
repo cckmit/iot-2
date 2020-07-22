@@ -77,7 +77,7 @@ export default {
       },
 
       options: {
-        api: "/api/Business",
+        api: "/api/govShow?optionType=businesslist",
         background: "transparent",
         border: false,
         outBorder: false,
@@ -88,45 +88,7 @@ export default {
         toolbarProps: {
           height: "0.5rem"
         },
-        pagerLayout: "prev,pager,next",
-
-        resHandler() {
-          const rows = [
-            {
-              Id: "056e9cdf-1843-4573-9dda-0e7b0af30de1",
-              Name: "金山区佰仁养护院",
-              Tel: "18602141366",
-              Contact: "黄越石",
-              AccessTime: "2019-08-20T10:08:56.86",
-              PlaceCount: 1,
-              EquipmentCount: 256,
-              WarningCount: 1,
-              WarningOKCount: 0,
-              ErrorCount: 8,
-              ErrorOKCount: 8,
-              Category: 3
-            },
-            {
-              Id: "72af77bd-8729-4fac-879c-df5da9fa0316",
-              Name: "金山区吕巷镇敬老院",
-              Tel: "13764895912",
-              Contact: "韩爱华",
-              AccessTime: "2019-07-26T10:19:29.157",
-              PlaceCount: 1,
-              EquipmentCount: 200,
-              WarningCount: 1,
-              WarningOKCount: 1,
-              ErrorCount: 10,
-              ErrorOKCount: 9,
-              Category: 2
-            }
-          ];
-
-          return {
-            rows,
-            total: rows.length
-          };
-        }
+        pagerLayout: "prev,pager,next"
       }
     };
   },
@@ -183,7 +145,7 @@ export default {
         {
           label: "接入时间",
           align: "center",
-          minWidth: 90,
+          minWidth: 95,
           prop: "AccessTime",
           render: (h, context) => (
             <span>{new Date(context.value).format("yyyy-MM-dd")}</span>

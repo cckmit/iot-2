@@ -77,7 +77,7 @@ export default {
       },
 
       options: {
-        api: "/api/Business",
+        api: "/api/govShow?optionType=recordlist",
         background: "transparent",
         border: false,
         outBorder: false,
@@ -88,116 +88,7 @@ export default {
         toolbarProps: {
           height: "0.5rem"
         },
-        pagerLayout: "prev,pager,next",
-
-        resHandler() {
-          const rows = [
-            {
-              ID: "1",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            },
-            {
-              ID: "2",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            },
-            {
-              ID: "3",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 2,
-              handleStatus: 2
-            },
-            {
-              ID: "1",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            },
-            {
-              ID: "2",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 3,
-              handleStatus: 1
-            },
-            {
-              ID: "3",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            },
-            {
-              ID: "1",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            },
-            {
-              ID: "2",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            },
-            {
-              ID: "3",
-              type: "故障点胡探测器",
-              company: "金山区驻京县敬老院",
-              place: "金山区驻京县开发区",
-              contact: "张东升",
-              tel: "15288565524",
-              time: new Date().format("yyyy-MM-dd"),
-              status: 1,
-              handleStatus: 2
-            }
-          ];
-
-          return {
-            rows,
-            total: rows.length
-          };
-        }
+        pagerLayout: "prev,pager,next"
       }
     };
   },

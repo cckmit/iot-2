@@ -370,6 +370,7 @@
     font-size: 0.12rem;
     border-radius: 0.04rem;
     padding: 0.1rem;
+    overflow: hidden;
     background: $color !important;
     .popper__arrow {
         border-bottom-color: $color !important;

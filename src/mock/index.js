@@ -1,11 +1,18 @@
 import Mock from 'mockjs';
-const baseApi = '/api/govShow';
+const Random = Mock.Random;
+const baseApi = '^\\/api\\/govShow\\?';
+
+Mock.setup({
+    timeout: 1000
+})
+
+
 
 const mockList = [
     //#region 通用接口
     {
         //获取登录用户信息和行政区划选项,刷新时间
-        url: `${baseApi}?optionType=location`,
+        url: `${baseApi}optionType=location`,
         method: 'get',
         data: {
             "rows": {
@@ -80,8 +87,8 @@ const mockList = [
         }
     },
     {
-        //获取整体状体
-        url: `${baseApi}?optionType=status`,
+        //获取侧边栏信息
+        url: `${baseApi}optionType=status`,
         method: 'get',
         data:
             Mock.mock({
@@ -92,7 +99,7 @@ const mockList = [
     },
     {
         //获取天气
-        url: `${baseApi}?optionType=weather`,
+        url: `${baseApi}optionType=weather`,
         method: 'get',
         data: {
             "reason": "查询成功",
@@ -407,42 +414,42 @@ const mockList = [
 
     {
         //获取街道/镇列表
-        url: `${baseApi}?optionType=town`,
+        url: `${baseApi}optionType=town`,
         method: 'get',
         data: {
         }
     },
     {
         //地图--街道/镇-->地图点点击-->街道/镇详情
-        url: `${baseApi}?optionType=town`,
+        url: `${baseApi}optionType=town`,
         method: 'get',
         data: {
         }
     },
     {
         //地图--街道/镇-->地图点点击-->异常列表
-        url: `${baseApi}?optionType=townwarninglist`,
+        url: `${baseApi}optionType=townwarninglist`,
         method: 'get',
         data: {
         }
     },
     {
         //获取场所列表
-        url: `${baseApi}?optionType=placelist`,
+        url: `${baseApi}optionType=placelist`,
         method: 'get',
         data: {
         }
     },
     {
         //地图--场所-->地图点点击-->场所详情
-        url: `${baseApi}?optionType=place`,
+        url: `${baseApi}optionType=place`,
         method: 'get',
         data: {
         }
     },
     {
         //地图--场所-->地图点点击-->案件列表
-        url: `${baseApi}?optionType=placewarninglist`,
+        url: `${baseApi}optionType=placewarninglist`,
         method: 'get',
         data: {
         }
@@ -453,65 +460,125 @@ const mockList = [
     //#region 单位
     {
         //单位-单位运行情况(原report1)
-        url: `${baseApi}?optionType=customerOperation`,
+        url: `${baseApi}optionType=customerOperation`,
+        method: 'get',
+        data: Mock.mock({
+            'both|10-50': 100,
+            'bothAll|80-100': 100,
+            'bothHandled|10-80': 100,
+
+            'error|10-50': 100,
+            'errorAll|80-100': 100,
+            'errorHandled|10-80': 100,
+
+            'warning|10-50': 100,
+            'warningAll|80-100': 100,
+            'warningHandled|10-80': 100,
+
+            'normal|10-20': 100,
+            'total|100-150': 100,
+            year: 2020
+        })
+    },
+    {
+        //单位-单位年度运行情况(原report1)
+        url: `${baseApi}optionType=customerYearOperation`,
         method: 'get',
         data: {
-            rows: [
-                { status: "仅报警", count: 56, progress: 0.5, aaa: 12 },
-                { status: "仅故障", count: 26, progress: 0.7, aaa: 32 },
-                { status: "报警且故障", count: 16, progress: 0.3, aaa: 20 },
+            'rows|12': [
+                {
+                    "warning|10-50": 1,
+                    "error|10-50": 1,
+                    "both|10-50": 1,
+                    "warningCount|10-60": 1,
+                    "errorCount|10-60": 1,
+                    "month|+1": (function () { let arr = []; for (let i = 1; i < 12; i++) { arr.push(i + '月') } return arr; })(),
+                }
             ]
         }
     },
     {
-        //单位-单位年度运行情况(原report1)
-        url: `${baseApi}?optionType=customerOperationYear`,
+        //单位-单位运行情况--饼图点击-->单位预警情况(原businesslist)
+        url: `${baseApi}optionType=businesslist`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    Id: '@guid',
+                    Name: '@city',
+                    "Tel|13000000000-18999999999": 1,
+                    Contact: '@cname(2,3)',
+                    AccessTime: '@date',
+                    "PlaceCount|1-100": 1,
+                    "EquipmentCount|1-100": 1,
+                    "WarningCount|1-100": 1,
+                    "WarningOKCount|1-100": 1,
+                    "ErrorCount|1-100": 1,
+                    "ErrorOKCount|1-100": 1,
+                    "Category|1-3": 1,
+                }
+            ],
+            total: Random.natural(60, 100)
         }
     },
     {
-        //单位-单位年度运行情况--饼图点击-->单位预警情况(原businesslist)
-        url: `${baseApi}?optionType=businesslist`,
+        //单位-单位运行情况--文本点击-->案件列表(原recordlist)
+        url: `${baseApi}optionType=recordlist`,
         method: 'get',
         data: {
-        }
-    },
-    {
-        //单位-单位年度运行情况--文本点击-->案件列表(原recordlist)
-        url: `${baseApi}?optionType=recordlist`,
-        method: 'get',
-        data: {
+            'rows|10': [
+                {
+                    'ID|+1': 1,
+                    type: '@cword(3,5)',
+                    company: '@cword(6,10)',
+                    place: '@cword(6,10)',
+                    contact:'@cname',
+                    "tel|13000000000-18999999999": 1,
+                    time: '@date',
+                    "status|1-3": 1,
+                    "handleStatus|1-2": 1,
+                }
+            ],
+            total: Random.natural(60, 100)
         }
     },
     //#endregion
 
-
+    
     //#region 行业
     {
         //行业-各行业单位数占比(原report2)
-        url: `${baseApi}?optionType=industryCustomerRate`,
+        url: `${baseApi}optionType=industryCustomerRate`,
         method: 'get',
         data: {
-        }
+            'rows|10': [
+                {
+                    'Count|5-100': 1,
+                    meta: {
+                        'SId|+1': 1
+                    },
+                    Name: '@cword(3,5)'
+                }
+            ]
+        },
     },
     {
         //行业-行业运行趋势图(原report2)
-        url: `${baseApi}?optionType=industryCustomerOperation`,
+        url: `${baseApi}optionType=industryCustomerOperation`,
         method: 'get',
         data: {
         }
     },
     {
         //行业-各行业单位数占比--饼图点击-->行业详情--头部信息
-        url: `${baseApi}?optionType=industryInfo`,
+        url: `${baseApi}optionType=industryInfo`,
         method: 'get',
         data: {
         }
     },
     {
         //行业-各行业单位数占比--饼图点击-->行业详情--企业信息(分页)
-        url: `${baseApi}?optionType=industryCustomerList`,
+        url: `${baseApi}optionType=industryCustomerList`,
         method: 'get',
         data: {
         }
@@ -522,28 +589,28 @@ const mockList = [
     //#region 设备
     {
         //设备-各类设备数量占比(原report3)
-        url: `${baseApi}?optionType=equipmentCategoryRate`,
+        url: `${baseApi}optionType=equipmentCategoryRate`,
         method: 'get',
         data: {
         }
     },
     {
         //设备-各类设备在线率(原report3)
-        url: `${baseApi}?optionType=equipmentCategoryOnlineRate`,
+        url: `${baseApi}optionType=equipmentCategoryOnlineRate`,
         method: 'get',
         data: {
         }
     },
     {
         //设备-各类设备运行趋势图(原report3)
-        url: `${baseApi}?optionType=equipmentCategoryOperation`,
+        url: `${baseApi}optionType=equipmentCategoryOperation`,
         method: 'get',
         data: {
         }
     },
     {
         //设备-各类设备数量占比--饼图点击-->设备列表
-        url: `${baseApi}?optionType=equipmentlist`,
+        url: `${baseApi}optionType=equipmentlist`,
         method: 'get',
         data: {
         }
@@ -554,7 +621,7 @@ const mockList = [
     //#region 场所搜索
     {
         //场所搜索
-        url: `${baseApi}?optionType=placelist`,
+        url: `${baseApi}optionType=placelist`,
         method: 'get',
         data: {
         }
@@ -563,11 +630,18 @@ const mockList = [
 ]
 
 mockList.forEach(i => {
-    const { url, method, data } = i;
+    let { url, method, data, callback } = i;
 
-    Mock.mock(url, method, {
-        isSuccess: true,
-        bl: true,
-        data
-    })
+    callback = callback || function () {
+
+        data = JSON.parse(JSON.stringify(Mock.mock(data)));
+
+        return {
+            isSuccess: true,
+            bl: true,
+            data
+        }
+    }
+
+    Mock.mock(new RegExp(url), method, callback)
 })

@@ -3,6 +3,8 @@ import { daysToAgoTime } from '@/util';
 
 const baseApi = '/api/govShow';
 
+//#region 通用接口
+
 /**
  * 获取头部区域信息
  */
@@ -25,6 +27,18 @@ export function getSummary() {
 }
 
 /**
+ * 登出
+ */
+export function logout() {
+    return http.delete(`/api/login`);
+}
+
+//#endregion
+
+
+//#region 单位
+
+/**
  * 单位-单位运行情况(原report1)
  * @param {number} days 近?天 
  */
@@ -36,9 +50,14 @@ export function getCustomerOperation(days) {
 /**
  * 单位-单位年度运行情况(原report1)
  */
-export function getCustomerOperationYear() {
-    return http.get(`${baseApi}?optionType=customerOperationYear`);
+export function getCustomerYearOperation() {
+    return http.get(`${baseApi}?optionType=customerYearOperation`);
 }
+
+//#endregion 
+
+
+//#region 行业
 
 /**
  * 行业- 各行业单位数占比(原report2)
@@ -47,9 +66,4 @@ export function getIndustryCustomerRate() {
     return http.get(`${baseApi}?optionType=industryCustomerRate`);
 }
 
-/**
- * 登出
- */
-export function logout() {
-    return http.delete(`/api/login`);
-}
+//#endregion

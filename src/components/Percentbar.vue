@@ -51,8 +51,7 @@ export default {
     //RGB颜色字符串
     color: {
       type: String,
-      // default: "rgb(26, 146, 255)",
-      default: "rgb(255, 255, 0)"
+      default: "rgb(26, 146, 255)"
     },
     mode: {
       type: String,

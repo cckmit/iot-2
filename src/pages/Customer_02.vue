@@ -10,18 +10,19 @@
  */
 import { colorMap } from "@/plugins/echarts";
 import ChartBar from "@/components/Chart/ChartBar.vue";
-import { getRandomData } from "@/util";
+// import { getRandomData } from "@/util";
+import { getCustomerYearOperation } from "@/api";
 
-function testGetRow(i) {
-  return {
-    month: i,
-    warning: getRandomData({ min: 10, max: 500 }),
-    error: getRandomData({ min: 10, max: 500 }),
-    both: getRandomData({ min: 10, max: 500 }),
-    warningCount: getRandomData({ min: 10, max: 500 }),
-    errorCount: getRandomData({ min: 10, max: 500 })
-  };
-}
+// function testGetRow(i) {
+//   return {
+//     month: i,
+//     warning: getRandomData({ min: 10, max: 500 }),
+//     error: getRandomData({ min: 10, max: 500 }),
+//     both: getRandomData({ min: 10, max: 500 }),
+//     warningCount: getRandomData({ min: 10, max: 500 }),
+//     errorCount: getRandomData({ min: 10, max: 500 })
+//   };
+// }
 
 export default {
   name: "Customer_02",
@@ -78,17 +79,10 @@ export default {
         }
       ];
 
-      let arr = [];
-
-      for (let i = 0; i < 12; i++) {
-        arr.push(testGetRow(i + 1 + "月"));
-      }
-
-      this.rows = arr;
-
-      setTimeout(() => {
+      getCustomerYearOperation().then(res => {
+        this.rows = res.data.rows;
         this.loading = false;
-      }, 1000);
+      });
     }
   },
 
