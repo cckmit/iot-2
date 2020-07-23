@@ -78,7 +78,6 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
     @at-root .region__popper {
         border-radius: 0.12rem;
         box-shadow: $shadow;
-
     }
 }
 
@@ -785,6 +784,16 @@ $shadow: 0 0 0.14rem 0.06rem rgba(22, 129, 179, 0.55);
         &:hover {
             opacity: 1;
         }
+    }
+
+    .footer-box--open {
+        position: absolute;
+        left: calc(50% - 0.88rem);
+        top: -.2rem;
+        width: 1.6rem;
+        height: 0.3rem;
+        z-index: 2;
+        cursor: pointer;
     }
 }
 
