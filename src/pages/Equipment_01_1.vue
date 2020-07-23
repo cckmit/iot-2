@@ -63,6 +63,11 @@
 /**
  * 页面内容：设备列表
  */
+import {
+  getEquipmentCategorySelections,
+  getPDXCategorySelections
+} from "@/api";
+
 export default {
   props: {
     Category: {}
@@ -85,7 +90,7 @@ export default {
       },
 
       options: {
-        api: "/api/Business",
+        api: "/api/govShow?optionType=equipmentlist",
         background: "transparent",
         border: false,
         outBorder: false,
@@ -96,59 +101,7 @@ export default {
         toolbarProps: {
           height: "0.5rem"
         },
-        pagerLayout: "prev,pager,next",
-
-        resHandler() {
-          const rows = [
-            {
-              Id: "ce0da6a9-c647-42a5-97bb-008fbd0b6cc4",
-              Code: "1",
-              BusinessName: "金山区山阳镇敬老院",
-              Contact: "吴华军",
-              Tel: "13818639065",
-              PlaceId: "a07d3221-71df-4dba-9e2c-19178f8584af",
-              PlaceName: "山阳镇敬老院",
-              IsOnline: true,
-              WarningCount: 0,
-              WarningOKCount: 0,
-              ErrorCount: 0,
-              ErrorOKCount: 0
-            },
-            {
-              Id: "620784fd-9c08-417b-8bad-02a983b9fd6f",
-              Code: "1",
-              BusinessName: "金山区新农普度养老院",
-              Contact: "颜力",
-              Tel: "15821870633",
-              PlaceId: "4f4881d7-c18f-4d51-9494-5a8a3010958a",
-              PlaceName: "金山区新农普度养老院",
-              IsOnline: true,
-              WarningCount: 0,
-              WarningOKCount: 0,
-              ErrorCount: 0,
-              ErrorOKCount: 0
-            },
-            {
-              Id: "d74b52e1-ec97-4b3a-9662-02b4f8595325",
-              Code: "1",
-              BusinessName: "金山卫镇敬老院",
-              Contact: "陆院长",
-              Tel: "13816757108",
-              PlaceId: "2626406d-9a1f-40e3-8a9f-1ecb9ae6fd2e",
-              PlaceName: "金山卫镇敬老院",
-              IsOnline: true,
-              WarningCount: 0,
-              WarningOKCount: 0,
-              ErrorCount: 0,
-              ErrorOKCount: 0
-            }
-          ];
-
-          return {
-            rows: [...rows, ...rows, ...rows, ...rows, ...rows],
-            total: rows.length
-          };
-        }
+        pagerLayout: "prev,pager,next"
       },
 
       CategorySelections: [],
@@ -268,72 +221,23 @@ export default {
   },
 
   created() {
-    this.CategorySelections = [
-      {
-        Id: "bed445b5-158d-4d8c-ad19-2617b136ee26",
-        Name: "故障电弧探测器 ",
-        Value: "1",
-        SortCode: 1
-      },
-      {
-        Id: "d047dd07-b7de-4bf7-9a19-455de4ed25cc",
-        Name: "电流探测器 ",
-        Value: "2",
-        SortCode: 2
-      },
-      {
-        Id: "ba13d1e2-9a77-40b7-a80b-0c7d4336aef3",
-        Name: "剩余电流探测器 ",
-        Value: "3",
-        SortCode: 3
-      },
-      {
-        Id: "05aed15d-3967-49ec-bea4-1f0c806092e4",
-        Name: "温度探测器 ",
-        Value: "4",
-        SortCode: 4
-      },
-      {
-        Id: "9dc544d2-aac5-4b9e-bf77-fe429321f6ff",
-        Name: "烟雾探测器",
-        Value: "5",
-        SortCode: 5
-      },
-      {
-        Id: "1335953d-a2bf-4b95-82cb-7571c821cb19",
-        Name: "烟感探测器",
-        Value: "6",
-        SortCode: 5
-      },
-      {
-        Id: "a94134ba-f36f-4109-b17d-96126ebf12cb",
-        Name: "其他 ",
-        Value: "99",
-        SortCode: 99
+    getEquipmentCategorySelections().then(res => {
+      if (res.bl) {
+        this.CategorySelections = res.data.rows.map(i => ({
+          label: i.Name,
+          value: i.Id
+        }));
       }
-    ].map(i => ({
-      label: i.Name,
-      value: i.Id
-    }));
+    });
 
-    this.PeidianxiangSelections = [
-      {
-        label: "1号配电箱",
-        value: 1
-      },
-      {
-        label: "2号配电箱",
-        value: 2
-      },
-      {
-        label: "3号配电箱",
-        value: 3
-      },
-      {
-        label: "4号配电箱",
-        value: 4
+    getPDXCategorySelections().then(res => {
+      if (res.bl) {
+        this.PeidianxiangSelections = res.data.rows.map(i => ({
+          label: i.Name,
+          value: i.Id
+        }));
       }
-    ];
+    });
   }
 };
 </script>

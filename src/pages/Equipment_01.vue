@@ -9,7 +9,7 @@
  * 页面内容：各设备数量
  */
 import ChartPie from "@/components/Chart/ChartPie.vue";
-// import { getIndustryCustomerRate } from "@/api";
+import { getEquipmentCategoryRate } from "@/api";
 
 export default {
   components: {
@@ -47,63 +47,16 @@ export default {
   methods: {
     refresh() {
       this.loading = true;
-
-      // getIndustryCustomerRate()
-      //   .then(res => {
-      //     if (res.bl) {
-
-      //     }
-
-      //     this.loading = false;
-      //   })
-      //   .catch(() => {
-      //     this.loading = false;
-      //   });
-      const data = [
-        {
-          Count: 10,
-          meta: {
-            SId: 1
-          },
-          Name: "设备1"
-        },
-        {
-          Count: 12,
-          meta: {
-            SId: 2
-          },
-          Name: "设备2"
-        },
-        {
-          Count: 5,
-          SId: 3,
-          Name: "设备3"
-        },
-        {
-          Count: 7,
-          SId: 4,
-          Name: "设备4"
-        },
-        {
-          Count: 23,
-          SId: 5,
-          Name: "设备5"
-        },
-        {
-          Count: 17,
-          SId: 6,
-          Name: "设备6"
-        },
-        {
-          Count: 10,
-          SId: 7,
-          Name: "设备7"
-        }
-      ];
-
-      this.data = data;
-
-      this.loading = false;
+      getEquipmentCategoryRate()
+        .then(res => {
+          if (res.bl) {
+            this.data = res.data.rows;
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
 
     onPieClick(e) {
@@ -112,7 +65,7 @@ export default {
         this.$modal({
           placement: "center",
           data: {
-            Category: "d047dd07-b7de-4bf7-9a19-455de4ed25cc" || meta.SId
+            Category: meta.SId
           },
           id: "CenterModal",
           component: "Equipment_01_1"

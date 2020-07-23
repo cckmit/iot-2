@@ -9,6 +9,7 @@
  * 页面内容：设备在线率
  */
 import ChartRadar from "@/components/Chart/ChartRadar.vue";
+import { getEquipmentCategoryOnlineRate } from "@/api";
 
 export default {
   components: {
@@ -35,48 +36,17 @@ export default {
   methods: {
     refresh() {
       this.loading = true;
+      getEquipmentCategoryOnlineRate()
+        .then(res => {
+          if (res.bl) {
+            this.data = res.data.rows;
+          }
 
-      const data = [
-        {
-          Count: 10,
-          SId: 1,
-          Name: "设备1"
-        },
-        {
-          Count: 12,
-          SId: 2,
-          Name: "设备2"
-        },
-        {
-          Count: 5,
-          SId: 3,
-          Name: "设备3"
-        },
-        {
-          Count: 7,
-          SId: 4,
-          Name: "设备4"
-        },
-        {
-          Count: 23,
-          SId: 5,
-          Name: "设备5"
-        },
-        {
-          Count: 17,
-          SId: 6,
-          Name: "设备6"
-        },
-        {
-          Count: 10,
-          SId: 7,
-          Name: "设备7"
-        }
-      ];
-
-      this.data = data;
-
-      this.loading = false;
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     }
   },
 

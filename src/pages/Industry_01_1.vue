@@ -14,18 +14,23 @@
       </el-form>
 
       <!-- 简要信息 -->
-      <div class="summary-info" style="transform:translate(0,-.2rem);">
-        <div class="summary-item" v-for="i in summaryItems" :key="i.prop" :style="'width:'+i.width">
+      <div class="summary-info" v-loading="summaryLoading" style="transform:translate(0,-.2rem);">
+        <div
+          class="summary-item"
+          v-for="(i,index) in summaryItems"
+          :key="i.prop"
+          :style="{width:i.width,'border-right':(index==summaryItems.length-1)?'none':''}"
+        >
           <div class="summary-item__start">
             <SvgIcon :icon-class="i.icon"></SvgIcon>
           </div>
           <div class="summary-item__end">
             <div class="summary-item__name">{{i.name}}</div>
             <div class="summary-item__value">
-              <span v-if="i.type==1">{{vm[i.prop]}}</span>
+              <span v-if="i.type==1">{{vm[i.prop]||'-'}}</span>
               <template v-else>
-                <span style="color:rgb(63,201,145)">{{vm[i.prop]}}</span>/
-                <span>{{vm[i.prop2]}}</span>
+                <span style="color:rgb(63,201,145)">{{vm[i.prop]||'-'}}</span>/
+                <span>{{vm[i.prop2]||'-'}}</span>
               </template>
             </div>
           </div>
@@ -44,6 +49,8 @@
 /**
  * 页面内容：行业详情
  */
+import { getIndustryInfo } from "@/api";
+
 export default {
   props: {
     SId: {}
@@ -55,6 +62,8 @@ export default {
       query: {
         days: 30
       },
+
+      summaryLoading: false,
 
       vm: {},
 
@@ -90,7 +99,7 @@ export default {
       ],
 
       options: {
-        api: "/api/Business",
+        api: "/api/govShow?optionType=industryCustomerList",
         background: "transparent",
         border: false,
         outBorder: false,
@@ -102,64 +111,10 @@ export default {
         toolbarProps: {
           height: "0.5rem"
         },
-        pagerLayout: "prev,pager,next",
+        pagerLayout: "prev,pager,next"
+      },
 
-        resHandler() {
-          const rows = [
-            {
-              Id: "056e9cdf-1843-4573-9dda-0e7b0af30de1",
-              Name: "金山区佰仁养护院",
-              Tel: "18602141366",
-              Contact: "黄越石",
-              AccessTime: "2019-08-20T10:08:56.86",
-              PlaceCount: 1,
-              EquipmentCount: 256,
-              WarningCount: 1,
-              WarningOKCount: 0,
-              ErrorCount: 8,
-              ErrorOKCount: 8,
-              Category: 3
-            },
-            {
-              Id: "72af77bd-8729-4fac-879c-df5da9fa0316",
-              Name: "金山区吕巷镇敬老院",
-              Tel: "13764895912",
-              Contact: "韩爱华",
-              AccessTime: "2019-07-26T10:19:29.157",
-              PlaceCount: 1,
-              EquipmentCount: 200,
-              WarningCount: 1,
-              WarningOKCount: 1,
-              ErrorCount: 9999,
-              ErrorOKCount: 9999,
-              Category: 2
-            }
-          ];
-
-          const vm = {
-            prop1: "其它",
-            prop2: 10,
-            prop3: "17",
-            prop4: "251",
-            prop5: "171",
-            prop6: "259"
-          };
-
-          _this.refreshSummaryInfo(vm);
-
-          return {
-            rows,
-            total: rows.length
-          };
-        }
-      }
-    };
-  },
-
-  computed: {
-    columns() {
-      const _this = this;
-      return [
+      columns: [
         {
           label: "状态",
           align: "center",
@@ -270,13 +225,24 @@ export default {
             );
           }
         }
-      ];
-    }
+      ]
+    };
   },
 
   methods: {
-    refreshSummaryInfo(vm) {
-      this.vm = vm;
+    refreshSummaryInfo() {
+      this.summaryLoading = true;
+
+      getIndustryInfo()
+        .then(res => {
+          if (res.bl) {
+            this.vm = res.data;
+          }
+          this.summaryLoading = false;
+        })
+        .catch(() => {
+          this.summaryLoading = false;
+        });
     },
 
     refresh() {
@@ -286,6 +252,10 @@ export default {
     zoomPlaceInMap(row) {
       alert(`通过\nId:[${row.Id}]\n查找出placeList的地图点数组，然后zoom过去`);
     }
+  },
+
+  created() {
+    this.refreshSummaryInfo();
   }
 };
 </script>
@@ -304,9 +274,6 @@ export default {
     border-right: 0.01rem solid rgb(50, 83, 99);
     padding: 0 0.2rem;
 
-    &:last-child {
-      border-right: none;
-    }
     .summary-item__start {
       width: 34%;
       font-size: 0.34rem;

@@ -10,7 +10,7 @@
  */
 import { colorMap } from "@/plugins/echarts";
 import ChartBar from "@/components/Chart/ChartBar.vue";
-import { getRandomData } from "@/util";
+import { getEquipmentCategoryOperation } from "@/api";
 
 export default {
   components: {
@@ -30,8 +30,6 @@ export default {
 
   methods: {
     refresh() {
-      this.loading = true;
-
       this.columns = [
         {
           label: "仅报警单位数",
@@ -53,54 +51,17 @@ export default {
         }
       ];
 
-      this.rows = [
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备1"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备2"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备3"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备4"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备5"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备6"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "设备7"
-        }
-      ];
-
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
+      this.loading = true;
+      getEquipmentCategoryOperation()
+        .then(res => {
+          if (res.bl) {
+            this.rows = res.data.rows;
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     }
   },
 

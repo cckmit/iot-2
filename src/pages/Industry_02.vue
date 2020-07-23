@@ -10,7 +10,7 @@
  */
 import { colorMap } from "@/plugins/echarts";
 import ChartBar from "@/components/Chart/ChartBar.vue";
-import { getRandomData } from "@/util";
+import { getIndustryCustomerOperation } from "@/api";
 
 export default {
   name: "Industry_02",
@@ -55,72 +55,16 @@ export default {
         }
       ];
 
-      this.rows = [
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "饭店超市"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "市场楼宇"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "娱乐场所"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "福利机构"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "金融机构"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "危化品场所"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "出租房"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "文教医院"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "生产制造业"
-        },
-        {
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          Name: "其它"
-        }
-      ];
-
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
+      getIndustryCustomerOperation()
+        .then(res => {
+          if (res.bl) {
+            this.rows = res.data.rows;
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     }
   },
 

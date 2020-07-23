@@ -532,7 +532,7 @@ const mockList = [
                     type: '@cword(3,5)',
                     company: '@cword(6,10)',
                     place: '@cword(6,10)',
-                    contact:'@cname',
+                    contact: '@cname',
                     "tel|13000000000-18999999999": 1,
                     time: '@date',
                     "status|1-3": 1,
@@ -544,7 +544,7 @@ const mockList = [
     },
     //#endregion
 
-    
+
     //#region 行业
     {
         //行业-各行业单位数占比(原report2)
@@ -567,20 +567,51 @@ const mockList = [
         url: `${baseApi}optionType=industryCustomerOperation`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    'warning|5-50': 1,
+                    'error|5-50': 1,
+                    'both|5-50': 1,
+                    Name: '@cword(3,5)'
+                }
+            ]
         }
     },
     {
         //行业-各行业单位数占比--饼图点击-->行业详情--头部信息
         url: `${baseApi}optionType=industryInfo`,
         method: 'get',
-        data: {
-        }
+        data: Mock.mock({
+            prop1: "其它",
+            prop2: 10,
+            prop3: "17",
+            prop4: "251",
+            prop5: "171",
+            prop6: "259"
+        })
     },
     {
         //行业-各行业单位数占比--饼图点击-->行业详情--企业信息(分页)
         url: `${baseApi}optionType=industryCustomerList`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    Id: '@guid',
+                    Name: '@cword(6,12)',
+                    "Tel|13000000000-18999999999": 1,
+                    Contact: "@cname(2,3)",
+                    AccessTime: "@date",
+                    "PlaceCount|3-50": 1,
+                    "EquipmentCount|10-100": 1,
+                    "WarningCount|10-20": 1,
+                    "WarningOKCount|1-15": 1,
+                    "ErrorCount|10-20": 1,
+                    "ErrorOKCount|1-15": 1,
+                    "Category|1-3": 1,
+                }
+            ],
+            "total|30-60": 1
         }
     },
     //#endregion
@@ -592,6 +623,15 @@ const mockList = [
         url: `${baseApi}optionType=equipmentCategoryRate`,
         method: 'get',
         data: {
+            'rows|5-10': [
+                {
+                    'Count|5-100': 1,
+                    meta: {
+                        'SId|+1': 1
+                    },
+                    Name: '@cword(3,5)'
+                }
+            ]
         }
     },
     {
@@ -599,6 +639,15 @@ const mockList = [
         url: `${baseApi}optionType=equipmentCategoryOnlineRate`,
         method: 'get',
         data: {
+            'rows|5-8': [
+                {
+                    'Count|5-100': 1,
+                    meta: {
+                        'SId|+1': 1
+                    },
+                    Name: '@cword(3,5)'
+                }
+            ]
         }
     },
     {
@@ -606,6 +655,14 @@ const mockList = [
         url: `${baseApi}optionType=equipmentCategoryOperation`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    'warning|5-50': 1,
+                    'error|5-50': 1,
+                    'both|5-50': 1,
+                    Name: '@cword(3,5)'
+                }
+            ]
         }
     },
     {
@@ -613,6 +670,51 @@ const mockList = [
         url: `${baseApi}optionType=equipmentlist`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    Id: "@guid",
+                    "Code|+1": 1,
+                    BusinessName: "@cword(6,12)",
+                    Contact: "@cname",
+                    "Tel|13000000000-18999999999": 1,
+                    PlaceId: "@guid",
+                    PlaceName: "@cword(6,12)",
+                    IsOnline: '@boolean',
+                    "WarningCount|20-50": 0,
+                    "WarningOKCount|10-20": 0,
+                    "ErrorCount|20-50": 0,
+                    "ErrorOKCount|10-20": 0,
+                }
+            ],
+            "total|30-60": 1
+        }
+    },
+    {
+        //设备 - 获取设备类别列表选项
+        url: `${baseApi}optionType=equipmentCategorySelections`,
+        method: 'get',
+        data: {
+            'rows|10': [
+                {
+                    "Id|+1": 1,
+                    Name: "设备 - @cword(1,2)",
+                }
+            ],
+            "total|30-60": 1
+        }
+    },
+    {
+        //设备 - 获取配电箱类型列表选项
+        url: `${baseApi}optionType=PDXCategorySelections`,
+        method: 'get',
+        data: {
+            'rows|10': [
+                {
+                    "Id|+1": 1,
+                    Name: "配电箱 - @cword(1,2)",
+                }
+            ],
+            "total|30-60": 1
         }
     },
     //#endregion
