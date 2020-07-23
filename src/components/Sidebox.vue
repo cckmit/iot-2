@@ -1,7 +1,7 @@
 <template>
   <div class="sidebox" :class="{visible:vVisible}">
     <div class="sidebox-header">
-      <span class="sidebox-title">XXXX统计</span>
+      <span class="sidebox-title">综合统计</span>
     </div>
 
     <div class="sidebox-body">
