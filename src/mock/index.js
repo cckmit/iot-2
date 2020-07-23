@@ -2,11 +2,12 @@ import Mock from 'mockjs';
 const Random = Mock.Random;
 const baseApi = '^\\/api\\/govShow\\?';
 
+import img1 from "@/assets/demo/building_1.jpg";
+import img2 from "@/assets/demo/building_2.jpg";
+
 Mock.setup({
     timeout: 1000
 })
-
-
 
 const mockList = [
     //#region 通用接口
@@ -689,6 +690,31 @@ const mockList = [
             "total|30-60": 1
         }
     },
+    //#endregion
+
+
+    //#region 场所搜索
+    {
+        //场所搜索
+        url: `${baseApi}optionType=placelist`,
+        method: 'get',
+        data: {
+            "rows|10-30": [
+                {
+                    Id:'@guid',
+                    Name: "@cword(6,12)",
+                    "Img|+1": [
+                        img1,
+                        img2,
+                    ]
+                }
+            ]
+        }
+    },
+    //#endregion
+
+
+    //#region 选项列表源
     {
         //设备 - 获取设备类别列表选项
         url: `${baseApi}optionType=equipmentCategorySelections`,
@@ -717,17 +743,19 @@ const mockList = [
             "total|30-60": 1
         }
     },
-    //#endregion
-
-
-    //#region 场所搜索
     {
-        //场所搜索
-        url: `${baseApi}optionType=placelist`,
+        //场所搜索 - 获取项目列表选项
+        url: `${baseApi}optionType=projectSelections`,
         method: 'get',
         data: {
+            "rows|5-15": [
+                {
+                    value: "@guid",
+                    label: "@cword(4,8)",
+                }
+            ]
         }
-    }
+    },
     //#endregion
 ]
 
@@ -736,12 +764,10 @@ mockList.forEach(i => {
 
     callback = callback || function () {
 
-        data = JSON.parse(JSON.stringify(Mock.mock(data)));
-
         return {
             isSuccess: true,
             bl: true,
-            data
+            data: Mock.mock(data)
         }
     }
 

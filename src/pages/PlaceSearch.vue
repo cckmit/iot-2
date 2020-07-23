@@ -23,6 +23,7 @@
       indicator-position="outside"
       :height="carouselHeight"
       :autoplay="false"
+      v-loading="loading"
     >
       <el-carousel-item v-for="(list,index) in PlaceListGroup" :key="index">
         <div
@@ -31,8 +32,8 @@
           v-for="(item,item_index) in list"
           :key="item_index"
         >
-          <el-image :src="item.img||defaultImgPath"></el-image>
-          <span class="img-item__text">{{item.name}}</span>
+          <el-image :src="item.Img||defaultImgPath"></el-image>
+          <span class="img-item__text">{{item.Name}}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -52,33 +53,7 @@
  */
 import { arrayGroup } from "@/util";
 import defaultImgPath from "@/assets/img/default_building.jpg";
-import img1 from "@/assets/demo/building_1.jpg";
-import img2 from "@/assets/demo/building_2.jpg";
-
-const testData = [
-  { name: "职业技术学院综合楼", img: "" },
-  { name: "沈河区第二中医院", img: img2 },
-  { name: "金山区张堰镇敬老院", img: img1 },
-  { name: "庵东镇镇政府", img: img2 },
-  { name: "沈河区第二中医院", img: img1 },
-  { name: "金山区张堰镇敬老院", img: img2 },
-  { name: "庵东镇镇政府", img: img1 },
-  { name: "沈河区第二中医院", img: "" },
-  { name: "沈河区第二中医院", img: img2 },
-  { name: "金山区张堰镇敬老院", img: img1 },
-  { name: "庵东镇镇政府", img: img1 },
-  { name: "沈河区第二中医院", img: img2 },
-  { name: "金山区张堰镇敬老院", img: img1 },
-  { name: "庵东镇镇政府", img: img2 },
-  { name: "沈河区第二中医院", img: "" },
-  { name: "沈河区第二中医院", img: img1 },
-  { name: "金山区张堰镇敬老院", img: img2 },
-  { name: "庵东镇镇政府", img: img2 },
-  { name: "沈河区第二中医院", img: img1 },
-  { name: "金山区张堰镇敬老院", img: img2 },
-  { name: "庵东镇镇政府", img: img1 },
-  { name: "沈河区第二中医院", img: "" }
-];
+import { getPlaceList, getProjectSelections } from "@/api";
 
 export default {
   data() {
@@ -89,13 +64,9 @@ export default {
 
       query: {},
 
-      projectSelection: [
-        { label: "是德国", value: "2435" },
-        { label: "的风格和你", value: "sfdbgf" },
-        { label: "须符合规范", value: "dfhfh" },
-        { label: "都符合人", value: "erherh" },
-        { label: "千万人欧阳", value: "sdvd" }
-      ]
+      projectSelection: [],
+
+      loading: false
     };
   },
 
@@ -121,15 +92,30 @@ export default {
     },
 
     onBuildingClick(item) {
-      alert(item.name);
+      this.$modal({
+        placement: "top-right",
+        data: {
+          title: item.Name,
+          id: item.Id
+        },
+        id: "RightModal",
+        width: "5rem",
+        component: "PlaceDetail"
+      });
     },
 
     refresh() {
-      if (this.PlaceList.length > 0 && this.PlaceList.length <= 100) {
-        this.PlaceList = this.PlaceList.concat(this.PlaceList);
-      } else {
-        this.PlaceList = testData;
-      }
+      this.loading = true;
+      getPlaceList(this.query)
+        .then(res => {
+          if (res.bl) {
+            this.PlaceList = res.data.rows;
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
 
     search() {
@@ -138,6 +124,12 @@ export default {
   },
   created() {
     this.refresh();
+
+    getProjectSelections().then(res => {
+      if (res.bl) {
+        this.projectSelection = res.data.rows;
+      }
+    });
   }
 };
 </script>

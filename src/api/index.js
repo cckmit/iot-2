@@ -106,6 +106,19 @@ export function getEquipmentCategoryOperation() {
     return http.get(`${baseApi}?optionType=equipmentCategoryOperation`);
 }
 
+//#endregion 设备
+
+
+//#region 场所搜索
+export function getPlaceList(query = {}) {
+    const { projectName, placeName } = query;
+    return http.get(`${baseApi}?optionType=placelist&projectName=${projectName}&placeName=${placeName}`);
+}
+//#endregion
+
+
+//#region 选项列表源
+
 /**
  * 设备 - 获取设备类别列表选项
  */
@@ -116,8 +129,15 @@ export function getEquipmentCategorySelections() {
 /** 
  * 设备 - 获取配电箱类型列表选项
  */
-export function getPDXCategorySelections(){
+export function getPDXCategorySelections() {
     return http.get(`${baseApi}?optionType=PDXCategorySelections`);
 }
 
-//#endregion 设备
+/** 
+ * 场所搜索 - 获取项目列表选项
+ */
+export function getProjectSelections() {
+    return http.get(`${baseApi}?optionType=projectSelections`);
+}
+
+//#endregion 
