@@ -67,7 +67,7 @@
     </Layer>
 
     <!-- 调试层 -->
-    <Layer :index="99">
+    <!-- <Layer :index="99">
       <div class="debug" v-show="debug" style="z-index:9999">
         <pre>当前地图覆盖物显示模式:{{CurrentOverlayType}}</pre>
         <pre>modal_list:{{modal_list}}</pre>
@@ -87,7 +87,7 @@
         size="mini"
         @click="debug=!debug"
       >Debug</el-button>
-    </Layer>
+    </Layer> -->
   </div>
 </template>
 
@@ -133,13 +133,13 @@ export default {
 
   computed: {
     ...mapState({
-      modal_list: state => state.modal.modal_list,
-      CurrentRegions: state => state.CurrentRegions,
+      // modal_list: state => state.modal.modal_list,
+      // CurrentRegions: state => state.CurrentRegions,
       CurrentDiskMenu: state => state.CurrentDiskMenu,
       CurrentDiskSubMenu: state => state.CurrentDiskSubMenu,
-      HtmlFontSize: state => state.HtmlFontSize,
+      // HtmlFontSize: state => state.HtmlFontSize,
       FooterBoxVisible: state => state.FooterBoxVisible,
-      CurrentOverlayType: state => state.CurrentOverlayType
+      // CurrentOverlayType: state => state.CurrentOverlayType
     })
   },
 
