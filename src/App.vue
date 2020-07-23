@@ -8,7 +8,7 @@
     </Layer>
 
     <!-- 面板层 -->
-    <Layer :index="2">
+    <Layer :index="2" v-if="show">
       <Headerbar></Headerbar>
 
       <Sidebox />
@@ -125,7 +125,9 @@ export default {
 
   data() {
     return {
-      debug: false
+      debug: false,
+
+      show: false
     };
   },
 
@@ -154,7 +156,6 @@ export default {
     //   placement: "center",
     //   component: () => import("@/pages/ModalPage_01.vue")
     // });
-
     // this.$modal({
     //   placement: "center",
     //   component: "PowerBoxLoop",
@@ -162,6 +163,12 @@ export default {
     //     id: "1号配电箱"
     //   }
     // });
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.show = true;
+    }, 100);
   }
 };
 </script>

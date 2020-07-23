@@ -8,7 +8,7 @@
       :splitLine="false"
       vertical
     >
-      <div class="summary-info">
+      <div class="summary-info" v-loading="loading">
         <div class="summary-info__start">
           <el-image :src="testImgSrc" fit="cover"></el-image>
         </div>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="flex-container" style="margin-top:.1rem;height:calc(100% - .28rem)">
-          <div class="pie-container">
+          <div class="pie-container" v-loading="pie.loading">
             <span class="title">设备类型</span>
             <ChartPie
               :data="pie.data"
@@ -68,7 +68,7 @@
               smallTitle
             />
           </div>
-          <div class="bar-container1">
+          <div class="bar-container1" v-loading="bar1.loading">
             <span class="title">设备状态</span>
 
             <div class="bars">
@@ -76,7 +76,7 @@
                 <div class="bar-item__label">仅报警</div>
                 <div class="bar-item__value">
                   <Percentbar
-                    :value="59"
+                    :value="vm.warning"
                     mode="normal"
                     :color="colorMap.warning"
                     :maxValue="bar1.maxValue"
@@ -87,7 +87,7 @@
                 <div class="bar-item__label">仅故障</div>
                 <div class="bar-item__value">
                   <Percentbar
-                    :value="32"
+                    :value="vm.error"
                     mode="normal"
                     :color="colorMap.error"
                     :maxValue="bar1.maxValue"
@@ -98,7 +98,7 @@
                 <div class="bar-item__label" style="line-height:1;">报警且故障</div>
                 <div class="bar-item__value">
                   <Percentbar
-                    :value="69"
+                    :value="vm.both"
                     mode="normal"
                     :color="colorMap.both"
                     :maxValue="bar1.maxValue"
@@ -109,7 +109,7 @@
                 <div class="bar-item__label">正常</div>
                 <div class="bar-item__value">
                   <Percentbar
-                    :value="98"
+                    :value="vm.normal"
                     mode="normal"
                     :color="colorMap.normal"
                     :maxValue="bar1.maxValue"
@@ -118,7 +118,7 @@
               </div>
             </div>
           </div>
-          <div class="bar-container2">
+          <div class="bar-container2" v-loading="bar2.loading">
             <span class="title">回路状态</span>
 
             <div class="bars">
@@ -126,7 +126,7 @@
                 <div class="bar-item__label">通路</div>
                 <div class="bar-item__value">
                   <Percentbar
-                    :value="0.59"
+                    :value="vm.tongLu"
                     :color="colorMap.normal"
                     :maxValue="bar2.maxValue"
                     vertical
@@ -136,7 +136,7 @@
               <div class="bar-item">
                 <div class="bar-item__label">断路</div>
                 <div class="bar-item__value">
-                  <Percentbar :value="0.36" color="rgb(118,134,145)" vertical />
+                  <Percentbar :value="vm.duanLu" color="rgb(118,134,145)" vertical />
                 </div>
               </div>
             </div>
@@ -175,6 +175,7 @@ import testImgSrc from "@/assets/demo/building_2.jpg";
 import ChartPie from "@/components/Chart/ChartPie.vue";
 import Percentbar from "@/components/Percentbar.vue";
 import { colorMap } from "@/plugins/echarts";
+import { getPlaceDetail } from "@/api";
 
 export default {
   components: {
@@ -182,7 +183,14 @@ export default {
     Percentbar
   },
   props: {
-    title: {}
+    title: {},
+    id: {}
+  },
+
+  watch: {
+    id() {
+      this.refresh();
+    }
   },
 
   data() {
@@ -221,10 +229,13 @@ export default {
       },
 
       bar1: {
+        loading: false,
         maxValue: 100
       },
 
-      bar2: {},
+      bar2: {
+        loading: false
+      },
 
       table: {
         query: {
@@ -232,7 +243,7 @@ export default {
         },
 
         options: {
-          api: "/api/Business",
+          api: "/api/govShow?optionType=placeWarningList",
           background: "transparent",
           border: false,
           outBorder: false,
@@ -240,110 +251,8 @@ export default {
           toolbar: false,
           pagination: false,
 
-          resHandler() {
-            const rows = [
-              {
-                ID: "1",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "2",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "3",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 2,
-                handleStatus: 2
-              },
-              {
-                ID: "1",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "2",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 3,
-                handleStatus: 1
-              },
-              {
-                ID: "3",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "1",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "2",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "3",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              }
-            ];
-
-            return rows;
+          resHandler(res) {
+            return res.rows;
           }
         },
 
@@ -400,98 +309,57 @@ export default {
 
     //刷新场所简要信息，以及相关图表信息
     refreshSummary() {
-      //简要信息
-      this.vm = {
-        prop1: "大南社区卫生服务中心",
-        prop2: "辽宁省沈阳市沈河区热闹路111号",
-        prop3: "TI业、制造业",
-        prop4: "赵主任",
-        prop5: "196336754486",
-        prop6: 528,
-        prop7: 478
-      };
+      this.loading = true;
+      this.pie.loading = true;
+      this.bar1.loading = true;
+      this.bar2.loading = true;
 
-      //配电箱列表
-      this.PDXList = [
-        { label: "全部", name: "" },
-        { label: "配电箱1", name: "配电箱1" },
-        { label: "配电箱2", name: "配电箱2" },
-        { label: "配电箱3", name: "配电箱3" },
-        { label: "配电箱4", name: "配电箱4" },
-        { label: "配电箱5", name: "配电箱5" },
-        { label: "配电箱6", name: "配电箱6" },
-        { label: "配电箱7", name: "配电箱7" },
-        { label: "配电箱8", name: "配电箱8" },
-        { label: "配电箱9", name: "配电箱9" }
-      ];
+      getPlaceDetail()
+        .then(res => {
+          if (res.bl) {
+            const { vm, rows1, PDXList } = res.data;
+            //简要信息和两个柱状图
+            this.vm = vm;
 
-      //设备总数
-      //回路总数
-      //设备类型
-      this.refreshPie();
+            this.PDXList = PDXList;
 
-      //设备状态
-      this.refreshBar1();
+            this.refreshPie(rows1);
 
-      //回路状态
-      this.refreshBar2();
+            this.refreshBar1();
+
+            this.refreshBar2();
+          }
+
+          this.loading = false;
+          this.pie.loading = false;
+          this.bar1.loading = false;
+          this.bar2.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+          this.pie.loading = false;
+          this.bar1.loading = false;
+          this.bar2.loading = false;
+        });
     },
 
     //刷新饼图
-    refreshPie() {
-      const data = [
-        {
-          Count: 10,
-          meta: {
-            SId: 1
-          },
-          Name: "设备1"
-        },
-        {
-          Count: 12,
-          meta: {
-            SId: 2
-          },
-          Name: "设备2"
-        },
-        {
-          Count: 5,
-          SId: 3,
-          Name: "设备3"
-        },
-        {
-          Count: 7,
-          SId: 4,
-          Name: "设备4"
-        },
-        {
-          Count: 23,
-          SId: 5,
-          Name: "设备5"
-        },
-        {
-          Count: 17,
-          SId: 6,
-          Name: "设备6"
-        },
-        {
-          Count: 10,
-          SId: 7,
-          Name: "设备7"
-        }
-      ];
-
+    refreshPie(data) {
       this.pie.data = data;
       this.pie.settings.title = data.length;
-
-      this.pie.loading = false;
     },
 
     //刷新设备状态的柱图
-    refreshBar1() {},
+    refreshBar1() {
+      const { warning, error, both, normal } = this.vm;
+
+      this.bar1.maxValue = Math.max(warning, error, both, normal);
+    },
 
     //刷新回路状态的柱图
-    refreshBar2() {},
+    refreshBar2() {
+      // const { tongLu, duanLu } = this.vm;
+    },
 
     //饼图点击事件
     onPieClick() {},
@@ -614,7 +482,7 @@ export default {
         width: 25%;
         vertical-align: middle;
         text-align: center;
-        font-size: .12rem;
+        font-size: 0.12rem;
       }
       .bar-item__value {
         width: 70%;
@@ -645,7 +513,7 @@ export default {
       align-items: center;
       .bar-item__label {
         height: 10%;
-        font-size: .12rem;
+        font-size: 0.12rem;
       }
       .bar-item__value {
         height: 90%;

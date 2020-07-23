@@ -36,6 +36,55 @@ export function logout() {
 //#endregion
 
 
+//#region 地图
+
+/**
+ * 获取街道/镇列表
+ */
+export function getTownList() {
+    return http.get(`${baseApi}?optionType=townList`);
+}
+
+/**
+ * 获取街道/镇详情
+ */
+export function getTownDetail() {
+    return http.get(`${baseApi}?optionType=townDetail`);
+}
+
+/**
+ * 获取街道/镇案件列表
+ */
+export function getTownWarningList() {
+    return http.get(`${baseApi}?optionType=townWarningList`);
+}
+
+/**
+ * 获取场所列表
+ * @param {obj} query 
+ */
+export function getPlaceList(query = {}) {
+    const { projectName, placeName } = query;
+    return http.get(`${baseApi}?optionType=placeList&projectName=${projectName}&placeName=${placeName}`);
+}
+
+/**
+ * 获取场所详情
+ */
+export function getPlaceDetail() {
+    return http.get(`${baseApi}?optionType=placeDetail`);
+}
+
+/**
+ * 获取场所案件列表
+ */
+export function getPlaceWarningList() {
+    return http.get(`${baseApi}?optionType=placeWarningList`);
+}
+
+//#endregion 
+
+
 //#region 单位
 
 /**
@@ -109,12 +158,13 @@ export function getEquipmentCategoryOperation() {
 //#endregion 设备
 
 
-//#region 场所搜索
-export function getPlaceList(query = {}) {
-    const { projectName, placeName } = query;
-    return http.get(`${baseApi}?optionType=placelist&projectName=${projectName}&placeName=${placeName}`);
+//#region 配电箱回路
+
+export function getLoopDetail(){
+    return http.get(`${baseApi}?optionType=loopDetail`);
 }
-//#endregion
+
+//#endregion 
 
 
 //#region 选项列表源

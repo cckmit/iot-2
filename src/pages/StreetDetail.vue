@@ -1,6 +1,13 @@
 <template>
   <div class="page">
-    <ColumnItem :title="title" superTitle style="height:2rem;" :splitLine="false" vertical>
+    <ColumnItem
+      :title="title"
+      superTitle
+      style="height:2rem;"
+      :splitLine="false"
+      vertical
+      v-loading="loading"
+    >
       <div class="summary-info">
         <div class="summary-item">
           <div class="summary-item__start">
@@ -106,7 +113,7 @@
 import ChartPie from "@/components/Chart/ChartPie.vue";
 import ChartBar from "@/components/Chart/ChartBar.vue";
 import { colorMap } from "@/plugins/echarts";
-import { getRandomData } from "@/util";
+import { getTownDetail } from "@/api";
 
 export default {
   components: {
@@ -115,18 +122,21 @@ export default {
   },
 
   props: {
-    title: {}
+    title: {},
+    id: {}
+  },
+
+  watch: {
+    id() {
+      this.refresh();
+    }
   },
 
   data() {
     return {
-      vm: {
-        prop1: 55,
-        prop2: 5369,
-        prop3: "黑龙江省哈尔滨市松北区",
-        prop4:
-          "距市区10千米。面积127平方千米。辖15个社区、6个行政村。滨洲铁路、202国道、222国道过境"
-      },
+      vm: {},
+
+      loading: false,
 
       pie1: {
         data: [],
@@ -182,7 +192,7 @@ export default {
         },
 
         options: {
-          api: "/api/Business",
+          api: "/api/govShow?optionType=townwarninglist",
           background: "transparent",
           border: false,
           outBorder: false,
@@ -190,110 +200,8 @@ export default {
           toolbar: false,
           pagination: false,
 
-          resHandler() {
-            const rows = [
-              {
-                ID: "1",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "2",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "3",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 2,
-                handleStatus: 2
-              },
-              {
-                ID: "1",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "2",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 3,
-                handleStatus: 1
-              },
-              {
-                ID: "3",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "1",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "2",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              },
-              {
-                ID: "3",
-                type: "故障点胡探测器",
-                company: "金山区驻京县敬老院",
-                place: "金山区驻京县开发区",
-                contact: "张东升",
-                tel: "15288565524",
-                time: new Date().format("yyyy-MM-dd"),
-                status: 1,
-                handleStatus: 2
-              }
-            ];
-
-            return rows;
+          resHandler(res) {
+            return res.rows;
           }
         },
 
@@ -341,169 +249,55 @@ export default {
     };
   },
 
-  computed: {},
-
   methods: {
     refresh() {
-      this.refreshPie1();
-      this.refreshPie2();
-      this.refreshBar();
+      this.refreshInfo();
       this.refreshTable();
     },
 
-    //刷新饼图1
-    refreshPie1() {
+    //刷新表格外的数据
+    refreshInfo() {
+      this.loading = true;
       this.pie1.loading = true;
+      this.pie2.loading = true;
+      this.bar.loading = true;
 
-      // getIndustryCustomerRate()
-      //   .then(res => {
-      //     if (res.bl) {
+      getTownDetail()
+        .then(res => {
+          if (res.bl) {
+            const { rows1, rows2, rows3, vm } = res.data;
+            this.vm = vm;
+            this.refreshPie1(rows1);
+            this.refreshPie2(rows2);
+            this.refreshBar(rows3);
+          }
 
-      //     }
+          this.loading = false;
+          this.pie1.loading = false;
+          this.pie2.loading = false;
+          this.bar.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+          this.pie1.loading = false;
+          this.pie2.loading = false;
+          this.bar.loading = false;
+        });
+    },
 
-      //     this.loading = false;
-      //   })
-      //   .catch(() => {
-      //     this.loading = false;
-      //   });
-      const data = [
-        {
-          Count: 10,
-          meta: {
-            SId: 1
-          },
-          Name: "饭店超市"
-        },
-        {
-          Count: 10,
-          SId: 2,
-          Name: "市场楼宇"
-        },
-        {
-          Count: 10,
-          SId: 3,
-          Name: "娱乐场所"
-        },
-        {
-          Count: 10,
-          SId: 4,
-          Name: "福利机构"
-        },
-        {
-          Count: 10,
-          SId: 5,
-          Name: "金融机构"
-        },
-        {
-          Count: 10,
-          SId: 6,
-          Name: "危化品场所"
-        },
-        {
-          Count: 10,
-          SId: 7,
-          Name: "出租房"
-        },
-        {
-          Count: 10,
-          SId: 8,
-          Name: "文教医院"
-        },
-        {
-          Count: 10,
-          SId: 9,
-          Name: "生产制造业"
-        },
-        {
-          Count: 10,
-          SId: 10,
-          Name: "其它"
-        }
-      ];
-
+    //刷新饼图1
+    refreshPie1(data) {
       this.pie1.data = data;
-
-      this.pie1.loading = false;
     },
 
     //刷新饼图2
-    refreshPie2() {
-      this.pie2.loading = true;
-
-      // getIndustryCustomerRate()
-      //   .then(res => {
-      //     if (res.bl) {
-
-      //     }
-
-      //     this.loading = false;
-      //   })
-      //   .catch(() => {
-      //     this.loading = false;
-      //   });
-      const data = [
-        {
-          Count: 10,
-          meta: {
-            SId: 1
-          },
-          Name: "设备1"
-        },
-        {
-          Count: 12,
-          meta: {
-            SId: 2
-          },
-          Name: "设备2"
-        },
-        {
-          Count: 5,
-          SId: 3,
-          Name: "设备3"
-        },
-        {
-          Count: 7,
-          SId: 4,
-          Name: "设备4"
-        },
-        {
-          Count: 23,
-          SId: 5,
-          Name: "设备5"
-        },
-        {
-          Count: 17,
-          SId: 6,
-          Name: "设备6"
-        },
-        {
-          Count: 10,
-          SId: 7,
-          Name: "设备7"
-        }
-      ];
-
+    refreshPie2(data) {
       this.pie2.data = data;
       this.pie2.settings.title = data.length;
-
-      this.pie2.loading = false;
     },
 
     //刷新柱图
-    refreshBar() {
-      function testGetRow(i) {
-        return {
-          month: i,
-          warning: getRandomData({ min: 10, max: 500 }),
-          error: getRandomData({ min: 10, max: 500 }),
-          both: getRandomData({ min: 10, max: 500 }),
-          warningCount: getRandomData({ min: 10, max: 500 }),
-          errorCount: getRandomData({ min: 10, max: 500 })
-        };
-      }
-
-      this.bar.loading = true;
-
+    refreshBar(data) {
       this.bar.columns = [
         {
           label: "仅报警单位数",
@@ -537,17 +331,7 @@ export default {
         }
       ];
 
-      let arr = [];
-
-      for (let i = 0; i < 12; i++) {
-        arr.push(testGetRow(i + 1 + "月"));
-      }
-
-      this.bar.rows = arr;
-
-      setTimeout(() => {
-        this.bar.loading = false;
-      }, 1000);
+      this.bar.rows = data;
     },
 
     //刷新表格
@@ -557,9 +341,7 @@ export default {
   },
 
   mounted() {
-    this.refreshPie1();
-    this.refreshPie2();
-    this.refreshBar();
+    this.refreshInfo();
   }
 };
 </script>
@@ -630,6 +412,8 @@ export default {
   padding: 0.1rem;
   margin-top: 0.1rem;
   font-size: 0.12rem;
+  overflow-y: auto;
+  max-height: 0.8rem;
 
   p {
     padding: 0;

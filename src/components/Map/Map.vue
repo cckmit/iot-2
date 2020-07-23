@@ -1,14 +1,15 @@
 <template>
-  <div class="map">
+  <div class="map" v-loading="loading">
     <div id="Map" class="map-container"></div>
   </div>
 </template>
 
 <script>
 import { MP } from "./map";
-import custom_map_config from "./custom_map_config.json";
+// import custom_map_config from "./custom_map_config.json";
 import varMapPoint from "./MapPoint";
 import { mapState } from "vuex";
+import { getTownList, getPlaceList } from "@/api";
 
 export default {
   name: "Map",
@@ -20,13 +21,15 @@ export default {
     },
     zoom: {
       type: Number,
-      default: 16
+      default: 12
     }
   },
 
   data() {
     return {
-      mapInstance: null
+      mapInstance: null,
+
+      loading: false
     };
   },
 
@@ -39,7 +42,7 @@ export default {
   watch: {
     CurrentOverlayType: {
       handler() {
-        this.initOverlays();
+        this.refresh();
       }
     }
   },
@@ -50,7 +53,8 @@ export default {
 
       this.mapInstance = new this.BMap.Map("Map", {});
 
-      this.mapInstance.setMapStyle({ styleJson: custom_map_config });
+      // this.mapInstance.setMapStyle({ styleJson: custom_map_config });
+      this.mapInstance.setMapStyle({ style: "dark" });
 
       this.mapInstance.enableScrollWheelZoom();
       this.mapInstance.centerAndZoom(
@@ -67,85 +71,119 @@ export default {
     },
 
     //初始化覆盖物
-    initOverlays() {
+    refresh() {
       if (!this.mapInstance) return;
 
       this.mapInstance.clearOverlays();
 
-      const point1 = new this.MapPoint(this.mapInstance, {
-        point: new this.BMap.Point(121.436138, 29.294912),
-        onClick: meta => {
-          this.onStreetPointClick(meta);
-        },
-        meta: {
-          type: 2,
-          color: 1,
-          text: "松北街道",
-          icon: "iconfont icon-map-place-icon"
-        }
-      });
-
-      const point2 = new this.MapPoint(this.mapInstance, {
-        point: new this.BMap.Point(121.434, 29.295912),
-        onClick: meta => {
-          this.onPlacePointClick(meta);
-        },
-        meta: {
-          type: 1,
-          color: 2,
-          text: 55,
-          name: "大南社区卫生服务中心",
-          icon: "iconfont icon-map-place-icon"
-        }
-      });
-
-      const point3 = new this.MapPoint(this.mapInstance, {
-        point: new this.BMap.Point(121.435, 29.295912),
-        onClick: meta => {
-          this.onPlacePointClick(meta);
-        },
-        meta: {
-          type: 1,
-          color: 3,
-          text: 85,
-          name: "金山区第二敬老院",
-          icon: "iconfont icon-map-place-icon"
-        }
-      });
-
-      const point4 = new this.MapPoint(this.mapInstance, {
-        point: new this.BMap.Point(121.433, 29.297912),
-        onClick: meta => {
-          this.onPlacePointClick(meta);
-        },
-        meta: {
-          type: 1,
-          color: 4,
-          text: 54,
-          name: "江北科创中心",
-          icon: "iconfont icon-map-place-icon"
-        }
-      });
-
-      const list = [];
       if (this.CurrentOverlayType === "PLACE") {
-        list.push(point2, point3, point4);
+        this.renderPlacePoints();
       } else {
-        list.push(point1);
+        this.renderTownPoints();
       }
+    },
 
-      list.forEach(i => {
-        this.mapInstance.addOverlay(i);
-      });
+    //渲染街道/镇地图点
+    renderTownPoints() {
+      this.loading = true;
+      getTownList()
+        .then(res => {
+          if (res.bl) {
+            let point = null;
+            const pointList = [];
+            res.data.rows.forEach(i => {
+              const { Lng, Lat, Name, Id, Status } = i;
+
+              let _point = new this.BMap.Point(Lng, Lat);
+
+              point = new this.MapPoint(this.mapInstance, {
+                point: _point,
+                onClick: meta => {
+                  this.onTownPointClick(meta);
+                },
+                meta: {
+                  type: 2,
+                  color: Status,
+                  text: Name,
+                  Id,
+                  icon: "iconfont icon-map-place-icon"
+                }
+              });
+
+              pointList.push(_point);
+
+              this.mapInstance.addOverlay(point);
+            });
+
+            //如果有地图点,则zoom到点集合的中心位置
+            if (pointList && pointList.length) {
+              const centerPoint = this.getCenterPoint(pointList);
+
+              this.mapInstance.centerAndZoom(centerPoint, this.zoom);
+            }
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
+    },
+
+    //渲染场所地图点
+    renderPlacePoints() {
+      this.loading = true;
+      getPlaceList()
+        .then(res => {
+          if (res.bl) {
+            let point = null;
+            const pointList = [];
+            res.data.rows.forEach(i => {
+              const { Lng, Lat, Name, Count, Id, Status } = i;
+
+              let _point = new this.BMap.Point(Lng, Lat);
+
+              point = new this.MapPoint(this.mapInstance, {
+                point: _point,
+                onClick: meta => {
+                  this.onPlacePointClick(meta);
+                },
+                meta: {
+                  type: 1,
+                  color: Status,
+                  name: Name,
+                  text: Count,
+                  Id,
+                  icon: "iconfont icon-map-place-icon"
+                }
+              });
+
+              pointList.push(_point);
+
+              this.mapInstance.addOverlay(point);
+            });
+
+            //如果有地图点,则zoom到点集合的中心位置
+            if (pointList && pointList.length) {
+              const centerPoint = this.getCenterPoint(pointList);
+
+              this.mapInstance.centerAndZoom(centerPoint, this.zoom);
+            }
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     },
 
     //地图中街道点击
-    onStreetPointClick(meta) {
-      const { text } = meta;
+    onTownPointClick(meta) {
+      const { text, Id } = meta;
       this.$modal({
         placement: "top-right",
         data: {
-          title: text
+          title: text,
+          id: Id
         },
         id: "RightModal",
         width: "4.4rem",
@@ -155,16 +193,48 @@ export default {
 
     //地图中场所点击(即项目点击)
     onPlacePointClick(meta) {
-      const { name } = meta;
+      const { name, Id } = meta;
       this.$modal({
         placement: "top-right",
         data: {
-          title: name
+          title: name,
+          id: Id
         },
         id: "RightModal",
         width: "5rem",
         component: "PlaceDetail"
       });
+    },
+
+    getCenterPoint(points) {
+      if (points.length === 1) {
+        return points[0];
+      }
+
+      let maxLng = Number.MIN_VALUE,
+        minLng = Number.MAX_VALUE,
+        maxLat = Number.MIN_VALUE,
+        minLat = Number.MAX_VALUE;
+
+      points.forEach(p => {
+        if (p.lng > maxLng) {
+          maxLng = p.lng;
+        }
+
+        if (p.lng < minLng) {
+          minLng = p.lng;
+        }
+
+        if (p.lat > maxLat) {
+          maxLat = p.lat;
+        }
+
+        if (p.lat < minLat) {
+          minLat = p.lat;
+        }
+      });
+
+      return new this.BMap.Point((maxLng + minLng) / 2, (maxLat + minLat) / 2);
     }
   },
 
@@ -174,7 +244,7 @@ export default {
         this.BMap = BMap;
         this.initMap();
         this.initClasses();
-        this.initOverlays();
+        this.refresh();
       });
     });
   }

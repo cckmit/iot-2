@@ -13,13 +13,13 @@ export default new Vuex.Store({
     CurrentDiskMenu: 'CHART',
 
     //当前活跃的圆盘子菜单项(单位:CUSTOMER, 行业:INDUSTRY, 设备:EQUIPMENT)
-    CurrentDiskSubMenu: '',
+    CurrentDiskSubMenu: 'CUSTOMER',
 
     //底部面板是否可见
     FooterBoxVisible: true,
 
     //html字体大小
-    HtmlFontSize: 0,
+    HtmlFontSize: 100,
 
     //当前地图覆盖物显示类型(街道/镇:STREET, 场所:PLACE)
     CurrentOverlayType: 'PLACE'
@@ -28,15 +28,21 @@ export default new Vuex.Store({
     set_CurrentRegions(state, val) {
       state.CurrentRegions = val;
     },
-    
+
     set_CurrentDiskMenu(state, val) {
       state.CurrentDiskMenu = val;
+
       //如果没有记忆中的子菜单，则默认选中一项(因为父菜单没有对应的单独展示的内容)
       if (val === 'CHART' && !state.CurrentDiskSubMenu) {
         state.CurrentDiskSubMenu = "CUSTOMER";
       }
+
+      //如果底部面板是隐藏状态,则开启它
+      if (state.FooterBoxVisible === false) {
+        state.FooterBoxVisible = true;
+      }
     },
-    
+
     set_CurrentDiskSubMenu(state, val) {
       state.CurrentDiskSubMenu = val;
     },

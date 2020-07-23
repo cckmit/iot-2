@@ -1,7 +1,13 @@
 <template>
   <div class="page">
     <ColumnItem title="配电箱回路" superTitle smallTitle>
-      <el-select class="fixed-selector" v-model="query.Peidianxiang" clearable placeholder="请选择配电箱">
+      <el-select
+        class="fixed-selector"
+        @change="refresh"
+        v-model="query.Peidianxiang"
+        clearable
+        placeholder="请选择配电箱"
+      >
         <el-option v-for="i in PeidianxiangSelections" v-bind="i" :key="i.value"></el-option>
       </el-select>
 
@@ -23,8 +29,14 @@
           <div class="legend-item__label">{{i.label}}</div>
         </div>
       </div>
-      <div class="loops">
-        <Loop v-for="i in loops" :key="i.code" :code="i.code" :state="i.state" :icons="i.icons" />
+      <div class="loops" v-loading="loading">
+        <Loop
+          v-for="(i,index) in loops"
+          :key="index"
+          :code="i.code"
+          :state="i.state"
+          :icons="i.icons"
+        />
       </div>
     </ColumnItem>
   </div>
@@ -35,37 +47,7 @@
  * 页面内容：配电箱回路
  */
 import Loop from "@/components/Loop.vue";
-import { getRandomValueFromArray } from "@/util";
-
-function getRandomLoops(n = 30) {
-  const arr = [];
-
-  for (let i = 0; i < n; i++) {
-    let item = {
-      code: i + 1,
-      state: getRandomValueFromArray(["on", "off"]),
-      icons: (function() {
-        let length = getRandomValueFromArray([1, 2, 3, 4]);
-
-        let arr = [];
-
-        for (let i = 0; i < length; i++) {
-          let icon = getRandomValueFromArray(["A", "B", "C", "D"]);
-
-          if (arr.indexOf(icon) < 0) {
-            arr.push(icon);
-          }
-        }
-
-        return arr.sort();
-      })()
-    };
-
-    arr.push(item);
-  }
-
-  return arr;
-}
+import { getLoopDetail, getPDXCategorySelections } from "@/api";
 
 export default {
   components: {
@@ -104,15 +86,11 @@ export default {
         }
       ],
 
+      loading: false,
+
       query: {
         Peidianxiang: this.id
       },
-
-      PeidianxiangSelections: [
-        { label: "1号配电箱", value: "1号配电箱" },
-        { label: "2号配电箱", value: "2号配电箱" },
-        { label: "3号配电箱", value: "3号配电箱" }
-      ],
 
       vm: {
         prop1: 38
@@ -123,11 +101,33 @@ export default {
   },
   methods: {
     refresh() {
-      this.loops = getRandomLoops(32);
+      this.loading = true;
+      getLoopDetail()
+        .then(res => {
+          if (res.bl) {
+            const { vm, loops } = res.data;
+
+            this.vm = vm;
+
+            this.loops = loops;
+          }
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
+        });
     }
   },
 
   mounted() {
+    getPDXCategorySelections().then(res => {
+      if (res.bl) {
+        this.PeidianxiangSelections = res.data.rows.map(i => ({
+          label: i.Name,
+          value: i.Id
+        }));
+      }
+    });
     this.refresh();
   }
 };

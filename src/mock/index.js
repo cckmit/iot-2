@@ -2,11 +2,18 @@ import Mock from 'mockjs';
 const Random = Mock.Random;
 const baseApi = '^\\/api\\/govShow\\?';
 
+Mock.Random.extend({
+    tagList: ['A', 'B', 'C', 'D'],
+    tags: function () {
+        return this.pick(this.tagList, 1, 4).sort();
+    }
+})
+
 import img1 from "@/assets/demo/building_1.jpg";
 import img2 from "@/assets/demo/building_2.jpg";
 
 Mock.setup({
-    timeout: 1000
+    timeout: 500
 })
 
 const mockList = [
@@ -412,19 +419,69 @@ const mockList = [
 
 
     //#region 地图
-
     {
         //获取街道/镇列表
-        url: `${baseApi}optionType=town`,
+        url: `${baseApi}optionType=townList`,
         method: 'get',
         data: {
+            'rows|10-30': [
+                {
+                    Id: '@guid',
+
+                    Name: '@cword(2)街道',
+
+                    //经度
+                    // "Lng|121.430001-121.440001": 1,
+                    "Lng|121.6": 1,
+
+                    //纬度
+                    // "Lat|29.290000-29.300000": 1
+                    "Lat|29.6": 1,
+
+                    "Status|1-4": 1
+                }
+            ]
         }
     },
     {
         //地图--街道/镇-->地图点点击-->街道/镇详情
-        url: `${baseApi}optionType=town`,
+        url: `${baseApi}optionType=townDetail`,
         method: 'get',
         data: {
+            vm: {
+                "prop1|20-100": 1,
+                "prop2|3000-8000": 1,
+                prop3: "@cword(8,16)",
+                prop4: "@cword(40,60)"
+            },
+            'rows1|10': [
+                {
+                    'Count|5-100': 1,
+                    meta: {
+                        'SId|+1': 1
+                    },
+                    Name: '@cword(3,5)'
+                }
+            ],
+            'rows2|5-10': [
+                {
+                    'Count|5-100': 1,
+                    meta: {
+                        'SId|+1': 1
+                    },
+                    Name: '@cword(3,5)'
+                }
+            ],
+            'rows3|12': [
+                {
+                    "warning|10-50": 1,
+                    "error|10-50": 1,
+                    "both|10-50": 1,
+                    "warningCount|10-60": 1,
+                    "errorCount|10-60": 1,
+                    "month|+1": (function () { let arr = []; for (let i = 1; i < 12; i++) { arr.push(i + '月') } return arr; })(),
+                }
+            ]
         }
     },
     {
@@ -432,27 +489,122 @@ const mockList = [
         url: `${baseApi}optionType=townwarninglist`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    "ID|+1": 1,
+                    type: '@cword(3,6)',
+                    company: '@cword(6,12)',
+                    place: "@cword(6,12)",
+                    contact: "@cname(2,3)",
+                    "tel|13000000000-18999999999": 1,
+                    time: '@date',
+                    'status|1-3': 1,
+                    'handleStatus|1-2': 1,
+                },
+            ],
+            'total|10-20': 1
         }
     },
     {
         //获取场所列表
-        url: `${baseApi}optionType=placelist`,
+        url: `${baseApi}optionType=placeList`,
         method: 'get',
         data: {
+            'rows|10-30': [
+                {
+                    Id: '@guid',
+
+                    Name: '@cword(4,10)',
+
+                    "Count|10-120": 1,
+
+                    //经度
+                    // "Lng|121.430001-121.440001": 1,
+                    "Lng|121.6": 1,
+
+                    //纬度
+                    // "Lat|29.290000-29.300000": 1
+                    "Lat|29.6": 1,
+
+                    "Status|1-4": 1,
+
+                    "Img|+1": [
+                        img1,
+                        img2,
+                    ]
+                }
+            ]
         }
     },
     {
         //地图--场所-->地图点点击-->场所详情
-        url: `${baseApi}optionType=place`,
+        url: `${baseApi}optionType=placeDetail`,
         method: 'get',
         data: {
+            vm: {
+                prop1: "@cword(6,12)",
+                prop2: "@cword(10,20)",
+                prop3: "@cword(2,6)",
+                prop4: "@cname(2,3)",
+                "prop5|13000000000-18999999999": 1,
+                "prop6|100-800": 1,
+                "prop7|100-800": 1,
+
+                "warning|10-50": 1,
+                "error|10-50": 1,
+                "both|10-50": 1,
+                "normal|10-50": 1,
+                "tongLu|0.01-1": 1,
+                "duanLu|0.01-1": 1,
+
+            },
+            'rows1|5-10': [
+                {
+                    'Count|5-100': 1,
+                    meta: {
+                        'SId|+1': 1
+                    },
+                    Name: '@cword(3,5)'
+                }
+            ],
+            "PDXList|6-20": [
+                {
+                    'n1|+1': 1,
+                    'label': function () {
+                        if (this.n1 === 1) {
+                            return '全部';
+                        }
+                        return '配电箱' + this.n1
+                    },
+                    'name': function () {
+                        if (this.n1 === 1) {
+                            return '全部';
+                        }
+                        return '配电箱' + this.n1
+                    },
+                }
+            ]
         }
     },
     {
         //地图--场所-->地图点点击-->案件列表
-        url: `${baseApi}optionType=placewarninglist`,
+        url: `${baseApi}optionType=placeWarningList`,
         method: 'get',
         data: {
+            'rows|10': [
+                {
+                    "ID|+1": 1,
+                    type: '@cword(3,6)',
+                    company: '@cword(6,12)',
+                    place: "@cword(6,12)",
+                    contact: "@cname(2,3)",
+                    "tel|13000000000-18999999999": 1,
+                    time: '@date',
+                    'status|1-3': 1,
+                    'handleStatus|1-2': 1,
+                },
+            ],
+            'total|10-20': 1
         }
     },
     //#endregion
@@ -693,20 +845,18 @@ const mockList = [
     //#endregion
 
 
-    //#region 场所搜索
+    //#region 配电箱回路
     {
-        //场所搜索
-        url: `${baseApi}optionType=placelist`,
+        //配电箱回路
+        url: `${baseApi}optionType=loopDetail`,
         method: 'get',
         data: {
-            "rows|10-30": [
+            vm: {},
+            'loops|16-32': [
                 {
-                    Id:'@guid',
-                    Name: "@cword(6,12)",
-                    "Img|+1": [
-                        img1,
-                        img2,
-                    ]
+                    "code|1-99": 1,
+                    "state|1": ['on', 'off'],
+                    icons: '@tags',
                 }
             ]
         }
